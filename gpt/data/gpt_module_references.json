@@ -1,0 +1,10 @@
+{
+  "modules": {
+    "PositionCore": {
+      "role": "Manages enrichment, snapshots, sync"
+    },
+    "HedgeCalcServices": {
+      "role": "Suggests hedge rebalancing"
+    }
+  }
+}

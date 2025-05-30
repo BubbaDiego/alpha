@@ -1,0 +1,274 @@
+{% extends "base.html" %}
+
+{% block title %}The Oracle{% endblock %}
+
+{% block extra_styles %}
+{{ super() }}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/title_bar.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/sonic_themes.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/sonic_titles.css') }}">
+<style>
+  body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Segoe UI', sans-serif;
+    background: url('{{ url_for('static', filename='images/oracle_wall.jpg') }}') no-repeat center center fixed;
+    background-size: cover;
+    color: #eee;
+    overflow-x: hidden;
+  }
+  .oracle-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    min-height: 100vh;
+    padding-top: 20px;
+    backdrop-filter: none;
+    position: relative;
+  }
+  .leaderboard-table {
+    width: 90%;
+    max-width: 1100px;
+    margin-bottom: 20px;
+    border-collapse: collapse;
+    background-color: rgba(10, 10, 20, 0.95);
+    border: 2px solid #444;
+    border-radius: 10px;
+    overflow: hidden;
+  }
+  .leaderboard-table th, .leaderboard-table td {
+    padding: 12px 15px;
+    text-align: center;
+    border-bottom: 1px solid #555;
+  }
+  .leaderboard-table th {
+    background-color: #222;
+    font-weight: bold;
+    font-size: 0.9rem;
+    color: #bb86fc;
+  }
+  .leaderboard-table td {
+    font-size: 0.85rem;
+  }
+  .leaderboard-table .avatar {
+    font-size: 1.4rem;
+  }
+  .mood-pill {
+    padding: 2px 8px;
+    border-radius: 12px;
+    font-size: 0.75rem;
+    font-weight: bold;
+    text-transform: uppercase;
+  }
+  .mood-excited { background-color: orange; color: #000; }
+  .mood-stable { background-color: teal; color: #fff; }
+  .mood-nervous { background-color: yellow; color: #000; }
+  .mood-determined { background-color: purple; color: #fff; }
+  .oracle-panel {
+    background-color: rgba(20, 20, 30, 0.9);
+    border: 2px solid #663399;
+    padding: 20px;
+    margin: 20px 0;
+    border-radius: 15px;
+    box-shadow: 0 0 20px #663399;
+    width: 90%;
+    max-width: 900px;
+    position: relative;
+    z-index: 2;
+  }
+  .oracle-title {
+    font-size: 1.5rem;
+    margin-bottom: 10px;
+    text-align: center;
+    color: #bb86fc;
+  }
+  .select-group {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 10px;
+  }
+  .select-group select, .select-group input {
+    padding: 8px;
+    border-radius: 6px;
+    border: none;
+    font-size: 0.9rem;
+    flex: 1;
+  }
+  .quick-questions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    justify-content: center;
+    margin-top: 10px;
+  }
+  .quick-button {
+    font-size: 0.8rem;
+    padding: 6px 12px;
+    border-radius: 8px;
+    background-color: #bb86fc;
+    color: #000;
+    border: none;
+    cursor: pointer;
+  }
+  .quick-button:hover {
+    background-color: #9b66dc;
+  }
+  .oracle-output {
+    background-color: #1c1c2b;
+    padding: 15px;
+    border-radius: 10px;
+    margin-top: 15px;
+    min-height: 140px;
+    font-size: 0.95rem;
+    line-height: 1.4;
+    white-space: pre-wrap;
+  }
+</style>
+{% endblock %}
+
+{% block content %}
+{% set title_text = 'The Oracle' %}
+{% include "title_bar.html" %}
+<div class="oracle-container">
+  <table class="leaderboard-table">
+    <thead>
+      <tr>
+        <th>Avatar</th>
+        <th>Name</th>
+        <th>Mood</th>
+        <th>Heat</th>
+        <th>Score</th>
+        <th>Wallet</th>
+        <th>Strategies</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="avatar">🧛</td>
+        <td>Angie</td>
+        <td><span class="mood-pill mood-excited">Excited</span></td>
+        <td>45%</td>
+        <td>92 (A)</td>
+        <td>$4.2k</td>
+        <td>Dynamic Hedging – 30%, Profit Mgmt – 20%</td>
+      </tr>
+      <tr>
+        <td class="avatar">🧙</td>
+        <td>Nina</td>
+        <td><span class="mood-pill mood-stable">Stable</span></td>
+        <td>32%</td>
+        <td>88 (B)</td>
+        <td>$5.1k</td>
+        <td>Profit Mgmt – 40%, Dynamic Hedging – 40%</td>
+      </tr>
+      <tr>
+        <td class="avatar">🧝</td>
+        <td>Selena</td>
+        <td><span class="mood-pill mood-nervous">Nervous</span></td>
+        <td>58%</td>
+        <td>81 (B-)</td>
+        <td>$6.6k</td>
+        <td>Profit Mgmt – 50%, Dynamic Hedging – 10%</td>
+      </tr>
+      <tr>
+        <td class="avatar">🧙‍♂️</td>
+        <td>Wizard</td>
+        <td><span class="mood-pill mood-determined">Determined</span></td>
+        <td>39%</td>
+        <td>89 (B+)</td>
+        <td>$3.3k</td>
+        <td>Dynamic Hedging – 90%, Profit Mgmt – 10%</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="oracle-panel">
+    <div class="oracle-title">🔮 Speak to the Oracle</div>
+    <div class="select-group">
+      <input type="text" id="oracle-query" placeholder="Type your custom query here...">
+      <select id="voice-select">
+        <option value="">Default Voice</option>
+      </select>
+    </div>
+    <div class="quick-questions">
+      <button class="quick-button" onclick="quickAsk('portfolio')">📁 Portfolio</button>
+      <button class="quick-button" onclick="quickAsk('alerts')">🚨 Alerts</button>
+      <button class="quick-button" onclick="quickAsk('prices')">💰 Prices</button>
+      <button class="quick-button" onclick="quickAsk('system')">🖥️ System</button>
+      <button class="quick-button" onclick="quickAsk('positions')">📊 Positions</button>
+    </div>
+    <div class="oracle-output" id="oracle-output">Ask a question to receive wisdom from the stars.</div>
+  </div>
+</div>
+{% endblock %}
+
+{% block extra_scripts %}
+{{ super() }}
+<script src="{{ url_for('static', filename='js/title_bar.js') }}" defer></script>
+<script src="{{ url_for('static', filename='js/sonic_theme_toggle.js') }}"></script>
+<script src="{{ url_for('static', filename='js/layout_mode.js') }}"></script>
+<script>
+  let currentTopic = 'portfolio';
+  const voiceSelect = document.getElementById('voice-select');
+  const queryInput = document.getElementById('oracle-query');
+
+  function populateVoices() {
+    if (!window.speechSynthesis) return;
+    const voices = speechSynthesis.getVoices().filter(v => v.lang.startsWith('en'));
+    voiceSelect.innerHTML = '<option value="">Default Voice</option>' +
+      voices.map(v => `<option value="${v.name}">${v.name}</option>`).join('');
+    const preferred = voices.find(v => v.name === 'Google UK English Female');
+    if (preferred) {
+      voiceSelect.value = preferred.name;
+    }
+  }
+
+  speechSynthesis.onvoiceschanged = populateVoices;
+  populateVoices();
+
+  queryInput.addEventListener('keypress', e => {
+    if (e.key === 'Enter') askOracle();
+  });
+
+  function quickAsk(topic) {
+    currentTopic = topic;
+    queryInput.value = '';
+    askOracle('');
+  }
+
+  function askOracle(queryOverride) {
+    const persona = 'Angie';
+    const query =
+      queryOverride !== undefined
+        ? queryOverride
+        : queryInput.value.trim();
+    const url = `/gpt/oracle/query?persona=${encodeURIComponent(persona)}&topic=${encodeURIComponent(currentTopic)}&query=${encodeURIComponent(query)}`;
+    fetch(url)
+      .then(res => res.json())
+      .then(data => {
+        const output = document.getElementById('oracle-output');
+        const reply = data.reply || data.error || 'No response';
+        output.textContent = reply;
+        speakResponse(reply);
+      })
+      .catch(err => {
+        document.getElementById('oracle-output').textContent = 'Error: ' + err.message;
+      });
+  }
+
+  function speakResponse(text) {
+    if (!window.speechSynthesis) return;
+    const utterance = new SpeechSynthesisUtterance(text);
+    utterance.pitch = 1.1;
+    utterance.rate = 0.92;
+    utterance.volume = 1;
+    const selectedName = voiceSelect.value;
+    const voices = speechSynthesis.getVoices();
+    const defaultVoice = voices.find(v => v.name === 'Google UK English Female') ||
+      voices.find(v => v.name.includes('Whisper') || v.name.includes('Zira') || v.lang.includes('en'));
+    utterance.voice = speechSynthesis.getVoices().find(v => v.name === selectedName) || defaultVoice;
+    speechSynthesis.speak(utterance);
+  }
+</script>
+{% endblock %}

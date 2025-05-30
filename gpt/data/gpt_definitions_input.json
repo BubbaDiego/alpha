@@ -1,0 +1,7 @@
+{
+  "type": "definitions",
+  "metrics": {
+    "travel_percent": "Defines change from entry to current price",
+    "heat_index": "Composite risk metric"
+  }
+}

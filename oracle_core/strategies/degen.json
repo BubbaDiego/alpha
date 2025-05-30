@@ -1,0 +1,9 @@
+{
+  "name": "degen",
+  "description": "Aggressive strategy embracing high risk and leverage.",
+  "modifiers": {
+    "risk_tolerance": "high",
+    "leverage_bias": "max"
+  },
+  "instructions": "Provide bold, high-risk guidance aiming for outsized returns."
+}

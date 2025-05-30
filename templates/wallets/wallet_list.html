@@ -1,0 +1,267 @@
+{% extends "base.html" %}
+
+{% block title %}💼 Wallet Manager{% endblock %}
+
+{% block extra_styles %}
+{{ super() }}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/title_bar.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/sonic_dashboard.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/sonic_themes.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/sonic_titles.css') }}">
+{% endblock %}
+
+{% block content %}
+{% include "title_bar.html" %}
+
+{% with messages = get_flashed_messages(with_categories=true) %}
+  {% if messages %}
+    <ul class="flash-messages">
+      {% for category, message in messages %}
+        <li class="{{ category }}">{{ message }}</li>
+      {% endfor %}
+    </ul>
+  {% endif %}
+{% endwith %}
+
+<div class="sonic-section-container sonic-section-middle mt-3">
+  <div class="sonic-content-panel">
+    <div class="d-flex justify-content-between align-items-center mb-2">
+      <div class="section-title mb-0">Wallets</div>
+      <form action="{{ url_for('system.inject_wallets') }}" method="post" class="d-inline">
+        <button type="submit" class="btn btn-sm btn-secondary" title="Inject Wallets">💉</button>
+      </form>
+    </div>
+    <div class="mini-table-box mb-4">
+      <table class="table table-striped align-middle mb-0">
+      <thead>
+        <tr>
+          <th>🖼️</th>
+          <th>🧠 Name</th>
+          <th>📬 Address</th>
+          <th>💰 Balance</th>
+          <th>✅ Active</th>
+          <th>🛠️ Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for wallet in wallets %}
+        <tr>
+          <td>
+            {% if wallet.image_path %}
+              <img src="{{ wallet.image_path }}" alt="wallet avatar" class="wallet-icon">
+            {% else %}
+              <span>No Image</span>
+            {% endif %}
+          </td>
+          <td>{{ wallet.name }}</td>
+          <td>
+            <span title="{{ wallet.public_address }}">{{ wallet.public_address[:9] }}</span>
+            <i class="fas fa-ellipsis-h ms-1" title="{{ wallet.public_address }}"></i>
+          </td>
+          <td>${{ wallet.balance }}</td>
+          <td>{{ "✔️" if wallet.is_active else "❌" }}</td>
+          <td>
+            <form action="{{ url_for('system.delete_wallet', name=wallet.name) }}" method="post" class="d-inline">
+              <button type="submit" class="btn btn-sm btn-danger">🗑️</button>
+            </form>
+            <button class="btn btn-sm btn-primary edit-btn"
+                    data-update-url="{{ url_for('system.update_wallet', name=wallet.name) }}"
+                    data-name="{{ wallet.name }}"
+                    data-public="{{ wallet.public_address }}"
+                    data-private="{{ wallet.private_address }}"
+                    data-balance="{{ wallet.balance }}"
+                    data-tags="{{ wallet.tags|join(', ') }}"
+                    data-type="{{ wallet.type }}"
+                    data-active="{{ wallet.is_active }}"
+                    data-image="{{ wallet.image_path }}">
+              ✏️
+            </button>
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+    </div>
+  </div>
+  <div class="sonic-content-panel">
+    <div class="section-title">Blockchain Balance</div>
+    <div class="mini-table-box">
+      <table class="table table-striped align-middle mb-0">
+          <thead>
+            <tr>
+              <th>🖼️</th>
+              <th>🧠 Name</th>
+              <th>Sol</th>
+              <th>ETH</th>
+              <th>Polygon</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for wallet in wallets %}
+            {% set is_eth = wallet.public_address.startswith('0x') %}
+            <tr>
+              <td>
+                {% if wallet.image_path %}
+                  <img src="{{ wallet.image_path }}" alt="wallet avatar" class="wallet-icon">
+                {% else %}
+                  <span>No Image</span>
+                {% endif %}
+              </td>
+              <td>{{ wallet.name }}</td>
+              <td>{{ '%.2f'|format(wallet.balance) if not is_eth else '0' }}</td>
+              <td>{{ '%.2f'|format(wallet.balance) if is_eth else '0' }}</td>
+              <td>{{ '%.2f'|format(wallet.balance) if is_eth else '0' }}</td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+</div>
+
+<div class="sonic-section-container sonic-section-middle mt-3">
+  <div class="sonic-content-panel">
+    <div class="section-title">Jupiter Collateral</div>
+    <form action="{{ url_for('system.deposit_collateral') }}" method="post" class="row g-2 align-items-end">
+      <div class="col-md-4">
+        <label class="form-label">Wallet</label>
+        <select name="wallet_name" class="form-select">
+          {% for w in wallets %}
+          <option value="{{ w.name }}">{{ w.name }}</option>
+          {% endfor %}
+        </select>
+      </div>
+      <div class="col-md-3">
+        <label class="form-label">Market</label>
+        <input type="text" name="market" class="form-control" placeholder="SOL-PERP">
+      </div>
+      <div class="col-md-3">
+        <label class="form-label">Amount</label>
+        <input type="number" step="0.0001" name="amount" class="form-control">
+      </div>
+      <div class="col-md-2 text-end">
+        <button type="submit" class="btn btn-success w-100">Deposit</button>
+      </div>
+    </form>
+    <form action="{{ url_for('system.withdraw_collateral') }}" method="post" class="row g-2 align-items-end mt-2">
+      <div class="col-md-4">
+        <label class="form-label">Wallet</label>
+        <select name="wallet_name" class="form-select">
+          {% for w in wallets %}
+          <option value="{{ w.name }}">{{ w.name }}</option>
+          {% endfor %}
+        </select>
+      </div>
+      <div class="col-md-3">
+        <label class="form-label">Market</label>
+        <input type="text" name="market" class="form-control" placeholder="SOL-PERP">
+      </div>
+      <div class="col-md-3">
+        <label class="form-label">Amount</label>
+        <input type="number" step="0.0001" name="amount" class="form-control">
+      </div>
+      <div class="col-md-2 text-end">
+        <button type="submit" class="btn btn-warning w-100">Withdraw</button>
+      </div>
+    </form>
+  </div>
+  <div class="sonic-content-panel">
+    {% include "wallets/wallet_form.html" %}
+
+    <div class="mt-4">
+      <form action="{{ url_for('system.export_wallets') }}" method="post" class="d-inline">
+        <button type="submit" class="btn btn-secondary">💾 Export to JSON</button>
+      </form>
+      <form action="{{ url_for('system.import_wallets') }}" method="post" class="d-inline">
+        <button type="submit" class="btn btn-secondary">♻️ Import from JSON</button>
+      </form>
+      <form action="{{ url_for('system.inject_wallets') }}" method="post" class="d-inline">
+        <button type="submit" class="btn btn-secondary" title="Inject Wallets">💉</button>
+      </form>
+    </div>
+  </div>
+</div>
+
+
+  <!-- Edit Wallet Modal -->
+  <div class="modal fade" id="editWalletModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+      <form id="editWalletForm" method="post">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">✏️ Edit Wallet</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+          </div>
+          <div class="modal-body row g-3 px-3">
+            <input type="hidden" name="name" id="edit_name">
+            <div class="col-md-6">
+              <label class="form-label">Public Address:</label>
+              <input type="text" name="public_address" id="edit_public" class="form-control">
+            </div>
+            <div class="col-md-6">
+              <label class="form-label">Private Address:</label>
+              <input type="text" name="private_address" id="edit_private" class="form-control">
+            </div>
+            <div class="col-md-6">
+              <label class="form-label">Balance (USD):</label>
+              <input type="number" step="0.01" name="balance" id="edit_balance" class="form-control">
+            </div>
+            <div class="col-md-6">
+              <label class="form-label">Tags:</label>
+              <input type="text" name="tags" id="edit_tags" class="form-control">
+            </div>
+            <div class="col-md-6">
+              <label class="form-label">Type:</label>
+              <select name="type" id="edit_type" class="form-select">
+                <option value="personal">Personal</option>
+                <option value="bot">Bot</option>
+                <option value="exchange">Exchange</option>
+                <option value="test">Test</option>
+              </select>
+            </div>
+            <div class="col-md-6">
+              <label class="form-label">Image Path:</label>
+              <input type="text" name="image_path" id="edit_image" class="form-control">
+            </div>
+            <div class="col-12">
+              <div class="form-check">
+                <input type="checkbox" name="is_active" id="edit_active" class="form-check-input">
+                <label class="form-check-label">Active</label>
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="submit" class="btn btn-success">💾 Save</button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+{% endblock %}
+
+{% block extra_scripts %}
+{{ super() }}
+<script src="{{ url_for('static', filename='js/sonic_theme_toggle.js') }}"></script>
+<script src="{{ url_for('static', filename='js/layout_mode.js') }}"></script>
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const modal = new bootstrap.Modal(document.getElementById('editWalletModal'));
+    document.querySelectorAll('.edit-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const form = document.getElementById('editWalletForm');
+        form.action = btn.dataset.updateUrl;
+        document.getElementById('edit_name').value = btn.dataset.name;
+        document.getElementById('edit_public').value = btn.dataset.public;
+        document.getElementById('edit_private').value = btn.dataset.private;
+        document.getElementById('edit_balance').value = btn.dataset.balance;
+        document.getElementById('edit_tags').value = btn.dataset.tags;
+        document.getElementById('edit_type').value = btn.dataset.type;
+        document.getElementById('edit_image').value = btn.dataset.image;
+        document.getElementById('edit_active').checked = btn.dataset.active === 'True' || btn.dataset.active === 'true';
+        modal.show();
+      });
+    });
+  });
+</script>
+{% endblock %}

@@ -1,0 +1,9 @@
+<tr>
+  <td>{{ hedge.id }}</td>
+  <td>{{ "{:,.2f}".format(hedge.total_long_size or 0) }}</td>
+  <td>{{ "{:,.2f}".format(hedge.total_short_size or 0) }}</td>
+  <td>{{ "{:,.2f}".format(hedge.long_heat_index or 0) }}</td>
+  <td>{{ "{:,.2f}".format(hedge.short_heat_index or 0) }}</td>
+  <td>{{ "{:,.2f}".format(hedge.total_heat_index or 0) }}</td>
+  <td>{{ hedge.notes or '' }}</td>
+</tr>

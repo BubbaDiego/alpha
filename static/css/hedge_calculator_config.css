@@ -1,0 +1,7 @@
+/* Styles specific to the hedge calculator configuration section */
+#positionInputRow * {
+    font-weight: bold !important;
+}
+#modifierRow * {
+    font-weight: bold !important;
+}

@@ -1,0 +1,42 @@
+<div class="card mb-4">
+  <div class="card-header bg-primary text-white">
+    <i class="fas fa-dollar-sign me-2"></i>Price Alerts
+  </div>
+  <div class="card-body">
+    <div class="row">
+      {% for asset in ["BTC", "ETH", "SOL"] %}
+      {% set asset_conf = price_alerts.get(asset, {}) %}
+      <div class="col-md-4 mb-4">
+        <div class="card h-100 text-center shadow-sm">
+          <div class="card-body">
+            {% if asset == "BTC" %}
+              <img src="https://cryptologos.cc/logos/bitcoin-btc-logo.svg?v=023" style="width:40px;">
+            {% elif asset == "ETH" %}
+              <img src="https://cryptologos.cc/logos/ethereum-eth-logo.svg?v=023" style="width:40px;">
+            {% elif asset == "SOL" %}
+              <img src="https://cryptologos.cc/logos/solana-sol-logo.svg?v=023" style="width:40px;">
+            {% endif %}
+            <h4 class="mt-2">{{ asset }}</h4>
+
+            <label class="form-label mt-3">Trigger Value:</label>
+            <input type="number" step="0.01" class="form-control" name="alert_ranges[price_alerts][{{ asset }}][trigger_value]" value="{{ asset_conf.get('trigger_value', '') }}">
+
+            <label class="form-label mt-3">Condition:</label>
+            <select class="form-select" name="alert_ranges[price_alerts][{{ asset }}][condition]">
+              <option value="ABOVE" {% if asset_conf.get('condition') == 'ABOVE' %}selected{% endif %}>Above</option>
+              <option value="BELOW" {% if asset_conf.get('condition') == 'BELOW' %}selected{% endif %}>Below</option>
+            </select>
+
+            <div class="form-check form-switch mt-3">
+              <input type="hidden" name="alert_ranges[price_alerts][{{ asset }}][enabled]" value="false">
+              <input type="checkbox" class="form-check-input" name="alert_ranges[price_alerts][{{ asset }}][enabled]" value="true" {% if asset_conf.get('enabled') %}checked{% endif %}>
+              <label class="form-check-label">Enabled</label>
+            </div>
+
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</div>

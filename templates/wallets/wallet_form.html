@@ -1,0 +1,56 @@
+{% macro wallet_form() %}
+<div class="section-title">Add Wallet</div>
+<form action="{{ url_for('system.add_wallet') }}" method="post" enctype="multipart/form-data">
+  <div class="row">
+    <div class="col-md-6">
+      <div class="mb-3">
+        <label for="name" class="form-label">Name:</label>
+        <input type="text" name="name" id="name" class="form-control" required>
+      </div>
+      <div class="mb-3">
+        <label for="public_address" class="form-label">Public Address:</label>
+        <input type="text" name="public_address" id="public_address" class="form-control" required>
+      </div>
+      <div class="mb-3">
+        <label for="private_address" class="form-label">Private Address:</label>
+        <input type="text" name="private_address" id="private_address" class="form-control">
+      </div>
+      <div class="mb-3">
+        <label for="balance" class="form-label">Balance (USD):</label>
+        <input type="number" step="0.01" name="balance" id="balance" class="form-control" value="0.00">
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="mb-3">
+        <label for="image_path" class="form-label">Image Path (URL or relative):</label>
+        <input type="text" name="image_path" id="image_path" class="form-control">
+      </div>
+      <div class="mb-3">
+        <label for="image_file" class="form-label">Upload Image (Overrides Path):</label>
+        <input type="file" name="image_file" id="image_file" accept="image/*" class="form-control">
+      </div>
+      <div class="mb-3">
+        <label for="tags" class="form-label">Tags (comma separated):</label>
+        <input type="text" name="tags" id="tags" class="form-control">
+      </div>
+      <div class="mb-3">
+        <label for="type" class="form-label">Type:</label>
+        <select name="type" id="type" class="form-control">
+          <option value="personal">Personal</option>
+          <option value="bot">Bot</option>
+          <option value="exchange">Exchange</option>
+          <option value="test">Test</option>
+        </select>
+      </div>
+      <div class="form-check mb-3">
+        <input type="checkbox" name="is_active" id="is_active" class="form-check-input" checked>
+        <label for="is_active" class="form-check-label">Active</label>
+      </div>
+    </div>
+  </div>
+  <div class="text-end mt-2">
+    <button type="submit" class="btn btn-success">➕ Add Wallet</button>
+  </div>
+</form>
+{% endmacro %}
+{{ wallet_form() }}

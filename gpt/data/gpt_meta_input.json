@@ -1,0 +1,8 @@
+{
+  "type": "meta",
+  "version": "1.0",
+  "owner": "Geno",
+  "strategy": "hedged, automated trading",
+  "goal": "optimize exposure while minimizing risk",
+  "notes": "Background context"
+}

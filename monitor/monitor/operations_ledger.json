@@ -1,0 +1,6 @@
+{"timestamp": "2025-05-14T03:51:03.976700+00:00", "component": "operations_monitor", "operation": "heartbeat", "status": "Error", "metadata": {"error": "'LedgerService' object has no attribute 'write'"}}
+{"timestamp": "2025-05-14T03:57:26.606228+00:00", "component": "operations_monitor", "operation": "heartbeat", "status": "Error", "metadata": {"error": "'LedgerService' object has no attribute 'write'"}}
+{"timestamp": "2025-05-14T04:11:34.253737+00:00", "component": "operations_monitor", "operation": "heartbeat", "status": "Error", "metadata": {"error": "'LedgerService' object has no attribute 'write'"}}
+{"timestamp": "2025-05-14T04:11:52.627875+00:00", "component": "operations_monitor", "operation": "heartbeat", "status": "Error", "metadata": {"error": "'LedgerService' object has no attribute 'write'"}}
+{"timestamp": "2025-05-14T04:12:40.335272+00:00", "component": "operations_monitor", "operation": "heartbeat", "status": "Error", "metadata": {"error": "'LedgerService' object has no attribute 'write'"}}
+{"timestamp": "2025-05-14T04:14:30.240172+00:00", "component": "operations_monitor", "operation": "heartbeat", "status": "Success", "metadata": {"post_success": true, "skipped": true}}

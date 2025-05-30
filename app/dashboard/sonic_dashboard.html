@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% block title %}New Sonic Dashboard{% endblock %}
+
+{% block head %}
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/sonic_content_container.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/title_bar.css') }}">
+{% endblock %}
+
+{% block content %}
+  {% include "title_bar.html" %}
+  <div class="sonic-content-panel">
+    <div style="margin:auto;padding:3rem;font-size:2rem;">Hello from the new Sonic Dashboard!</div>
+  </div>
+{% endblock %}

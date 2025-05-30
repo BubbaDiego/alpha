@@ -1,0 +1,164 @@
+{% extends "base.html" %}
+
+{% block head %}
+  <script src="{{ url_for('static', filename='js/api_routes.js') }}"></script>
+{% endblock %}
+
+{% block title %}Alert Limits Configuration{% endblock %}
+
+{% block extra_styles %}
+  {{ super() }}
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/title_bar.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/sonic_dashboard.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/sonic_themes.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/sonic_titles.css') }}">
+  <style>
+    .save-spinner {
+      display: none;
+      width: 1.5rem;
+      height: 1.5rem;
+      border: 2px solid #f3f3f3;
+      border-top: 2px solid #3498db;
+      border-radius: 50%;
+      animation: spin 0.8s linear infinite;
+    }
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    .alert-limits-panel {
+      width: 100%;
+      max-width: none;
+      margin: 0 auto;
+    }
+    body.wide-mode .alert-limits-panel,
+    body.fitted-mode .alert-limits-panel {
+      max-width: none;
+    }
+  </style>
+{% endblock %}
+
+{% block content %}
+{% set title_text = 'Alert Limits' %}
+{% include "title_bar.html" %}
+<div class="sonic-section-container sonic-section-middle mt-3">
+  <div class="sonic-content-panel alert-limits-panel">
+  <div class="alert alert-warning" role="alert">
+    ⚠️ This page is obsolete. Please use the <a href="/system/alert_thresholds" class="alert-link">Alert Thresholds</a> page instead.
+  </div>
+
+  <p>This page will hold alert configuration options.</p>
+
+  <div class="d-flex justify-content-end mb-3 gap-2">
+    <button id="importConfig" class="btn btn-secondary">Import</button>
+    <button id="exportConfig" class="btn btn-secondary">Export</button>
+  </div>
+
+  <form id="alertForm" method="POST" action="{{ url_for('alerts_bp.update_config') }}">
+
+    <ul class="nav nav-tabs" id="alertTabNav" role="tablist">
+      <li class="nav-item" role="presentation">
+        <button class="nav-link active" id="all-tab" data-bs-toggle="tab" data-bs-target="#all" type="button" role="tab">All</button>
+      </li>
+      <li class="nav-item" role="presentation">
+        <button class="nav-link" id="price-tab" data-bs-toggle="tab" data-bs-target="#price" type="button" role="tab">Price Alerts</button>
+      </li>
+      <li class="nav-item" role="presentation">
+        <button class="nav-link" id="portfolio-tab" data-bs-toggle="tab" data-bs-target="#portfolio" type="button" role="tab">Portfolio Alerts</button>
+      </li>
+      <li class="nav-item" role="presentation">
+        <button class="nav-link" id="positions-tab" data-bs-toggle="tab" data-bs-target="#positions" type="button" role="tab">Position Alerts</button>
+      </li>
+      <li class="nav-item" role="presentation">
+        <button class="nav-link" id="global-tab" data-bs-toggle="tab" data-bs-target="#global" type="button" role="tab">Global Alerts</button>
+      </li>
+    </ul>
+
+    <div class="tab-content pt-3" id="alertTabContent">
+      <!-- All Tab -->
+      <div class="tab-pane fade show active" id="all" role="tabpanel">
+        <div class="accordion" id="alertLimitsAccordion">
+          <div class="accordion-item">
+            <h2 class="accordion-header" id="headingPrice">
+              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapsePrice" aria-expanded="false" aria-controls="collapsePrice">
+                <i class="fas fa-dollar-sign me-2"></i>Price Alerts
+              </button>
+            </h2>
+            <div id="collapsePrice" class="accordion-collapse collapse" aria-labelledby="headingPrice" data-bs-parent="#alertLimitsAccordion">
+              <div class="accordion-body">
+                {% include "partials/price_alerts_section.html" %}
+              </div>
+            </div>
+          </div>
+          <div class="accordion-item">
+            <h2 class="accordion-header" id="headingPortfolio">
+              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapsePortfolio" aria-expanded="false" aria-controls="collapsePortfolio">
+                <i class="fas fa-wallet me-2"></i>Portfolio Alerts
+              </button>
+            </h2>
+            <div id="collapsePortfolio" class="accordion-collapse collapse" aria-labelledby="headingPortfolio" data-bs-parent="#alertLimitsAccordion">
+              <div class="accordion-body">
+                {% include "partials/portfolio_alerts_section.html" %}
+              </div>
+            </div>
+          </div>
+          <div class="accordion-item">
+            <h2 class="accordion-header" id="headingPositions">
+              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapsePositions" aria-expanded="false" aria-controls="collapsePositions">
+                <i class="fas fa-bell me-2"></i>Position Alerts
+              </button>
+            </h2>
+            <div id="collapsePositions" class="accordion-collapse collapse" aria-labelledby="headingPositions" data-bs-parent="#alertLimitsAccordion">
+              <div class="accordion-body">
+                {% include "partials/positions_alerts_section.html" %}
+              </div>
+            </div>
+          </div>
+          <div class="accordion-item">
+            <h2 class="accordion-header" id="headingGlobal">
+              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseGlobal" aria-expanded="false" aria-controls="collapseGlobal">
+                <i class="fas fa-globe me-2"></i>Global Alerts
+              </button>
+            </h2>
+            <div id="collapseGlobal" class="accordion-collapse collapse" aria-labelledby="headingGlobal" data-bs-parent="#alertLimitsAccordion">
+              <div class="accordion-body">
+                {% include "partials/global_alerts_section.html" %}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Price Tab -->
+      <div class="tab-pane fade" id="price" role="tabpanel" aria-labelledby="price-tab">
+        {% include "partials/price_alerts_section.html" %}
+      </div>
+
+      <!-- Portfolio Tab -->
+      <div class="tab-pane fade" id="portfolio" role="tabpanel" aria-labelledby="portfolio-tab">
+        {% include "partials/portfolio_alerts_section.html" %}
+      </div>
+
+      <!-- Positions Tab -->
+      <div class="tab-pane fade" id="positions" role="tabpanel" aria-labelledby="positions-tab">
+        {% include "partials/positions_alerts_section.html" %}
+      </div>
+
+      <!-- Global Tab -->
+      <div class="tab-pane fade" id="global" role="tabpanel" aria-labelledby="global-tab">
+        {% include "partials/global_alerts_section.html" %}
+      </div>
+    </div>
+
+  </form>
+  </div>
+</div>
+{% endblock %}
+
+{% block extra_scripts %}
+  {{ super() }}
+  <script src="{{ url_for('static', filename='js/title_bar.js') }}" defer></script>
+  <script src="{{ url_for('static', filename='js/sonic_theme_toggle.js') }}"></script>
+  <script src="{{ url_for('static', filename='js/layout_mode.js') }}"></script>
+{% endblock %}

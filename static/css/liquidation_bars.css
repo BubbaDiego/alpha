@@ -1,0 +1,180 @@
+/* =======================
+   LIQUIDATION.CSS — Bars, Badges, Midlines, Profit/Heat
+   ======================= */
+
+/* === 💥 Liquidation Container Layout === */
+.liq-col {
+  display: flex;
+  flex: 2;
+  align-items: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+/* === 🔘 Gray Background Bar === */
+.liq-bar-container {
+  position: relative;
+  flex-grow: 1;
+  height: 20px;
+  background: #e0e0e0;
+  border-radius: 999px;         /* 💎 Full pill shape */
+  overflow: hidden;
+  margin-right: 10px;
+}
+
+/* === 🪵 Midline Divider (Center) === */
+.liq-midline {
+  position: absolute;
+  left: 50%;
+  width: 2px;
+  height: 100%;
+  background: #333;
+  z-index: 2;
+}
+
+/* === 🚀 Bar Fill (Positive = Right, Negative = Left) === */
+.liq-bar-fill {
+  position: absolute;
+  height: 100%;
+  top: 0;
+  padding: 0 4px;
+  min-width: 3.5rem;            /* 🔧 Always enough for text */
+  border-radius: 999px;
+  font-size: 0.8rem;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.4s ease;
+}
+
+/* 📈 Green Travel Right */
+.liq-bar-fill.positive {
+  left: 50%;
+  background: repeating-linear-gradient(
+    45deg, #28a745, #28a745 10px,
+    #2ecc71 10px, #2ecc71 20px
+  );
+}
+
+/* 📉 Red Travel Left */
+.liq-bar-fill.negative {
+  right: 50%;
+  background: repeating-linear-gradient(
+    45deg, #dc3545, #dc3545 10px,
+    #e74c3c 10px, #e74c3c 20px
+  );
+}
+
+/* 🏷️ Travel % Label */
+.travel-text {
+  z-index: 10;
+  white-space: nowrap;
+}
+
+/* === 🔥 Heat Index Badge (Right Side) === */
+.liq-heat-badge {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background: #ff5722;
+  color: #fff;
+  font-weight: bold;
+  font-size: 0.8rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* === 💰 Profit Badge (Left Side) === */
+.liq-profit-badge-wrapper {
+  position: absolute;
+  left: -14px;                       /* 🔧 Push badge snug to bar */
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.liq-profit-badge {
+  background-color: #00b050;
+  color: white;
+  border-radius: 50%;
+  width: 28px;
+  height: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  font-size: 13px;
+  box-shadow: 0 0 3px rgba(0,0,0,0.4);
+  margin-top: 2px;
+}
+
+/* === 🔥 Flame & 💵 Profit Icons Above Badges === */
+.heat-label-wrapper,
+.profit-label-wrapper {
+  position: relative;
+  flex: 0 0 30px;
+  height: 100%;
+}
+
+.heat-icon,
+.profit-icon {
+  width: 20px;
+  height: 20px;
+  animation: bounceFlame 1.4s infinite ease-in-out;
+}
+
+@keyframes bounceFlame {
+  0%, 100%   { transform: translateY(0) scale(1); }
+  25%        { transform: translateY(-4px) scale(1.05); }
+  50%        { transform: translateY(0) scale(1.15); }
+  75%        { transform: translateY(-2px) scale(1.05); }
+}
+
+/* === Additional styles for updated liquidation bars === */
+.liq-row {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 1rem;
+  width: 100%;
+}
+
+.wallet-icon {
+  object-fit: cover;
+  border-radius: 50%;
+}
+
+.liq-progress-bar {
+  flex: 1;
+  display: flex;
+  align-items: center;
+}
+
+.liq-flame-container {
+  position: relative;
+  font-size: 1.2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #ff5722;
+  color: white;
+  font-weight: bold;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  margin-left: 10px;
+}
+
+.heat-index-number {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 0.8rem;
+}
+
+

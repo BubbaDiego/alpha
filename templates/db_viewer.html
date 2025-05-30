@@ -1,0 +1,75 @@
+{% extends "base.html" %}
+
+{% block title %}Database Viewer{% endblock %}
+
+{% block head %}
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/title_bar.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/sonic_themes.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/sonic_titles.css') }}">
+  <style>
+    body {
+      background-image: url('{{ url_for('static', filename='images/database_wall.jpg') }}');
+      background-size: cover;
+      background-attachment: fixed;
+      background-repeat: no-repeat;
+      background-position: center;
+    }
+    .db-viewer-container {
+      background: rgba(255, 255, 255, 0.6);
+      border-radius: 1rem;
+    }
+    .db-table { margin-top: 1rem; background: #fff; }
+  </style>
+{% endblock %}
+
+{% block content %}
+{% set title_text = 'Database Viewer' %}
+{% include "title_bar.html" %}
+<div class="container py-4 db-viewer-container">
+  <div class="mb-3">
+    <label for="tableSelect" class="form-label">Select Table:</label>
+    <select id="tableSelect" class="form-select" onchange="showTable(this.value)">
+      {% for name in datasets.keys() %}
+      <option value="{{ name }}">{{ name }}</option>
+      {% endfor %}
+    </select>
+  </div>
+  <div id="tablesContainer">
+    {% for name, rows in datasets.items() %}
+    <table class="table table-striped table-bordered db-table" id="tbl-{{ name }}" {% if not loop.first %}style="display:none"{% endif %}>
+      <thead>
+        <tr>
+          {% if rows %}
+          {% for col in rows[0].keys() %}
+          <th>{{ col }}</th>
+          {% endfor %}
+          {% else %}
+          <th>No Data</th>
+          {% endif %}
+        </tr>
+      </thead>
+      <tbody>
+        {% for row in rows %}
+        <tr>
+          {% for col in row.keys() %}
+          <td>{{ row[col] }}</td>
+          {% endfor %}
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+    {% endfor %}
+  </div>
+</div>
+{% endblock %}
+
+{% block extra_scripts %}
+<script src="{{ url_for('static', filename='js/title_bar.js') }}" defer></script>
+<script>
+function showTable(name) {
+  document.querySelectorAll('.db-table').forEach(tbl => {
+    tbl.style.display = tbl.id === 'tbl-' + name ? '' : 'none';
+  });
+}
+</script>
+{% endblock %}

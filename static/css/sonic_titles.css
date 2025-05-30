@@ -1,0 +1,57 @@
+.sonic-title-wrapper {
+  display: flex;
+  justify-content: center;
+  margin-top: 0.5rem;
+}
+
+.sonic-title-pill {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.3rem 1.4rem;
+  font-family: 'Orbitron', sans-serif;
+  font-size: 1.15rem;
+  font-weight: 600;
+  border-radius: 50px;
+  /* Soften the glow with a bluish tone instead of the original yellow */
+  box-shadow: inset 0 0 5px #80c5d1;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  position: relative;
+  overflow: hidden;
+}
+
+
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+.sonic-title-pill.default {
+  background-color: #cce5ff;
+  color: #232946;
+}
+
+.sonic-title-pill.dashboard {
+  /* Match default styling */
+  background-color: #cce5ff;
+  color: #232946;
+}
+
+.sonic-title-pill.shimmer {
+  background-image: linear-gradient(90deg,
+    rgba(255, 255, 255, 0) 0%,
+    rgba(255, 255, 255, 0.6) 50%,
+    rgba(255, 255, 255, 0) 100%);
+  background-size: 200% 100%;
+  animation: shimmer 3s infinite;
+}
+
+.sonic-title-image {
+  height: 1.5rem;
+}

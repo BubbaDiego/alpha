@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+
+{% block title %}📊 Alert Monitor{% endblock %}
+
+{% block head %}
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/title_bar.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/sonic_themes.css') }}">
+{% endblock %}
+
+{% block extra_styles %}
+  {{ super() }}
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/title_bar.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/sonic_themes.css') }}">
+  <link rel="stylesheet" href="{{ url_for('alerts_bp.static', filename='alert_monitor.css') }}">
+{% endblock %}
+
+{% block content %}
+  {% include "title_bar.html" %}
+  <div class="container-fluid pt-2">
+    <h2>📊 Alert Progress Monitor</h2>
+    <div id="alertList"></div>
+  </div>
+{% endblock %}
+
+{% block extra_scripts %}
+  <script src="{{ url_for('static', filename='js/title_bar.js') }}" defer></script>
+  <script src="{{ url_for('alerts_bp.static', filename='alert_monitor.js') }}"></script>
+{% endblock %}

@@ -1,0 +1,56 @@
+<!-- Hedge Calculator Configuration Section -->
+<link rel="stylesheet" href="{{ url_for('static', filename='css/hedge_calculator_config.css') }}">
+<!-- Rows 1-3 from hedge_calculator.html -->
+<div id="configSection">
+
+<!-- Row 2: Modifier Boxes -->
+<div id="modifierRow" class="row mb-4">
+  <div class="col-md-6 mb-3">
+    <div class="border rounded p-3" style="background-color: #f7f7f7;">
+      <h5 class="text-center"><strong>⚙️ Hedge Modifiers 🔧</strong></h5>
+      <div class="mb-3">
+        <label for="feePercentage" class="form-label"><strong>💲 Fee (% of total size):</strong></label>
+        <input type="number" id="feePercentage" class="form-control" step="any" value="{{ modifiers.hedge_modifiers.feePercentage }}" />
+      </div>
+      <div class="mb-3">
+        <label for="targetMarginInput" class="form-label"><strong>📏 Target Safety Margin (%)</strong></label>
+        <input type="number" id="targetMarginInput" class="form-control" step="0.1" value="{{ modifiers.hedge_modifiers.targetMargin }}">
+      </div>
+      <div class="mb-3">
+        <label for="adjustmentFactorInput" class="form-label"><strong>🔧 Adjustment Factor</strong></label>
+        <input type="number" id="adjustmentFactorInput" class="form-control" step="0.1" value="{{ modifiers.hedge_modifiers.adjustmentFactor }}">
+      </div>
+    </div>
+  </div>
+  <div class="col-md-6 mb-3">
+    <div class="border rounded p-3" style="background-color: #f7f7f7;">
+      <h5 class="text-center"><strong>⚙️ Heat Modifiers 🔧</strong></h5>
+      <div class="mb-3">
+        <label for="distanceWeightInput" class="form-label"><strong>📏 Distance Weight</strong></label>
+        <input type="number" id="distanceWeightInput" class="form-control" step="0.01" value="{{ modifiers.heat_modifiers.distanceWeight }}" />
+      </div>
+      <div class="mb-3">
+        <label for="leverageWeightInput" class="form-label"><strong>📊 Leverage Weight</strong></label>
+        <input type="number" id="leverageWeightInput" class="form-control" step="0.01" value="{{ modifiers.heat_modifiers.leverageWeight }}" />
+      </div>
+      <div class="mb-3">
+        <label for="collateralWeightInput" class="form-label"><strong>💰 Collateral Weight</strong></label>
+        <input type="number" id="collateralWeightInput" class="form-control" step="0.01" value="{{ modifiers.heat_modifiers.collateralWeight }}" />
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Row 3: Approach Toggle -->
+<div id="approachToggleRow" class="row mb-4">
+  <div class="col text-center">
+    <div class="btn-group" role="group" aria-label="Hedge Approach">
+      <input type="radio" class="btn-check" name="hedgeApproach" id="approachConservative" autocomplete="off" checked>
+      <label class="btn btn-outline-primary" for="approachConservative">Conservative</label>
+      <input type="radio" class="btn-check" name="hedgeApproach" id="approachAggressive" autocomplete="off">
+      <label class="btn btn-outline-primary" for="approachAggressive">Aggressive</label>
+    </div>
+  </div>
+</div>
+</div>
+<script src="{{ url_for('static', filename='js/hedge_calculator_config.js') }}"></script>

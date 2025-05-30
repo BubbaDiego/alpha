@@ -1,0 +1,335 @@
+
+
+{% extends "base.html" %}
+{% block title %}Hedge Report{% endblock %}
+
+{% block extra_styles %}
+{{ super() }}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/title_bar.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/sonic_dashboard.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/sonic_themes.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/hedge_report.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/sonic_titles.css') }}">
+{% endblock %}
+
+{% block content %}
+{% set title_text = 'Hedge Report' %}
+{% include "title_bar.html" %}
+
+
+{% set hd = heat_data|default({}) %}
+
+<!-- Page Title Removed -->
+
+<div class="sonic-section-container sonic-section-middle mt-3 hedge-top-section">
+  <div class="sonic-content-panel hedge-report-panel">
+    <div class="dual-table-wrapper">
+      <div class="positions-table-wrapper">
+      <h3 class="section-title icon-inline text-center mb-2"><span>📉</span><span>SHORT</span></h3>
+      <table id="short-table" class="positions-table">
+          <thead>
+            <tr>
+              <th class="sortable left" data-col-index="0">Asset <span class="sort-indicator"></span></th>
+              <th class="sortable center" data-col-index="1">Collateral <span class="sort-indicator"></span></th>
+              <th class="sortable center" data-col-index="2">Value <span class="sort-indicator"></span></th>
+              <th class="sortable center" data-col-index="3">Leverage <span class="sort-indicator"></span></th>
+              <th class="sortable center" data-col-index="4">Travel % <span class="sort-indicator"></span></th>
+              <th class="sortable center size-col" data-col-index="5">Size <span class="sort-indicator"></span></th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for asset in ["BTC", "ETH", "SOL"] %}
+              {% set asset_data = hd.get(asset, {}) %}
+              {% set pos = asset_data.get('short') %}
+              {% if not pos %}
+                <tr class="no-data-row"><td colspan="6" class="no-data">No data</td></tr>
+              {% else %}
+                <tr>
+                  <td class="left">
+                    <span class="icon-inline">
+                      {% if pos.asset == "BTC" %}
+                        <img src="/static/images/btc_logo.png" alt="BTC" style="width:20px;">
+                      {% elif pos.asset == "ETH" %}
+                        <img src="/static/images/eth_logo.png" alt="ETH" style="width:20px;">
+                      {% elif pos.asset == "SOL" %}
+                        <img src="/static/images/sol_logo.png" alt="SOL" style="width:20px;">
+                      {% endif %}
+                      {{ pos.asset }}
+                    </span>
+                  </td>
+                  <td class="center">{{ "{:,}".format(pos.collateral|float|round(2)) }}</td>
+                  <td class="center">{{ "{:,}".format(pos.value|float|round(2)) }}</td>
+                  <td class="center">{{ pos.leverage|float|round(2) }}</td>
+                  <td class="center">{{ pos.travel_percent|float|round(2) }}%</td>
+                  <td class="center size-col">{{ "{:,}".format(pos.size|float|round(2)) }}</td>
+                </tr>
+              {% endif %}
+            {% endfor %}
+          </tbody>
+          <tfoot>
+            <tr class="fw-bold">
+              {% set short_totals = hd.get('totals', {}).get('short', {}) %}
+              <td class="left">
+                <span class="icon-inline">
+                  {% if short_totals.get('asset') %}
+                    {% if short_totals.asset == "BTC" %}
+                      <img src="/static/images/btc_logo.png" alt="BTC" style="width:20px;">
+                    {% elif short_totals.asset == "ETH" %}
+                      <img src="/static/images/eth_logo.png" alt="ETH" style="width:20px;">
+                    {% elif short_totals.asset == "SOL" %}
+                      <img src="/static/images/sol_logo.png" alt="SOL" style="width:20px;">
+                    {% endif %}
+                    {{ short_totals.asset }}
+                  {% else %}
+                    Short
+                  {% endif %}
+                </span>
+              </td>
+              <td class="center">{{ "{:,}".format(short_totals.get('collateral',0)|float|round(2)) }}</td>
+              <td class="center">{{ "{:,}".format(short_totals.get('value',0)|float|round(2)) }}</td>
+              <td class="center">{{ short_totals.get('leverage',0)|float|round(2) }}</td>
+              <td class="center">{{ short_totals.get('travel_percent',0)|float|round(2) }}%</td>
+              <td class="center size-col">{{ "{:,}".format(short_totals.get('size',0)|float|round(2)) }}</td>
+            </tr>
+          </tfoot>
+        </table>
+      </div>
+      <div class="positions-table-wrapper">
+      <h3 class="section-title icon-inline text-center mb-2"><span>📈</span><span>LONG</span></h3>
+      <table id="long-table" class="positions-table">
+          <thead>
+            <tr>
+              <th class="sortable center size-col" data-col-index="0">Size <span class="sort-indicator"></span></th>
+              <th class="sortable center" data-col-index="1">Travel % <span class="sort-indicator"></span></th>
+              <th class="sortable center" data-col-index="2">Leverage <span class="sort-indicator"></span></th>
+              <th class="sortable center" data-col-index="3">Value <span class="sort-indicator"></span></th>
+              <th class="sortable center" data-col-index="4">Collateral <span class="sort-indicator"></span></th>
+              <th class="sortable left" data-col-index="5">Asset <span class="sort-indicator"></span></th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for asset in ["BTC", "ETH", "SOL"] %}
+              {% set asset_data = hd.get(asset, {}) %}
+              {% set pos = asset_data.get('long') %}
+              {% if not pos %}
+                <tr class="no-data-row"><td colspan="6" class="no-data">No data</td></tr>
+              {% else %}
+                <tr>
+                  <td class="center size-col">{{ "{:,}".format(pos.size|float|round(2)) }}</td>
+                  <td class="center">{{ pos.travel_percent|float|round(2) }}%</td>
+                  <td class="center">{{ pos.leverage|float|round(2) }}</td>
+                  <td class="center">{{ "{:,}".format(pos.value|float|round(2)) }}</td>
+                  <td class="center">{{ "{:,}".format(pos.collateral|float|round(2)) }}</td>
+                  <td class="left">
+                    <span class="icon-inline">
+                      {% if pos.asset == "BTC" %}
+                        <img src="/static/images/btc_logo.png" alt="BTC" style="width:20px;">
+                      {% elif pos.asset == "ETH" %}
+                        <img src="/static/images/eth_logo.png" alt="ETH" style="width:20px;">
+                      {% elif pos.asset == "SOL" %}
+                        <img src="/static/images/sol_logo.png" alt="SOL" style="width:20px;">
+                      {% endif %}
+                      {{ pos.asset }}
+                    </span>
+                  </td>
+                </tr>
+              {% endif %}
+            {% endfor %}
+          </tbody>
+          <tfoot>
+            <tr class="fw-bold">
+              {% set long_totals = hd.get('totals', {}).get('long', {}) %}
+              <td class="center size-col">{{ "{:,}".format(long_totals.get('size',0)|float|round(2)) }}</td>
+              <td class="center">{{ long_totals.get('travel_percent',0)|float|round(2) }}%</td>
+              <td class="center">{{ long_totals.get('leverage',0)|float|round(2) }}</td>
+              <td class="center">{{ "{:,}".format(long_totals.get('value',0)|float|round(2)) }}</td>
+              <td class="center">{{ "{:,}".format(long_totals.get('collateral',0)|float|round(2)) }}</td>
+              <td class="left">
+                {% if long_totals.get('asset') %}
+                  <span class="icon-inline">
+                    {% if long_totals.asset == "BTC" %}
+                      <img src="/static/images/btc_logo.png" alt="BTC" style="width:20px;">
+                    {% elif long_totals.asset == "ETH" %}
+                      <img src="/static/images/eth_logo.png" alt="ETH" style="width:20px;">
+                    {% elif long_totals.asset == "SOL" %}
+                      <img src="/static/images/sol_logo.png" alt="SOL" style="width:20px;">
+                    {% endif %}
+                    {{ long_totals.asset }}
+                  </span>
+                {% else %}
+                  Long
+                {% endif %}
+              </td>
+            </tr>
+          </tfoot>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Charts Section -->
+{% set shortTotals = hd.get('totals', {}).get('short', {}) %}
+{% set longTotals  = hd.get('totals', {}).get('long',  {}) %}
+{% set shortSize   = shortTotals.get('size', 0)|float|round(2) %}
+{% set longSize    = longTotals.get('size', 0)|float|round(2) %}
+
+{% set btcShort = hd.get("BTC", {}).get("short", {}).get("size", 0)|float|round(2) %}
+{% set btcLong  = hd.get("BTC", {}).get("long",  {}).get("size", 0)|float|round(2) %}
+{% set ethShort = hd.get("ETH", {}).get("short", {}).get("size", 0)|float|round(2) %}
+{% set ethLong  = hd.get("ETH", {}).get("long",  {}).get("size", 0)|float|round(2) %}
+{% set solShort = hd.get("SOL", {}).get("short", {}).get("size", 0)|float|round(2) %}
+{% set solLong  = hd.get("SOL", {}).get("long",  {}).get("size", 0)|float|round(2) %}
+
+{% set btcTotal = btcShort + btcLong %}
+{% set ethTotal = ethShort + ethLong %}
+{% set solTotal = solShort + solLong %}
+
+<div class="sonic-section-container sonic-section-bottom mt-5">
+  <div class="sonic-content-panel">
+    <canvas id="sizeDist" class="full-chart"></canvas>
+  </div>
+  <div class="sonic-content-panel">
+    <canvas id="assetDist" class="full-chart"></canvas>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels"></script>
+<script>
+(function() {
+  // Size Distribution chart
+  const shortSize = {{ shortSize }};
+  const longSize  = {{ longSize }};
+  const sizeCtx   = document.getElementById('sizeDist').getContext('2d');
+  new Chart(sizeCtx, {
+    type: 'pie',
+    data: {
+      labels: ['Short', 'Long'],
+      datasets: [{
+        data: [shortSize, longSize],
+        backgroundColor: ['#f39c12','rgb(52,152,219)']
+      }]
+    },
+    plugins: [ChartDataLabels],
+    options: {
+      plugins: {
+        title: {
+          display: true,
+          text: 'Size Distribution',
+          font: { size:16, weight:'bold' },
+          color: '#000'
+        },
+        legend: { position: 'bottom' },
+        datalabels: {
+          color: '#fff',
+          font: { size:14, weight:'bold' },
+          formatter: (value, ctx) => {
+            const sum = ctx.dataset.data.reduce((a,b)=>a+b,0);
+            return sum>0 ? (value/sum*100).toFixed(1)+'%' : '0%';
+          }
+        }
+      }
+    }
+  });
+
+  // Asset Distribution chart
+  const btcTotal = {{ btcTotal }};
+  const ethTotal = {{ ethTotal }};
+  const solTotal = {{ solTotal }};
+  const assetCtx = document.getElementById('assetDist').getContext('2d');
+  new Chart(assetCtx, {
+    type: 'pie',
+    data: {
+      labels: ['BTC', 'ETH', 'SOL'],
+      datasets: [{
+        data: [btcTotal, ethTotal, solTotal],
+        backgroundColor: ['#F7931A', '#3498db', '#8e44ad']
+      }]
+    },
+    plugins: [ChartDataLabels],
+    options: {
+      plugins: {
+        title: {
+          display: true,
+          text: 'Asset Distribution',
+          font: { size:16, weight:'bold' },
+          color: '#000'
+        },
+        legend: { position: 'bottom' },
+        datalabels: {
+          color:'#fff',
+          font:{ size:14, weight:'bold' },
+          formatter: (value, ctx) => {
+            const sum = ctx.dataset.data.reduce((a,b)=>a+b,0);
+            return sum>0 ? (value/sum*100).toFixed(1)+'%' : '0%';
+          }
+        }
+      }
+    }
+  });
+})();
+</script>
+
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+  function initSortableTable(selector) {
+    const table = document.querySelector(selector);
+    if (!table) return;
+    const headers = table.querySelectorAll("thead th.sortable");
+    const tbody = table.querySelector("tbody");
+    let currentSort = { col: 0, dir: "asc" };
+
+    function sortTable(colIndex, dir) {
+      const rows = Array.from(tbody.querySelectorAll("tr")).filter(r => !r.classList.contains("no-data-row"));
+      if (rows.length === 0) return;
+      rows.sort((a,b) => {
+        const getVal = row => {
+          const cell = row.children[colIndex];
+          const text = cell.textContent.replace(/[,%]/g, "").trim();
+          const num = parseFloat(text.replace(/[^0-9.-]/g, ""));
+          return isNaN(num) ? text : num;
+        };
+        const aVal = getVal(a);
+        const bVal = getVal(b);
+        if (typeof aVal === "number" && typeof bVal === "number") {
+          return dir === "asc" ? aVal - bVal : bVal - aVal;
+        }
+        return dir === "asc" ? aVal.toString().localeCompare(bVal) : bVal.toString().localeCompare(aVal);
+      });
+      rows.forEach(r => tbody.appendChild(r));
+      headers.forEach((th,i) => {
+        th.classList.remove("sorted-asc","sorted-desc");
+        th.querySelector(".sort-indicator").textContent = "";
+        if (i === colIndex) {
+          th.classList.add(dir === "asc" ? "sorted-asc" : "sorted-desc");
+          th.querySelector(".sort-indicator").textContent = dir === "asc" ? "▲" : "▼";
+        }
+      });
+    }
+
+    headers.forEach((th,i) => {
+      th.addEventListener("click", function() {
+        let dir = "desc";
+        if (currentSort.col === i && currentSort.dir === "desc") dir = "asc";
+        currentSort = { col: i, dir };
+        sortTable(i, dir);
+      });
+    });
+    sortTable(currentSort.col, currentSort.dir);
+  }
+
+  initSortableTable("#short-table");
+  initSortableTable("#long-table");
+});
+</script>
+
+{% endblock content %}
+
+
+{% block extra_scripts %}
+{{ super() }}
+<script src="{{ url_for('static', filename='js/sonic_theme_toggle.js') }}"></script>
+<script src="{{ url_for('static', filename='js/layout_mode.js') }}"></script>
+{% endblock %}
+

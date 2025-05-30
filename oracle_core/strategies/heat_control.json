@@ -1,0 +1,40 @@
+{
+  "name": "heat_control",
+  "description": "Manages portfolio exposure based on heat index to avoid liquidation or drawdown scenarios.",
+  "modifiers": {
+    "heat_thresholds": {
+      "warning": 30,
+      "action": 40,
+      "oh_shit": 60
+    },
+    "persona_actions": {
+      "connie": {
+        "action": ["add_collateral", "halt_entries", "review_high_heat_positions"],
+        "threshold": "action",
+        "panic_trigger": "oh_shit",
+        "entry_block": true
+      },
+      "nina": {
+        "action": ["add_collateral", "open_hedge"],
+        "threshold": "action",
+        "entry_block": false
+      },
+      "angie": {
+        "action": "open_or_increase_opposing",
+        "threshold": "action",
+        "entry_block": false
+      },
+      "wizard": {
+        "action": "double_down_with_rules",
+        "threshold": "action",
+        "entry_block": false
+      }
+    },
+    "position_scan_flags": {
+      "check_existing_position": true,
+      "check_opposing_exposure": true
+    },
+    "priority_metric": "avg_heat_index"
+  },
+  "instructions": "Monitor the heat index. Connie avoids risk and reinforces positions with collateral. Angie embraces heat by expanding offsetting positions. Nina adapts with both defensive and neutralizing moves. Wizard sees high heat as a focused signal to double down carefully."
+}

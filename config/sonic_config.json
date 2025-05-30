@@ -1,0 +1,60 @@
+{
+  "price_config": {
+    "assets": [
+      "BTC",
+      "ETH",
+      "SOL"
+    ],
+    "currency": "USD",
+    "cmc_api_key": "${COINMARKETCAP_API_KEY}"
+  },
+  "system_config": {
+    "logging_enabled": true,
+    "log_level": "DEBUG",
+    "console_output": true,
+    "log_file": "./v0.7/price_monitor.log",
+    "db_path": "./data/mother_brain.db",
+    "price_monitor_enabled": true,
+    "alert_monitor_enabled": true,
+    "sonic_monitor_loop_time": 300,
+    "last_price_update_time": null,
+    "phantom_path": "wallets/phantom_wallet"
+  },
+  "api_config": {
+    "coingecko_api_enabled": "ENABLE",
+    "kucoin_api_enabled": "ENABLE",
+    "coinmarketcap_api_enabled": "ENABLE",
+    "coinpaprika_api_enabled": "ENABLE",
+    "binance_api_enabled": "ENABLE",
+    "coinmarketcap_api_key": "${COINMARKETCAP_API_KEY}",
+    "jupiter_api_base": "${JUPITER_API_BASE}"
+  },
+  "notification_config": {
+    "email": {
+      "smtp_server": "${SMTP_SERVER}",
+      "smtp_port": "${SMTP_PORT}",
+      "smtp_user": "${SMTP_USERNAME}",
+      "smtp_password": "${SMTP_PASSWORD}",
+      "recipient_email": "${SMTP_DEFAULT_RECIPIENT}"
+    },
+    "sms": {
+      "carrier_gateway": "txt.att.net",
+      "recipient_number": "6199804758"
+    }
+  },
+
+  "twilio_config": {
+
+    "account_sid": "${TWILIO_ACCOUNT_SID}",
+    "auth_token": "${TWILIO_AUTH_TOKEN}",
+    "flow_sid": "${TWILIO_FLOW_SID}",
+    "to_phone": "${TWILIO_TO_PHONE}",
+    "from_phone": "${TWILIO_FROM_PHONE}"
+
+  },
+
+  "theme_config": {
+    "selected_profile": "profile4",
+    "profiles": {}
+  }
+}

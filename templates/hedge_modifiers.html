@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+{% block title %}Hedge Modifiers{% endblock %}
+
+{% block extra_styles %}
+{{ super() }}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/title_bar.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/hedge_calculator.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/sonic_dashboard.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/sonic_themes.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/sonic_titles.css') }}">
+{% endblock %}
+
+{% block content %}
+{% set title_text = 'Hedge Modifiers' %}
+{% include "title_bar.html" %}
+<div class="container-fluid">
+  <!-- Display Mode Radio Buttons -->
+  <div class="d-flex justify-content-center mb-3" id="displayModeControls">
+    <div class="btn-group" role="group">
+      <input type="radio" class="btn-check" name="displayMode" id="modeFull" autocomplete="off" checked onchange="setDisplayMode('full')">
+      <label class="btn btn-outline-primary" for="modeFull"><i class="fas fa-chart-line"></i></label>
+      <input type="radio" class="btn-check" name="displayMode" id="modeGear" autocomplete="off" onchange="setDisplayMode('gear')">
+      <label class="btn btn-outline-primary" for="modeGear"><i class="fas fa-wrench"></i></label>
+      <input type="radio" class="btn-check" name="displayMode" id="modeTestTube" autocomplete="off" onchange="setDisplayMode('test')">
+      <label class="btn btn-outline-primary" for="modeTestTube"><i class="fas fa-vial" style="color: green;"></i></label>
+    </div>
+  </div>
+
+  <!-- Main Card for Hedge Modifiers -->
+  <div class="card shadow mb-4">
+    <div class="card-header position-relative" style="background-color: var(--card-title-color);">
+      <h4 class="mb-0 text-center" style="color: var(--text-color);">🦔 Hedge Modifiers</h4>
+      <button id="toggleConfig" class="btn btn-sm btn-outline-secondary position-absolute" style="top: 10px; right: 50px;" title="Hide Config">
+        <i class="fa-solid fa-eye-slash"></i>
+      </button>
+      <button id="saveModifiers" class="btn btn-sm btn-outline-secondary position-absolute" style="top: 10px; right: 10px;" title="Save Modifiers">
+        <i class="fa-solid fa-floppy-disk"></i>
+      </button>
+    </div>
+    <div class="card-body">
+      {% include "hedge_calculator_config.html" %}
+      {% include "hedge_calculator_results.html" %}
+    </div>
+  </div>
+</div>
+<script>
+  window.longPositionsData = {{ long_positions | tojson }};
+  window.shortPositionsData = {{ short_positions | tojson }};
+</script>
+
+{% block extra_scripts %}
+{{ super() }}
+<script src="{{ url_for('static', filename='js/sonic_theme_toggle.js') }}"></script>
+<script src="{{ url_for('static', filename='js/layout_mode.js') }}"></script>
+{% endblock %}
+
+{% endblock %}
+

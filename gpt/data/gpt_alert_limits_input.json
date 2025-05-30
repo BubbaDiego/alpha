@@ -1,0 +1,10 @@
+{
+  "alert_ranges": {
+    "heat_index_ranges": {
+      "enabled": true,
+      "low": 7.0,
+      "medium": 33.0,
+      "high": 66.0
+    }
+  }
+}

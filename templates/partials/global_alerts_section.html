@@ -1,0 +1,57 @@
+<div class="card mb-4">
+  <div class="card-header bg-info text-white">
+    <i class="fas fa-globe me-2"></i>Global Alerts
+  </div>
+  <div class="card-body">
+    <div class="form-check form-switch mb-4">
+      <input type="hidden" name="global_alert_config[enabled]" value="false">
+      <input type="checkbox" class="form-check-input" name="global_alert_config[enabled]" value="true" {% if global_alert_config.get('enabled') %}checked{% endif %}>
+      <label class="form-check-label">Enable Global Alerts</label>
+    </div>
+
+    <div class="row mb-4">
+      <div class="col-12">
+        <label class="form-label">Monitor Fields:</label>
+        <div class="d-flex flex-wrap gap-3">
+          {% for field in ["price", "profit", "travel_percent", "heat_index"] %}
+          <div class="form-check">
+            <input type="hidden" name="global_alert_config[data_fields][{{ field }}]" value="false">
+            <input type="checkbox" class="form-check-input" name="global_alert_config[data_fields][{{ field }}]" value="true" {% if global_alert_config.get('data_fields', {}).get(field) %}checked{% endif %}>
+            <label class="form-check-label text-capitalize">{{ field.replace('_', ' ') }}</label>
+          </div>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-4">
+        <label class="form-label">Profit Threshold</label>
+        <input type="number" step="0.01" class="form-control" name="global_alert_config[thresholds][profit]" value="{{ global_alert_config.get('thresholds', {}).get('profit', '') }}">
+      </div>
+      <div class="col-md-4">
+        <label class="form-label">Travel Threshold</label>
+        <input type="number" step="0.01" class="form-control" name="global_alert_config[thresholds][travel_percent]" value="{{ global_alert_config.get('thresholds', {}).get('travel_percent', '') }}">
+      </div>
+      <div class="col-md-4">
+        <label class="form-label">Heat Index Threshold</label>
+        <input type="number" step="0.01" class="form-control" name="global_alert_config[thresholds][heat_index]" value="{{ global_alert_config.get('thresholds', {}).get('heat_index', '') }}">
+      </div>
+    </div>
+
+    <div class="row mt-4">
+      <div class="col-12">
+        <label class="form-label">Price Thresholds per Asset:</label>
+        <div class="row g-2">
+          {% for asset in ["BTC", "ETH", "SOL"] %}
+          {% set price_conf = global_alert_config.get('thresholds', {}).get('price', {}) %}
+          <div class="col-md-4">
+            <label class="form-label">{{ asset }}</label>
+            <input type="number" step="0.01" class="form-control" name="global_alert_config[thresholds][price][{{ asset }}]" value="{{ price_conf.get(asset, '') }}">
+          </div>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

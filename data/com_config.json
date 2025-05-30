@@ -1,0 +1,72 @@
+{
+  "communication": {
+    "providers": {
+      "email": {
+        "enabled": true,
+        "smtp": {
+          "server": "${SMTP_SERVER}",
+          "port": "${SMTP_PORT}",
+          "username": "${SMTP_USERNAME}",
+          "password": "${SMTP_PASSWORD}",
+          "default_recipient": "${SMTP_DEFAULT_RECIPIENT}"
+        }
+      },
+      "api_config": {
+        "coingecko_api_enabled":    "ENABLE",
+        "coinmarketcap_api_enabled":"ENABLE",
+        "coinpaprika_api_enabled":  "ENABLE",
+        "binance_api_enabled":      "DISABLE",
+        "cryptocompare_api_enabled":"ENABLE",
+        "nomics_api_enabled":       "ENABLE"
+      },
+      "sms": {
+        "enabled": true,
+        "carrier_gateway": "txt.att.net",
+        "default_recipient": "6199804758"
+      },
+      "twilio": {
+        "enabled": true,
+        "account_sid": "${TWILIO_ACCOUNT_SID}",
+        "auth_token": "${TWILIO_AUTH_TOKEN}",
+        "flow_sid": "${TWILIO_FLOW_SID}",
+        "default_to_phone": "${TWILIO_TO_PHONE}",
+        "default_from_phone": "${TWILIO_FROM_PHONE}"
+      }
+    },
+    "defaults": {
+      "log": {
+        "enabled": true,
+        "level": "DEBUG",
+        "console_output": true,
+        "log_file": "${ALERT_MONITOR_LOG_PATH}"
+      },
+      "database": {
+        "path": "${DB_PATH}"
+      },
+      "monitoring": {
+        "price_monitor_enabled": true,
+        "alert_monitor_enabled": true,
+        "sonic_monitor_loop_time": 300,
+        "last_price_update_time": null
+      }
+    }
+  },
+  "api": {
+    "coingecko": {
+      "enabled": true
+    },
+    "kucoin": {
+      "enabled": true
+    },
+    "coinmarketcap": {
+      "enabled": true,
+      "api_key": "${COINMARKETCAP_API_KEY}"
+    },
+    "coinpaprika": {
+      "enabled": true
+    },
+    "binance": {
+      "enabled": false
+    }
+  }
+}

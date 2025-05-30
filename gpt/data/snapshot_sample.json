@@ -1,0 +1,11 @@
+{
+  "positions": [
+    {
+      "id": "sample",
+      "asset_type": "BTC",
+      "position_type": "LONG",
+      "leverage": 5.0,
+      "travel_percent": -12.4
+    }
+  ]
+}

@@ -1,0 +1,338 @@
+/* === Sonic Dashboard Full Stylesheet with Comments === */
+
+/* ─────────────────────────────────────────────── */
+/* Layout Container for Each Section (Top/Middle/Bottom) */
+.sonic-section-container {
+  margin: 2.5rem auto 2rem auto;      /* top, left/right auto, bottom spacing */
+  padding: 0;
+  max-width: 1200px;                 /* default max width unless layout mode overrides */
+  background: transparent;           /* allow page background to show through */
+  border-radius: 1rem;
+  border: none;
+  display: flex;
+  gap: 2rem;                         /* spacing between .sonic-content-panel items */
+  justify-content: center;
+  align-items: stretch;
+}
+
+/* Individual Panel in Each Section */
+.sonic-content-panel {
+  flex: 1 1 0;
+  min-width: 330px;
+  max-width: 550px;
+  background: rgba(180, 204, 245, 0.67);   /* translucent glassy look */
+  border-radius: 2rem;
+  box-shadow: 0 8px 30px 0 rgba(56, 72, 140, 0.13),
+              0 1.5px 8px rgba(70, 90, 144, 0.08);
+  margin: 0 1rem;
+  padding: 0.8rem 2rem 2.4rem 2rem; /* reduced top padding */
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  position: relative;
+}
+
+/* Portfolio and monitor panels with 25% less vertical padding */
+.portfolio-panel,
+.monitor-panel {
+  /* tweak these values to adjust panel height */
+  padding-top: 0.6rem;
+  padding-bottom: 1.8rem;
+}
+
+/* Chart containers should span the full width of the panel */
+.full-chart {
+  width: 100%;
+}
+
+/* Container that holds the cards inside the panel */
+.card-flex {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.2rem 1.7rem;  /* row gap and column gap */
+  justify-content: space-evenly;  /* spread cards evenly */
+  width: 100%;
+  margin-top: 1.1rem;
+}
+
+/* Slightly smaller cards and tighter spacing for the portfolio panel */
+.portfolio-panel .card-flex {
+  gap: 1rem 1.4rem;
+}
+
+/* ─────────────────────────────────────────────── */
+/* Flip Card Base */
+.flip-card {
+  flex: 0 0 110px;      /* width control */
+  max-width: 120px;
+  min-width: 100px;
+  aspect-ratio: 1/1;
+  perspective: 900px;
+  cursor: pointer;
+  margin-bottom: 0.6rem;
+  border-radius: 1.15rem;
+}
+
+/* Slightly smaller card sizing within the portfolio panel */
+.portfolio-panel .flip-card {
+
+  /* Cards trimmed to roughly 70% width for a taller layout */
+  flex-basis: 80px;   /* tweak values below as needed */
+  max-width: 88px;
+  min-width: 73px;
+
+  /* Slightly taller cards for more vertical room */
+  /* To tweak card height, change the aspect-ratio value below */
+  aspect-ratio: 3/4;
+}
+
+/* Monitor panel cards widened slightly to balance height */
+.monitor-panel .flip-card {
+
+  /* Still compact but slightly wider */
+  flex-basis: 88px;
+  max-width: 95px;
+  min-width: 80px;
+
+  /* Extra height for readability */
+  /* To tweak card height, change the aspect-ratio value below */
+  aspect-ratio: 3/4;
+}
+
+/* Inner container to enable 3D flip */
+.flip-card-inner {
+  width: 100%;
+  height: 100%;
+  transition: transform 0.6s cubic-bezier(.67,1.36,.64,1.13);
+  transform-style: preserve-3d;
+}
+
+/* When .flipped class is applied, show the back */
+.flip-card.flipped .flip-card-inner {
+  transform: rotateY(180deg);
+}
+
+/* Front and back faces of the card */
+.flip-card-front,
+.flip-card-back {
+  width: 100%;
+  height: 100%;
+  padding: 0.6rem 0.3rem;
+  border-radius: 1rem;
+  box-shadow: 0 2px 8px rgba(48, 52, 92, 0.08);
+  backface-visibility: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+.flip-card-front {
+  background: #f5fbf8;
+}
+.flip-card-back {
+  background: #e7ecef;
+  transform: rotateY(180deg);
+}
+
+/* ─────────────────────────────────────────────── */
+/* Shared Text Styling Inside Cards */
+.icon {
+  font-size: 1.8rem;        /* icon size (emoji or image) */
+  margin-bottom: 0.25rem;
+}
+.value {
+  font-size: 1.05rem;       /* numeric or metric value */
+  font-weight: 600;
+}
+.label {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 0.85rem;       /* label text */
+  font-weight: 600;         /* make label bold */
+  margin-bottom: 0.2rem;    /* spacing when label on top */
+}
+
+/* ─────────────────────────────────────────────── */
+/* Monitor Card Overrides */
+.status-card.monitor-style .icon {
+  font-size: 1.4rem;        /* smaller icon for monitor */
+  margin-bottom: 0.2rem;
+}
+.status-card.monitor-style .value {
+  font-size: 0.85rem;       /* slightly larger time */
+  font-weight: 600;         /* emphasize timestamp */
+  white-space: normal;      /* spans manage layout */
+}
+
+.status-card.monitor-style .monitor-time {
+  display: block;
+}
+
+.status-card.monitor-style .monitor-date {
+  display: none;
+  font-size: 0.75rem;
+  font-weight: 400;
+}
+
+.status-card.monitor-style .value:hover .monitor-date {
+  display: block;
+}
+.status-card.monitor-style .label {
+  font-size: 0.9rem;        /* emphasize monitor name */
+  line-height: 1.1;
+  margin-bottom: 0.2rem;    /* slight spacing from icon */
+}
+
+/* ─────────────────────────────────────────────── */
+/* Status Card Backgrounds */
+.status-card.green { background: #e1faee !important; }
+.status-card.yellow { background: #fffbe3 !important; }
+.status-card.red { background: #ffe7ea !important; }
+
+.status-card.monitor-style.green { background: #eafaf5 !important; }
+.status-card.monitor-style.yellow { background: #fffae5 !important; }
+.status-card.monitor-style.red { background: #ffeaea !important; }
+
+/* ─────────────────────────────────────────────── */
+/* LED Status Dots */
+.led-dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  margin-top: 4px;
+}
+.led-dot.green { background: #28a745; box-shadow: 0 0 4px #28a745; }
+.led-dot.yellow { background: #ffc107; box-shadow: 0 0 4px #ffc107; }
+.led-dot.red { background: #dc3545; box-shadow: 0 0 4px #dc3545; }
+
+/* Misc helpers */
+.thresholds { margin-top: 0.5rem; }
+.dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  display: inline-block;
+  margin-right: 0.5em;
+}
+.dot.green { background: #28a745; }
+.dot.yellow { background: #ffc107; }
+.dot.red { background: #dc3545; }
+
+.mini-list {
+  list-style: none;
+  padding-left: 0;
+  font-size: 0.98em;
+  margin-top: 0.7em;
+}
+.text-bold { font-weight: 600; }
+.text-success { color: #1da63a !important; }
+.text-danger { color: #d72d36 !important; }
+.text-warning { color: #ffc107 !important; }
+
+/* ─────────────────────────────────────────────── */
+/* Responsive Adjustments */
+@media (max-width: 900px) {
+  .sonic-content-panel {
+    padding: 0.4rem 0.6rem; /* reduced top padding */
+    min-width: 210px;
+  }
+  .card-flex {
+    flex-wrap: wrap;
+    gap: 0.6rem;
+  }
+  .flip-card {
+    max-width: 98vw;
+    min-width: 0;
+  }
+}
+
+/* Section title styling */
+.section-title {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 1.25rem;
+  font-weight: bold;
+  margin-bottom: 1.2rem;
+  letter-spacing: 0.04em;
+  color: var(--panel-title);
+  background: transparent;
+  border: none;
+  padding: 0;
+  position: static;
+}
+
+/* Oracle icon positioned in panel corner */
+.oracle-icon {
+  position: absolute;
+  top: 0.4rem;
+  right: 0.6rem;
+  cursor: pointer;
+  font-size: 1.3rem;
+}
+
+/* ─────────────────────────────────────────────── */
+/* Layout Modes: Wide, Fitted, Mobile */
+body.wide-mode .sonic-section-container {
+  max-width: 1600px;
+}
+body.wide-mode .sonic-content-panel {
+  max-width: 640px;
+  min-width: 360px;
+}
+body.wide-mode .card-flex {
+  flex-wrap: nowrap;
+  gap: 0.8rem 1.1rem;
+}
+
+body.fitted-mode .sonic-section-container {
+  max-width: 1280px;
+}
+body.fitted-mode .sonic-content-panel {
+  max-width: 540px;
+  min-width: 330px;
+}
+body.fitted-mode .card-flex {
+  flex-wrap: nowrap;
+  gap: 0.7rem 1rem;
+}
+
+body.mobile-mode .sonic-section-container {
+  flex-direction: column !important;
+  align-items: center !important;
+}
+
+/* --------------------------------------------------------------------- */
+/* Wallet Page Tweaks */
+#editWalletModal .modal-content {
+  border-radius: 1rem;
+}
+
+.mini-table-box {
+  border-radius: 0.75rem;
+}
+
+.mini-table-box table {
+  width: 100%;
+  margin: 0 auto;
+  background: var(--container-bg);
+  color: var(--text);
+}
+
+.mini-table-box thead th {
+  background: var(--title-bar-bg);
+  color: var(--panel-title);
+  border-bottom: 2px solid var(--panel-border);
+  padding: 0.7em 0.6em;
+}
+
+.mini-table-box tbody td {
+  background: var(--container-bg);
+  color: var(--text);
+  border-bottom: 1px solid var(--panel-border);
+  padding: 0.7em 0.6em;
+}
+
+.mini-table-box table.table-striped > tbody > tr:nth-of-type(odd) > * {
+  background-color: var(--accent);
+}

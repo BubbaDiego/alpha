@@ -1,0 +1,26 @@
+.hedge-labs-table,
+#evalTable {
+  background: var(--container-bg);
+  color: var(--text);
+  width: 100%;
+}
+
+.hedge-labs-table thead th,
+#evalTable thead th {
+  background: var(--title-bar-bg);
+  color: var(--panel-title);
+  border-bottom: 2px solid var(--panel-border);
+  padding: 0.7em 0.6em;
+}
+
+.hedge-labs-table tbody td,
+#evalTable tbody td {
+  background: var(--container-bg);
+  color: var(--text);
+  border-bottom: 1px solid var(--panel-border);
+  padding: 0.7em 0.6em;
+}
+
+.hedge-labs-table.table-striped > tbody > tr:nth-of-type(odd) > * {
+  background-color: var(--accent);
+}

@@ -1,0 +1,107 @@
+{% extends "base.html" %}
+{% block title %}Hedge Labs{% endblock %}
+
+{% block extra_styles %}
+{{ super() }}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/title_bar.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/sonic_dashboard.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/sonic_themes.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/sonic_titles.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/hedge_labs.css') }}">
+{% endblock %}
+
+{% block content %}
+{% set title_text = 'Hedge Labs' %}
+{% include "title_bar.html" %}
+
+<div class="sonic-section-container sonic-section-middle mt-3">
+  <div class="sonic-content-panel">
+    <div class="section-title icon-inline"><span>🦔</span><span>Hedges</span></div>
+    <div class="mb-3">
+      <button id="linkHedgesBtn" class="btn btn-outline-primary btn-sm me-2">
+        <i class="fas fa-link me-1"></i>Link Hedges
+      </button>
+      <button id="unlinkHedgesBtn" class="btn btn-outline-secondary btn-sm me-2">
+        <i class="fas fa-unlink me-1"></i>Unlink Hedges
+      </button>
+      <a href="/hedge_calculator" class="btn btn-outline-light btn-sm">
+        <i class="fas fa-sliders-h me-1"></i>Hedge Modifiers
+      </a>
+    </div>
+    <table class="table table-striped hedge-labs-table">
+      <thead>
+        <tr>
+          <th>Hedged Position</th>
+          <th>Positions</th>
+          <th>Total Heat</th>
+        </tr>
+      </thead>
+      <tbody id="hedgeTableBody">
+        {% for h in hedges %}
+        <tr>
+          <td>
+            <img class="asset-icon me-1" src="{{ url_for('static', filename='images/' + h.asset_image) }}" alt="asset">
+            <span class="mx-1">⛓️</span>
+            <img class="wallet-icon ms-1" src="{{ url_for('static', filename='images/' + h.wallet_image) }}" alt="wallet">
+          </td>
+          <td>Tot&nbsp;Value&nbsp;=&nbsp;{{ h.total_value }} Ratio ({{ h.long_size_ratio }}%, {{ h.short_size_ratio }}%), Leverage ({{ h.long_leverage }}/{{ h.short_leverage }})</td>
+          <td>{{ h.total_heat_index }}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+
+  <div class="sonic-content-panel">
+    <div class="section-title icon-inline"><span>🖩</span><span>Calculator</span></div>
+    <div class="row mb-3">
+      <div class="col-md-4">
+        <label for="hedgeSelect" class="form-label"><strong>Select Hedge</strong></label>
+        <div class="mb-1">
+          <img id="selectAssetIcon" class="asset-icon me-1 d-none" alt="asset">
+          <span class="mx-1">⛓️</span>
+          <img id="selectWalletIcon" class="wallet-icon ms-1 d-none" alt="wallet">
+        </div>
+        <select id="hedgeSelect" class="form-select">
+          <option value="" disabled selected>-- Choose Hedge --</option>
+          {% for h in hedges %}
+          <option value="{{ h.id }}">{{ h.id }}</option>
+          {% endfor %}
+        </select>
+      </div>
+      <div class="col-md-8">
+        <label for="priceSlider" class="form-label"><strong>Simulated Price</strong></label>
+        <input type="range" id="priceSlider" class="form-range" step="0.01" disabled>
+        <div id="priceValue" class="mt-2 d-flex align-items-center">
+          <img id="priceAssetIcon" class="asset-icon me-1 d-none" alt="asset">
+          <strong id="priceText">Price: 0</strong>
+        </div>
+      </div>
+    </div>
+    <table class="table table-sm hedge-labs-table" id="evalTable">
+      <thead>
+        <tr>
+          <th><i class="fas fa-map-marker-alt me-1"></i>Position</th>
+          <th><i class="fas fa-dollar-sign me-1"></i>Value</th>
+          <th><i class="fas fa-route me-1"></i>Travel %</th>
+          <th><i class="fas fa-ruler me-1"></i>Liq&nbsp;Dist</th>
+          <th><i class="fas fa-fire me-1"></i>Heat</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+  </div>
+</div>
+
+<script>
+  window.initialHedges = {{ hedges | tojson }};
+</script>
+{% endblock %}
+
+{% block extra_scripts %}
+{{ super() }}
+<script src="{{ url_for('static', filename='js/hedge_labs.js') }}"></script>
+<script src="{{ url_for('static', filename='js/layout_mode.js') }}"></script>
+<script src="{{ url_for('static', filename='js/sonic_theme_toggle.js') }}"></script>
+{% endblock %}
+

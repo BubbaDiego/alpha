@@ -1,0 +1,6 @@
+2025/05/30-14:52:20.471 5810 Reusing MANIFEST C:\alpha1\auto_core\console_apps\playwright-data\Default\Local Storage\leveldb/MANIFEST-000001
+2025/05/30-14:52:20.474 5810 Recovering log #4
+2025/05/30-14:52:20.476 5810 Reusing old log C:\alpha1\auto_core\console_apps\playwright-data\Default\Local Storage\leveldb/000004.log 
+2025/05/30-15:14:23.403 597c Level-0 table #7: started
+2025/05/30-15:14:23.409 597c Level-0 table #7: 18841 bytes OK
+2025/05/30-15:14:23.413 597c Delete type=0 #4

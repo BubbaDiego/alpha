@@ -1,0 +1,14 @@
+.asset-icon,
+.wallet-icon {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.api-logo {
+  width: 20px;
+  height: 20px;
+  object-fit: contain;
+}
+

@@ -1,0 +1,221 @@
+{% extends "base.html" %}
+
+{% block title %}Alert Status{% endblock %}
+
+{% block extra_styles %}
+{{ super() }}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/sonic_dashboard.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/title_bar.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/sonic_themes.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/sonic_titles.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/dashboard_middle.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/liquidation_bars.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/alert_status.css') }}">
+{% endblock %}
+
+{% block content %}
+{% set title_text = 'Alert Status' %}
+{% include "title_bar.html" %}
+<div class="sonic-section-container sonic-section-middle mt-3">
+  <div class="sonic-content-panel">
+      <div class="alert-table">
+        <div class="section-title d-flex justify-content-between align-items-center">
+          <span>Alerts</span>
+          <div class="dropdown">
+            <a href="#" class="btn btn-light btn-sm dropdown-toggle" id="alertMenu" data-bs-toggle="dropdown" aria-expanded="false" title="Manage Alerts">
+              <i class="fas fa-ellipsis-v"></i>
+            </a>
+            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="alertMenu">
+              <li><a class="dropdown-item alert-add" href="#">Add Alerts</a></li>
+              <li><a class="dropdown-item alert-delete" href="#">Delete Alerts</a></li>
+              <li><a class="dropdown-item alert-update" href="#">Update Alert State</a></li>
+            </ul>
+          </div>
+        </div>
+        {% set type_icons = {
+          'pricethreshold': '💵',
+          'deltachange': '📊',
+          'travelpercentliquid': '🚨',
+          'time': '⏰',
+          'profit': '💰',
+          'heatindex': '🔥',
+          'totalvalue': '💰',
+          'totalsize': '📦',
+          'avgleverage': '🎚️',
+          'valuetocollateralratio': '⚖️',
+          'avgtravelpercent': '🚀',
+          'totalheat': '🔥',
+          'deathnail': '💀'
+        } %}
+        <div class="positions-table-wrapper">
+          <table class="positions-table alerts-table">
+        <thead>
+          <tr>
+            <th class="sortable left" data-col-index="0">Asset <span class="sort-indicator"></span></th>
+            <th class="sortable left" data-col-index="1">Position <span class="sort-indicator"></span></th>
+            <th class="sortable left" data-col-index="2">Type <span class="sort-indicator"></span></th>
+            <th class="sortable left" data-col-index="3">Class <span class="sort-indicator"></span></th>
+            <th class="sortable right" data-col-index="4">Current <span class="sort-indicator"></span></th>
+            <th class="sortable right" data-col-index="5">Trigger <span class="sort-indicator"></span></th>
+            <th class="sortable left" data-col-index="6">Level <span class="sort-indicator"></span></th>
+            <th class="sortable left" data-col-index="7">Status <span class="sort-indicator"></span></th>
+            <th class="sortable left" data-col-index="8">Wallet <span class="sort-indicator"></span></th>
+          </tr>
+        </thead>
+        <tbody>
+          {% if alerts %}
+            {% for alert in alerts %}
+            <tr data-alert-id="{{ alert.id }}">
+              <td class="left">
+                <span class="icon-inline">
+                  <img class="asset-icon" src="{{ url_for('static', filename='images/' + alert.asset_image) }}" alt="{{ alert.asset }}">
+                </span>
+                <span style="display:none">{{ alert.asset or 'N/A' }}</span>
+              </td>
+              <td class="left">{{ alert.position_type or 'N/A' }}</td>
+              <td class="left">{{ type_icons.get(alert.alert_type|lower, '❓') }}</td>
+              <td class="left">{{ alert.alert_class }}</td>
+              <td class="right">{{ "{:,.2f}".format(alert.evaluated_value or 0) }}</td>
+              <td class="right">{{ "{:,.2f}".format(alert.trigger_value or 0) }}</td>
+              <td class="left">{{ alert.level }}</td>
+              <td class="left">{{ alert.status }}</td>
+              {% set wallet_img = alert.wallet_image %}
+              {% if wallet_img and (wallet_img.startswith('http://') or wallet_img.startswith('https://') or wallet_img.startswith('/static/')) %}
+                <td class="left"><img class="wallet-icon" src="{{ wallet_img }}" alt="{{ alert.wallet_name or alert.asset }}"><span style="display:none">{{ alert.wallet_name or 'N/A' }}</span></td>
+              {% else %}
+                <td class="left"><img class="wallet-icon" src="{{ url_for('static', filename=wallet_img if wallet_img else 'images/' + alert.asset_image) }}" alt="{{ alert.wallet_name or alert.asset }}"><span style="display:none">{{ alert.wallet_name or 'N/A' }}</span></td>
+              {% endif %}
+            </tr>
+            {% endfor %}
+          {% else %}
+            <tr class="no-data-row"><td colspan="9" class="no-data">No alerts available.</td></tr>
+          {% endif %}
+        </tbody>
+      </table>
+        </div>
+      </div>
+  </div>
+  <div class="sonic-content-panel">
+      <div class="alert-bars">
+        <div class="section-title d-flex justify-content-between align-items-center">
+          <span>Proximity to Alert</span>
+          <a href="{{ url_for('system.list_alert_thresholds') }}" class="text-decoration-none" title="Alert Thresholds">
+            <i class="fas fa-cog"></i>
+          </a>
+        </div>
+        <div id="alertBars">
+      {% if alerts %}
+        {% for alert in alerts %}
+          {% if alert.threshold_progress is defined and alert.threshold_progress is not none %}
+            <div class="liq-row level-{{ alert.level|lower }}" data-alert-id="{{ alert.id }}">
+              {% set wallet_img = alert.wallet_image %}
+              {% if wallet_img and (wallet_img.startswith('http://') or wallet_img.startswith('https://') or wallet_img.startswith('/static/')) %}
+              <img class="wallet-icon" src="{{ wallet_img }}" alt="{{ alert.wallet_name or alert.asset }}" />
+              {% else %}
+              <img class="wallet-icon" src="{{ url_for('static', filename=wallet_img if wallet_img else 'images/' + alert.asset_image) }}" alt="{{ alert.wallet_name or alert.asset }}" />
+              {% endif %}
+            <div class="liq-progress-bar">
+              <div class="liq-bar-container">
+                <div class="liq-midline"></div>
+                {% set pct = alert.threshold_progress|float %}
+                {% if pct >= 0 %}
+                  <div class="liq-bar-fill positive" style="left:50%; width: {{ pct }}%;">
+                    <div class="travel-text">{{ pct|round(1) }}%</div>
+                  </div>
+                {% else %}
+                  <div class="liq-bar-fill negative" style="right:50%; width: {{ pct|abs }}%;">
+                    <div class="travel-text">{{ pct|round(1) }}%</div>
+                  </div>
+                {% endif %}
+              </div>
+              <div class="liq-flame-container">
+                {{ alert.level[0] if alert.level }}
+              </div>
+            </div>
+          </div>
+          {% endif %}
+        {% endfor %}
+      {% else %}
+        <p style="color:orange;">⚠️ No alerts to display.</p>
+      {% endif %}
+        </div>
+      </div>
+  </div>
+</div>
+{% endblock %}
+
+{% block extra_scripts %}
+{{ super() }}
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+  const table = document.querySelector(".alerts-table");
+  if (!table) return;
+  const headers = table.querySelectorAll("thead th.sortable");
+  const tbody = table.querySelector("tbody");
+  const barsContainer = document.getElementById("alertBars");
+
+  function syncRowHeights() {
+    const rows = tbody.querySelectorAll("tr[data-alert-id]");
+    rows.forEach(row => {
+      const id = row.getAttribute('data-alert-id');
+      const bar = barsContainer.querySelector(`[data-alert-id="${id}"]`);
+      if (bar) {
+        bar.style.height = row.getBoundingClientRect().height + 'px';
+      }
+    });
+  }
+
+  let currentSort = { col: 0, dir: "asc" };
+
+  function sortTable(colIndex, dir) {
+    const rows = Array.from(tbody.querySelectorAll("tr")).filter(r => !r.classList.contains("no-data-row"));
+    if (rows.length === 0) return;
+    rows.sort((a, b) => {
+      const getText = (row) => {
+        const cell = row.children[colIndex];
+        const text = cell.textContent.replace(/[,%]/g, "").trim();
+        const num = parseFloat(text.replace(/[^0-9.-]/g, ""));
+        return isNaN(num) ? text.toLowerCase() : num;
+      };
+      let aVal = getText(a);
+      let bVal = getText(b);
+      if (typeof aVal === "number" && typeof bVal === "number") {
+        return dir === "asc" ? aVal - bVal : bVal - aVal;
+      }
+      return dir === "asc" ? aVal.localeCompare(bVal) : bVal.localeCompare(aVal);
+    });
+    rows.forEach(row => {
+      tbody.appendChild(row);
+      const alertId = row.getAttribute('data-alert-id');
+      const bar = barsContainer.querySelector(`[data-alert-id="${alertId}"]`);
+      if (bar) barsContainer.appendChild(bar);
+    });
+    syncRowHeights();
+    headers.forEach((th, i) => {
+      th.classList.remove("sorted-asc", "sorted-desc");
+      th.querySelector(".sort-indicator").textContent = "";
+      if (i === colIndex) {
+        th.classList.add(dir === "asc" ? "sorted-asc" : "sorted-desc");
+        th.querySelector(".sort-indicator").textContent = dir === "asc" ? "▲" : "▼";
+      }
+    });
+  }
+
+  headers.forEach((th, i) => {
+    th.addEventListener("click", function() {
+      let dir = "desc";
+      if (currentSort.col === i && currentSort.dir === "desc") dir = "asc";
+      currentSort = { col: i, dir };
+      sortTable(i, dir);
+    });
+  });
+
+  sortTable(currentSort.col, currentSort.dir);
+  window.addEventListener('resize', syncRowHeights);
+  syncRowHeights();
+});
+</script>
+<script src="{{ url_for('static', filename='js/sonic_theme_toggle.js') }}"></script>
+<script src="{{ url_for('static', filename='js/layout_mode.js') }}"></script>
+<script src="{{ url_for('static', filename='js/alert_status_actions.js') }}"></script>
+{% endblock %}

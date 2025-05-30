@@ -1,0 +1,63 @@
+<div id="toastContainer" class="toast-container" style="position: fixed; top: 1.5rem; right: 2rem; z-index: 3000;"></div>
+<nav class="title-bar d-flex justify-content-between align-items-center px-3 py-2">
+  <div class="nav-bar d-flex align-items-center gap-2">
+    <a class="btn nav-btn" href="/" title="Home"><span>🏠</span></a>
+    <a class="btn nav-btn" href="{{ url_for('positions.list_positions') }}" title="Positions"><span>📊</span></a>
+    <a class="btn nav-btn" href="/sonic_labs/hedge_labs" title="Hedge Labs"><span>🧪</span></a>
+    <a class="btn nav-btn" href="/sonic_labs/playwright_test" title="Playwright Test"><span>🎭</span></a>
+    <a class="btn nav-btn" href="/alerts/status_page" title="Alert Status"><span>🚨</span></a>
+    <a class="btn nav-btn" href="/sonic_labs/hedge_report" title="Hedge Report"><span>🦔</span></a>
+    <a class="btn nav-btn" href="/system/wallets" title="Wallet Manager"><span>💼</span></a>
+    <a class="btn nav-btn" href="{{ url_for('chat_gpt_bp.oracle_ui') }}" title="GPT Oracle"><span>🧙</span></a>
+  </div>
+  <div class="title-bar-center text-center" style="font-size:1.3rem;font-weight:bold;letter-spacing:0.04em;">
+    {% if title_image %}
+    <div class="sonic-title-pill {{ title_theme|default('default') }} mx-2">
+      <img src="{{ title_image }}" alt="{{ title_text or 'title' }}" class="sonic-title-image">
+    </div>
+    {% elif title_text %}
+    <div class="sonic-title-pill {{ title_theme|default('default') }} mx-2">{{ title_text }}</div>
+    {% endif %}
+    {% if profit_badge_value %}
+    <span class="profit-badge badge text-bg-success ms-2">{{ profit_badge_value }}</span>
+    {% endif %}
+  </div>
+  <div class="title-bar-actions d-flex align-items-center gap-3 ms-auto">
+    <div class="config-bar d-flex align-items-center gap-2">
+      <a id="layoutModeToggle" class="btn config-btn layout-toggle-btn" href="#" role="button" title="Switch View Mode">
+        <span id="currentLayoutIcon">🖥️</span>
+      </a>
+      <a id="themeModeToggle" class="btn config-btn theme-btn" href="#" role="button" title="Switch Theme">
+        <span id="currentThemeIcon">☀️</span>
+      </a>
+    </div>
+    <div class="cyclone-bar d-flex align-items-center gap-2 ms-3">
+        <a class="btn nav-icon-btn cyclone-btn" href="#" role="button" data-action="sync"   title="Jupiter Sync"><span>🪐</span></a>
+        <a class="btn nav-icon-btn cyclone-btn" href="#" role="button" data-action="market" title="Market Update"><span>💲</span></a>
+        <a class="btn nav-icon-btn cyclone-btn" href="#" role="button" data-action="full"  title="Full Cycle"><span>🌪️</span></a>
+        <a class="btn nav-icon-btn cyclone-btn" href="#" role="button" data-action="wipe"  title="Wipe All"><span>🗑️</span></a>
+      </div>
+    <div id="refreshDial" class="refresh-dial ms-3" title="UI auto-refresh">
+      <svg viewBox="0 0 36 36">
+        <circle class="bg" cx="18" cy="18" r="16" />
+        <circle class="progress" cx="18" cy="18" r="16" />
+      </svg>
+      <span class="timer-number"></span>
+    </div>
+    <div class="dropdown ms-3">
+      <a class="btn config-btn dropdown-toggle settings-btn" href="#" role="button" id="settingsDropdown" data-bs-toggle="dropdown" aria-expanded="false" title="Settings">
+        <span>⚙️</span>
+      </a>
+      <ul class="dropdown-menu" aria-labelledby="settingsDropdown">
+        <li><a class="dropdown-item" href="/system/themes/editor"><span>🎨</span> Theme Builder</a></li>
+        <li><a class="dropdown-item" href="/system/database_viewer"><span>🗃️</span> Database Viewer</a></li>
+        <li><a class="dropdown-item" href="/system/alert_thresholds"><span>📏</span> Alert Thresholds</a></li>
+        <li><a class="dropdown-item" href="/system/wallets"><span>💼</span> Wallet Manager</a></li>
+        <li><a class="dropdown-item" href="/system/xcom_config"><span>🔌</span> XCom Config</a></li>
+      </ul>
+    </div>
+  </div>
+  </nav>
+  <script src="{{ url_for('static', filename='js/refresh_timer.js') }}" defer></script>
+  <script src="{{ url_for('static', filename='js/title_bar.js') }}" defer></script>
+

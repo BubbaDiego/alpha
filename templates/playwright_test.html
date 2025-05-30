@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% block title %}Playwright Test{% endblock %}
+
+{% block extra_styles %}
+{{ super() }}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/title_bar.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/sonic_dashboard.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/sonic_themes.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/sonic_titles.css') }}">
+{% endblock %}
+
+{% block content %}
+{% set title_text = 'Playwright Test' %}
+{% include "title_bar.html" %}
+<div class="container py-4">
+  <h2>Phantom / Playwright Test</h2>
+  <p>This page runs a simple Playwright workflow using the Phantom wallet.</p>
+  <button id="runTestBtn" class="btn btn-primary">Run Test</button>
+</div>
+{% endblock %}
+
+{% block extra_scripts %}
+{{ super() }}
+<script src="{{ url_for('static', filename='js/sonic_theme_toggle.js') }}"></script>
+<script src="{{ url_for('static', filename='js/playwright_test.js') }}"></script>
+<script src="{{ url_for('static', filename='js/title_bar.js') }}" defer></script>
+{% endblock %}

@@ -1,0 +1,257 @@
+{% extends "base.html" %}
+
+{% block title %}The Oracle{% endblock %}
+
+{% block extra_styles %}
+{{ super() }}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/title_bar.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/sonic_themes.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/sonic_titles.css') }}">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IM+Fell+English+SC&display=swap">
+<style>
+  body {
+    margin: 0;
+    background-color: var(--bg);
+    background-image: url('{{ url_for('static', filename='images/oracle_wall.jpg') }}');
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: cover;
+    font-family: 'IM Fell English SC', serif;
+    color: #e0e0ff;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 100vh;
+    overflow: hidden;
+  }
+
+  h1 {
+    text-align: center;
+    margin: 1rem;
+    font-size: 2.5rem;
+    color: #c7bfff;
+    text-shadow: 0 0 15px #7f00ff, 0 0 10px #7f00ff;
+  }
+
+  .container {
+    display: flex;
+    width: 90%;
+    max-width: 1200px;
+    height: 85vh;
+    gap: 2rem;
+  }
+
+  .oracle-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+  }
+
+  .panel {
+    flex: 1;
+    background: rgba(25, 25, 50, 0.9);
+    border: 1px solid #5f00ff;
+    border-radius: 12px;
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 0 20px #5f00ff88;
+    overflow: hidden;
+    position: relative;
+  }
+
+  .oracle-btns {
+    display: flex;
+    justify-content: space-around;
+    margin-bottom: 1rem;
+  }
+
+  .oracle-btn {
+    background: transparent;
+    border: 1px solid #b4a0ff;
+    color: #e0e0ff;
+    padding: 0.5rem 1rem;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 1.2rem;
+    transition: all 0.3s ease-in-out;
+  }
+
+  .oracle-btn:hover {
+    background-color: #5f00ff33;
+    border-color: #fff;
+  }
+
+  .oracle-output,
+  .chat-window {
+    flex-grow: 1;
+    overflow-y: auto;
+    background: rgba(0, 0, 0, 0.3);
+    padding: 1rem;
+    border-radius: 10px;
+    font-family: monospace;
+    position: relative;
+  }
+
+  .chat-message {
+    margin: 0.5rem 0;
+  }
+
+  .chat-message.user {
+    color: #b0ffb0;
+  }
+
+  .chat-message.bot {
+    color: #a0c4ff;
+  }
+
+  .typing-indicator {
+    position: absolute;
+    bottom: 1rem;
+    left: 1rem;
+    font-size: 0.85rem;
+    color: #aaa;
+    font-style: italic;
+  }
+
+  .input-area {
+    margin-top: 1rem;
+    display: flex;
+    gap: 0.5rem;
+  }
+
+  .input-area input {
+    flex: 1;
+    padding: 0.75rem;
+    font-size: 1rem;
+    border-radius: 8px;
+    border: none;
+    outline: none;
+  }
+
+  .input-area button {
+    padding: 0.75rem 1rem;
+    font-size: 1rem;
+    border-radius: 8px;
+    border: none;
+    background: #5f00ff;
+    color: #fff;
+    cursor: pointer;
+    transition: background 0.3s;
+  }
+
+  .input-area button:hover {
+    background: #7f00ff;
+  }
+
+  #tokenInfo {
+    font-size: 0.8rem;
+    opacity: 0.7;
+    text-align: right;
+    margin-top: 0.3rem;
+  }
+
+</style>
+{% endblock %}
+
+{% block content %}
+{% set title_text = 'The Oracle' %}
+{% include "title_bar.html" %}
+
+
+<div class="oracle-wrapper">
+  <h1>🔮 Speak to the Oracle</h1>
+  <div class="container">
+    <div class="panel">
+      <select id="strategySelect" class="form-select mb-2">
+        <option value="">Default</option>
+        <option value="cautious">Cautious</option>
+        <option value="aggressive">Aggressive</option>
+      </select>
+      <div class="oracle-btns">
+        <button class="oracle-btn" data-topic="portfolio">📂</button>
+        <button class="oracle-btn" data-topic="alerts">🚨</button>
+        <button class="oracle-btn" data-topic="prices">💲</button>
+        <button class="oracle-btn" data-topic="system">🖥️</button>
+      </div>
+      <div id="oracleOutput" class="oracle-output">Ask a question to receive wisdom from the stars.</div>
+    </div>
+
+    <div class="panel">
+      <div id="chatWindow" class="chat-window"></div>
+      <div class="typing-indicator" id="typingIndicator" style="display:none;">The spirits are whispering...</div>
+      <div class="input-area">
+        <input type="text" id="userInput" placeholder="Speak your query...">
+        <button id="sendBtn">Send</button>
+      </div>
+      <div id="tokenInfo"></div>
+    </div>
+</div>
+</div>
+{% endblock %}
+
+{% block extra_scripts %}
+{{ super() }}
+<script src="{{ url_for('static', filename='js/title_bar.js') }}" defer></script>
+<script src="{{ url_for('static', filename='js/sonic_theme_toggle.js') }}"></script>
+<script src="{{ url_for('static', filename='js/layout_mode.js') }}"></script>
+<script>
+  const chatWindow = document.getElementById('chatWindow');
+  const userInput = document.getElementById('userInput');
+  const sendBtn = document.getElementById('sendBtn');
+  const tokenInfo = document.getElementById('tokenInfo');
+  const oracleBtns = document.querySelectorAll('.oracle-btn');
+  const strategySelect = document.getElementById('strategySelect');
+  const oracleOutput = document.getElementById('oracleOutput');
+  const typingIndicator = document.getElementById('typingIndicator');
+  const oracleUrlTemplate = "{{ url_for('gpt_bp.oracle', topic='TOPIC_PLACEHOLDER') }}";
+
+
+  function addMessage(content, role) {
+    const div = document.createElement('div');
+    div.className = `chat-message ${role}`;
+    div.textContent = content;
+    chatWindow.appendChild(div);
+    chatWindow.scrollTop = chatWindow.scrollHeight;
+  }
+
+  sendBtn.addEventListener('click', async () => {
+    const message = userInput.value.trim();
+    if (!message) return;
+    addMessage(message, 'user');
+    userInput.value = '';
+    typingIndicator.style.display = 'block';
+
+    const res = await fetch('{{ url_for("chat_gpt_bp.chat_post") }}', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ message })
+    });
+
+    const data = await res.json();
+    addMessage(data.reply, 'bot');
+    typingIndicator.style.display = 'none';
+
+    if (data.usage) {
+      tokenInfo.textContent = `Prompt: ${data.usage.prompt_tokens}, Completion: ${data.usage.completion_tokens}, Total: ${data.usage.total_tokens}`;
+    }
+  });
+
+  oracleBtns.forEach((btn) => {
+    btn.addEventListener('click', async () => {
+      const topic = btn.getAttribute('data-topic');
+      oracleOutput.textContent = "Consulting the spirits...";
+      let url = oracleUrlTemplate.replace('TOPIC_PLACEHOLDER', encodeURIComponent(topic));
+      const strategy = strategySelect.value;
+      if (strategy) {
+        url += `?strategy=${encodeURIComponent(strategy)}`;
+      }
+      const res = await fetch(url);
+      const data = await res.json();
+      oracleOutput.textContent = data.reply;
+    });
+  });
+</script>
+{% endblock %}
+

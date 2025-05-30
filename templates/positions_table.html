@@ -1,0 +1,201 @@
+<link rel="stylesheet" href="{{ url_for('static', filename='css/dashboard_middle.css') }}">
+<div class="section-title">Positions
+  <span class="oracle-icon" data-topic="positions" title="Ask the Oracle">🔮</span>
+</div>
+<div class="positions-table-wrapper">
+  <table class="positions-table">
+    <thead>
+      <tr>
+        <th class="sortable left" data-col-index="0">Asset <span class="sort-indicator"></span></th>
+        <th class="sortable right" data-col-index="1">Profit <span class="sort-indicator"></span></th>
+        <th class="sortable right" data-col-index="2">Collateral <span class="sort-indicator"></span></th>
+        <th class="sortable right" data-col-index="3">Value <span class="sort-indicator"></span></th>
+        <th class="sortable right" data-col-index="4">Size <span class="sort-indicator"></span></th>
+        <th class="sortable right" data-col-index="5">Leverage <span class="sort-indicator"></span></th>
+      </tr>
+    </thead>
+    <tbody>
+      {% if positions %}
+        {% for pos in positions|sort(attribute='size', reverse=True) %}
+        <tr>
+          <td class="left">
+            {% if pos.asset_type == 'BTC' %}
+              <img src="{{ url_for('static', filename='images/btc_logo.png') }}" alt="BTC" class="asset-icon">
+            {% elif pos.asset_type == 'ETH' %}
+              <img src="{{ url_for('static', filename='images/eth_logo.png') }}" alt="ETH" class="asset-icon">
+            {% elif pos.asset_type == 'SOL' %}
+              <img src="{{ url_for('static', filename='images/sol_logo.png') }}" alt="SOL" class="asset-icon">
+            {% else %}
+              {{ pos.asset_type }}
+            {% endif %}
+          </td>
+          <td class="right">{{ "{:,.0f}".format(pos.pnl_after_fees_usd or 0) }}</td>
+          <td class="right">{{ "{:,.0f}".format(pos.collateral or 0) }}</td>
+          <td class="right">{{ "{:,.0f}".format(pos.value or 0) }}</td>
+          <td class="right">{{ "{:,.0f}".format(pos.size or 0) }}</td>
+          <td class="right">{{ "{:,.2f}".format(pos.leverage or 0) }}</td>
+        </tr>
+        {% endfor %}
+      {% else %}
+        <tr><td colspan="6" class="no-data">No positions available.</td></tr>
+      {% endif %}
+    </tbody>
+    {% if positions %}
+    <tfoot>
+      <tr>
+        <th class="left">Totals</th>
+        <th class="right">{{ "{:,.0f}".format(positions|sum(attribute='pnl_after_fees_usd')) }}</th>
+        <th class="right">{{ "{:,.0f}".format(totals.total_collateral or 0) }}</th>
+        <th class="right">{{ "{:,.0f}".format(totals.total_value or 0) }}</th>
+        <th class="right">{{ "{:,.0f}".format(totals.total_size or 0) }}</th>
+        <th class="right">{{ "{:,.2f}".format(totals.avg_leverage or 0) }}</th>
+      </tr>
+    </tfoot>
+    {% endif %}
+  </table>
+</div>
+
+<style>
+.positions-table-wrapper {
+  width: 100%;
+  overflow-x: auto;
+  background: transparent;
+  padding: 0;
+  margin: 0;
+  min-height: 200px;
+}
+
+.positions-table {
+  background: var(--container-bg);
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  border-collapse: collapse;
+  background: transparent;
+  font-size: 1rem;
+}
+
+.positions-table thead th {
+  background: #222e3a;
+  color: #fff;
+  font-weight: 700;
+  padding: 0.7em 0.6em;
+  border-bottom: 2px solid #c0d7f5;
+  user-select: none;
+  cursor: pointer;
+  vertical-align: middle;
+}
+
+.positions-table th.left,
+.positions-table td.left { text-align: left; }
+.positions-table th.right,
+.positions-table td.right { text-align: right; }
+
+.positions-table tbody td {
+  background: var(--container-bg);
+  color: #111;
+  padding: 0.7em 0.6em;
+  border-bottom: 1px solid #e6ecf8;
+  vertical-align: middle;
+}
+
+.positions-table tfoot th {
+  background: #f6fafd;
+  color: #222;
+  font-weight: bold;
+  border-top: 2px solid #c0d7f5;
+  text-align: right;
+}
+.positions-table tfoot th.left { text-align: left; }
+
+.asset-icon {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  object-fit: cover;
+  display: inline-block;
+  vertical-align: middle;
+  margin-right: 7px;
+}
+
+.sort-indicator {
+  font-size: 1em;
+  margin-left: 4px;
+  color: #fffbe6;
+  opacity: 0.8;
+}
+th.sorted-asc .sort-indicator { color: #ffe97a; }
+th.sorted-desc .sort-indicator { color: #ffe97a; }
+
+.no-data {
+  text-align: center;
+  color: #888;
+  padding: 1.2rem;
+  font-style: italic;
+}
+@media (prefers-color-scheme: dark), :root[data-theme="dark"] {
+  .positions-table tbody td {
+    color: #ffffff;
+  }
+}
+:root[data-theme="dark"] .positions-table tbody td {
+  color: #ffffff !important;
+}
+</style>
+
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+  const table = document.querySelector(".positions-table");
+  if (!table) return;
+  const headers = table.querySelectorAll("thead th.sortable");
+  const tbody = table.querySelector("tbody");
+
+  let currentSort = { col: 4, dir: "desc" }; // Default sort on 'Size'
+
+  function sortTable(colIndex, dir) {
+    const rows = Array.from(tbody.querySelectorAll("tr")).filter(r => !r.classList.contains("no-data-row"));
+    if (rows.length === 0) return;
+
+    rows.sort((a, b) => {
+      const getText = (row) => {
+        const cell = row.children[colIndex];
+        if (colIndex === 0) {
+          const img = cell.querySelector("img");
+          return img ? img.alt : cell.textContent.trim();
+        }
+        const text = cell.textContent.replace(/[,%]/g, "").trim();
+        const num = parseFloat(text.replace(/[^0-9.-]/g, ""));
+        return isNaN(num) ? text : num;
+      };
+      let aVal = getText(a);
+      let bVal = getText(b);
+      if (typeof aVal === "number" && typeof bVal === "number") {
+        return dir === "asc" ? aVal - bVal : bVal - aVal;
+      }
+      return dir === "asc"
+        ? aVal.toString().localeCompare(bVal)
+        : bVal.toString().localeCompare(aVal);
+    });
+    rows.forEach(row => tbody.appendChild(row));
+    headers.forEach((th, i) => {
+      th.classList.remove("sorted-asc", "sorted-desc");
+      th.querySelector(".sort-indicator").textContent = "";
+      if (i === colIndex) {
+        th.classList.add(dir === "asc" ? "sorted-asc" : "sorted-desc");
+        th.querySelector(".sort-indicator").textContent = dir === "asc" ? "▲" : "▼";
+      }
+    });
+  }
+
+  headers.forEach((th, i) => {
+    th.addEventListener("click", function() {
+      let dir = "desc";
+      if (currentSort.col === i && currentSort.dir === "desc") dir = "asc";
+      currentSort = { col: i, dir };
+      sortTable(i, dir);
+    });
+  });
+
+  sortTable(currentSort.col, currentSort.dir);
+});
+</script>

@@ -1,0 +1,12 @@
+{
+  "name": "Angie",
+  "profile": "Aggressive",
+  "strategy_weights": {
+    "dynamic_hedging": 0.3,
+    "profit_management": 0.2
+  },
+  "moods": {
+    "high_heat": "excited"
+  },
+  "description": "High-risk persona designed to exploit volatility for maximum gain."
+}

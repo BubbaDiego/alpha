@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+{% block title %}Sonic Dashboard{% endblock %}
+
+{% block head %}
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/sonic_dashboard.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/title_bar.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/sonic_themes.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/sonic_titles.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/liquidation_bars.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/dashboard_middle.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/dashboard_parallax.css') }}">
+
+  <!-- Add any additional CSS files here -->
+{% endblock %}
+
+{% block content %}
+
+  {% set title_text = 'Sonic' %}
+
+  {% set title_theme = 'dashboard' %}
+  {# Older Jinja versions do not support passing variables with the
+     `include` statement. We set the variables above and rely on the
+     default context propagation. #}
+  {% include "title_bar.html" %}
+  {% include "dash_top.html" %}
+  {% include "dash_middle.html" %}
+  {% include "dash_bottom.html" %}
+
+  <!-- JS: Layout Mode Toggle -->
+  <script src="{{ url_for('static', filename='js/layout_mode.js') }}"></script>
+  <!-- Theme toggle logic is centralized in sonic_theme_toggle.js -->
+  <script src="{{ url_for('static', filename='js/sonic_theme_toggle.js') }}"></script>
+  <!-- The title bar includes title_bar.js which already attaches
+       click handlers to the `.cyclone-btn` elements and displays
+       Bootstrap toasts. The legacy inline handler below duplicated
+       that logic, causing multiple API calls and duplicate toasts.
+       It has been removed to prevent double execution. -->
+  <script src="{{ url_for('static', filename='js/dashboard_top.js') }}"></script>
+  <script src="{{ url_for('static', filename='js/dashboard_middle.js') }}"></script>
+  <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+  <script>
+    {# Default to empty structures when context data is missing to avoid
+       template errors during lightweight tests. #}
+    window.graphData = {{ graph_data | default({}) | tojson }};
+    window.sizeData = {{ size_composition | default({}) | tojson }};
+  </script>
+  <script src="{{ url_for('static', filename='js/dashboard_bottom.js') }}"></script>
+  <script src="{{ url_for('static', filename='js/dashboard_oracle.js') }}"></script>
+  <script src="{{ url_for('static', filename='js/size_pie.js') }}"></script>
+  <script src="{{ url_for('static', filename='js/debug_outlines.js') }}"></script>
+  <script src="{{ url_for('static', filename='js/dashboard_parallax.js') }}"></script>
+{% endblock %}

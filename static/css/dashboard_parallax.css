@@ -1,0 +1,37 @@
+/* Parallax effect for Sonic Dashboard page */
+body.dashboard-parallax {
+  /* Use theme-provided wallpaper for dashboard background */
+  background-image: var(--body-bg-image);
+  background-attachment: fixed;
+  background-size: cover;
+  background-position: center;
+}
+
+body.dashboard-parallax::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: inherit;
+  background-size: inherit;
+  background-position: inherit;
+  transform: translateZ(-1px) scale(1.5);
+  z-index: -1;
+  pointer-events: none;
+}
+
+/* Start zoomed in and animate to normal scale */
+body.dashboard-parallax.zoom-out::before {
+  animation: zoomOutParallax 1s ease-out forwards;
+}
+
+@keyframes zoomOutParallax {
+  from {
+    transform: translateZ(-1px) scale(1.5);
+  }
+  to {
+    transform: translateZ(-1px) scale(1);
+  }
+}

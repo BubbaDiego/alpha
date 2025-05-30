@@ -1,0 +1,97 @@
+{% extends "base.html" %}
+
+{% block title %}Alert Matrix{% endblock %}
+
+{% block extra_styles %}
+{{ super() }}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/alert_matrix.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/title_bar.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/sonic_titles.css') }}">
+{% endblock %}
+
+{% block content %}
+{% set title_text = 'Alert Matrix' %}
+{% include "title_bar.html" %}
+<div class="container-fluid pt-4">
+
+  <!-- Alert Matrix Card -->
+  <div class="card alert-matrix-card">
+    <div class="card-header alert-matrix-header d-flex align-items-center justify-content-between">
+
+      <h3 class="card-title">Alert Matrix</h3>
+
+      <div class="d-flex align-items-center gap-2">
+        <input type="checkbox" id="toggleAllAlerts" title="Toggle All Alerts" class="form-check-input">
+
+        <div class="card-tools d-flex align-items-center">
+          <a id="refreshAlerts" href="#" class="btn btn-light btn-sm" title="Refresh Alerts">
+            <i class="fas fa-sync-alt"></i>
+          </a>
+          <div class="dropdown ms-2">
+            <a id="createAllAlerts" href="#" class="btn btn-light btn-sm dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false" title="Create Alerts">
+              <i class="fas fa-plus-circle"></i>
+            </a>
+            <ul class="dropdown-menu dropdown-menu-end">
+              <li><a class="dropdown-item" href="#" data-add-type="position">Add Position Alerts</a></li>
+              <li><a class="dropdown-item" href="#" data-add-type="market">Add Market Alerts</a></li>
+              <li><a class="dropdown-item" href="#" data-add-type="system">Add System Alerts</a></li>
+              <li><a class="dropdown-item" href="#" data-add-type="all">Add All</a></li>
+            </ul>
+          </div>
+          <a id="alertSettings" href="{{ url_for('system.list_alert_thresholds') }}" class="btn btn-light btn-sm ms-2" title="Alert Settings">
+            <i class="fas fa-sliders-h"></i>
+          </a>
+        </div>
+
+      </div>
+
+    </div>
+
+    <div class="card-body">
+      <div class="row">
+        {% for alert in alerts %}
+          {% include "components/alert_card.html" %}
+        {% endfor %}
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Hedge Matrix Card -->
+  <div class="card hedge-matrix-card mt-4">
+    <div class="card-header">
+      <h3 class="card-title">Hedge Matrix</h3>
+    </div>
+    <div class="card-body">
+      {% if hedges and hedges|length > 0 %}
+        <table class="table table-bordered table-hover">
+          <thead class="table-light">
+            <tr>
+              <th>Hedge ID</th>
+              <th>Total Long Size</th>
+              <th>Total Short Size</th>
+              <th>Long Heat Index</th>
+              <th>Short Heat Index</th>
+              <th>Total Heat Index</th>
+              <th>Notes</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for hedge in hedges %}
+              {% include "components/hedge_card.html" %}
+            {% endfor %}
+          </tbody>
+        </table>
+      {% else %}
+        <div class="alert alert-info">No hedges found.</div>
+      {% endif %}
+    </div>
+  </div>
+
+</div>
+{% endblock %}
+
+{% block extra_scripts %}
+{{ super() }}
+<script src="{{ url_for('static', filename='js/alert_matrix.js') }}"></script>
+{% endblock %}

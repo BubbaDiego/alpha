@@ -1,0 +1,32 @@
+<div class="section-title">Portfolio
+  <span class="oracle-icon" data-topic="portfolio" title="Ask the Oracle">🔮</span>
+</div>
+<div class="card-flex">
+    {% set title_to_key = {
+        'value': 'total_value',
+        'leverage': 'avg_leverage',
+        'size': 'total_size',
+        'ratio': 'value_to_collateral_ratio',
+        'travel': 'avg_travel_percent'
+    } %}
+    {% for item in status_items %}
+      <div class="flip-card">
+        <div class="flip-card-inner">
+          <div class="flip-card-front status-card {{ item.color }}">
+            <div class="label">{{ item.title }}</div>
+            <div class="icon">{{ item.icon }}</div>
+            <div class="value">{{ item.value }}</div>
+          </div>
+          <div class="flip-card-back status-card {{ item.color }}">
+            {% set key = title_to_key.get(item.title.lower(), item.title.lower().replace(' ', '_')) %}
+            {% set thresholds = portfolio_limits.get(key, {}) %}
+            <div class="thresholds">
+              <div><span class="dot green"></span> Low: {{ thresholds.low }}</div>
+              <div><span class="dot yellow"></span> Med: {{ thresholds.medium }}</div>
+              <div><span class="dot red"></span> High: {{ thresholds.high }}</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    {% endfor %}
+</div>

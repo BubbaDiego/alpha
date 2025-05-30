@@ -1,0 +1,9 @@
+{
+  "name": "profit_management",
+  "description": "Balanced strategy focusing on maximizing profits while managing risk.",
+  "modifiers": {
+    "profit_focus": "balanced",
+    "risk_level": "moderate"
+  },
+  "instructions": "Provide guidance to enhance profits without excessive risk."
+}

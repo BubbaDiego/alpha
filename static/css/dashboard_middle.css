@@ -1,0 +1,72 @@
+/* ===== Dashboard Middle Layout (Side by Side, Bulletproof) ===== */
+
+/* Parent flex row for the two containers */
+.dashboard-middle-flex {
+  display: flex;
+  flex-direction: row;
+  gap: 2.2rem;
+  width: 100%;
+  align-items: stretch;
+  justify-content: center;
+  overflow-x: auto;        /* Allow horizontal scroll if squeezed too much */
+  min-width: 0;            /* Fix for flex children overflow */
+}
+
+/* Each half of the middle row */
+.dashboard-middle-half {
+  flex: 1 1 320px;         /* Allow to grow and shrink, with sensible minimum */
+  min-width: 240px;        /* Lower min-width lets it fit on smaller screens */
+  max-width: 100%;
+  display: flex;
+  flex-direction: column;
+  min-height: 1px;
+  min-width: 0;            /* CRITICAL: prevents flex overflow clipping */
+}
+
+/* The card container */
+.dashboard-section {
+  flex: 1 1 auto;
+  min-width: 0;            /* CRITICAL for child table/grid overflow! */
+  min-height: 1px;
+  background: var(--card-bg, #fff);
+  border-radius: 14px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  padding: 1.2rem 1.3rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  margin-bottom: 0;
+  overflow: visible;
+}
+
+/* Section titles inside the cards */
+.section-title {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 1.25rem;
+  font-weight: bold;
+  margin-bottom: 1.2rem;
+  letter-spacing: 0.04em;
+  color: var(--panel-title);
+  background: transparent;
+  border: none;
+  padding: 0;
+  position: static;
+}
+
+/* Responsive: Stack vertically on tablet/mobile */
+@media (max-width: 950px) {
+  .dashboard-middle-flex {
+    flex-direction: column;
+    gap: 1.3rem;
+    min-width: 0;
+  }
+  .dashboard-middle-half {
+    min-width: 0;
+    width: 100%;
+    border-radius: 9px;
+  }
+  .dashboard-section {
+    padding: 0.7rem 0.6rem;
+    border-radius: 9px;
+  }
+}

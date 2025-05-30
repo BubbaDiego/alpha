@@ -1,0 +1,12 @@
+{
+  "name": "Nina",
+  "profile": "Neutral",
+  "strategy_weights": {
+    "dynamic_hedging": 0.5,
+    "profit_management": 0.6
+  },
+  "moods": {
+    "high_heat": "stable"
+  },
+  "description": "Balanced persona seeking a moderate risk-reward ratio with tactical flexibility."
+}

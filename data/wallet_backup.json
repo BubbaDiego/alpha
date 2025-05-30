@@ -1,0 +1,23 @@
+[
+  {
+    "name": "R2Vault",
+    "public_address": "Gwk8DdAZPyonAcxfJDs7fZazC2bDKmpASWsBEbtxvAY6",
+    "private_address": "",
+    "image_path": "\\static\\images\\r2vault.jpg",
+    "balance": 1.23
+  },
+  {
+    "name": "VaderVault",
+    "public_address": "EpyTaz2oq6nLcXRJivqGGft4uH467VToM5TLnP1VEaAq",
+    "private_address": "",
+    "image_path": "/static/uploads/wallets/vadervault.jpg",
+    "balance": 0.0
+  },
+  {
+    "name": "LandoVault",
+    "public_address": "6vMjsGU63evYuwwGsDHBRnKs1stALR7SYN5V57VZLXca\t",
+    "private_address": "",
+    "image_path": "/static/uploads/wallets/landovault.jpg",
+    "balance": 0.0
+  }
+]

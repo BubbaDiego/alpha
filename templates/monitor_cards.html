@@ -1,0 +1,63 @@
+<div class="section-title">Monitor
+  <span class="oracle-icon" data-topic="system" title="Ask the Oracle">🔮</span>
+</div>
+<div class="card-flex">
+    {% for item in monitor_items %}
+      <div class="flip-card">
+        <div class="flip-card-inner">
+          <div class="flip-card-front status-card monitor-style {{ item.color }}">
+              <div class="label">{{ item.title }}</div>
+              <div class="icon">{{ item.icon }}</div>
+              <div class="value">
+                <span class="monitor-time">{{ item.value.split('\n')[0] }}</span>
+                <span class="monitor-date">{{ item.value.split('\n')[1] }}</span>
+              </div>
+              <div class="led-dot {{ item.color }}"></div>
+            </div>
+          <div class="flip-card-back status-card monitor-style {{ item.color }}">
+            {% if item.title == "Price" %}
+              <strong>Status:</strong>
+              {% if price_monitor_status == 'Success' %}✅{% else %}❌{% endif %}
+              <ul class="mini-list">
+                {% for asset in price_monitor_history %}
+                  <li>{{ asset.icon }} <span class="text-bold">{{ asset.label }}:</span>
+                    ${{ asset.value }}
+                  </li>
+                {% endfor %}
+              </ul>
+            {% elif item.title == "Positions" %}
+              <strong>Status:</strong>
+              {% if positions_monitor_status == 'Success' %}✅{% else %}❌{% endif %}
+              <ul class="mini-list">
+                {% for sync in positions_monitor_history %}
+                  <li>+{{ sync.imported }} <span style="color:#ffaa1a;">Skipped: {{ sync.skipped }}</span>
+                    <span style="color:#d72d36;">Errors: {{ sync.errors }}</span>
+                  </li>
+                {% endfor %}
+              </ul>
+            {% elif item.title == "Operations" %}
+              <strong>Status:</strong>
+              {% if operations_monitor_status == 'Success' %}✅{% else %}❌{% endif %}
+              <ul class="mini-list">
+                {% for op in operations_monitor_history %}
+                  <li>
+                    {% if op.post_success %}✅{% else %}❌{% endif %}
+                    {{ op.duration_seconds }}s
+                    {% if op.error %}<span style="color:#d72d36;">Error: {{ op.error }}</span>{% endif %}
+                  </li>
+                {% endfor %}
+              </ul>
+            {% elif item.title == "Xcom" %}
+              <strong>Status:</strong>
+              {% if xcom_monitor_status == 'Success' %}✅{% else %}❌{% endif %}
+              <ul class="mini-list">
+                {% for xc in xcom_monitor_history %}
+                  <li>{{ xc.comm_type }} from {{ xc.source }} @ {{ xc.timestamp }}</li>
+                {% endfor %}
+              </ul>
+            {% endif %}
+          </div>
+        </div>
+      </div>
+    {% endfor %}
+</div>

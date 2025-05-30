@@ -1,0 +1,17 @@
+<div class="col-md-4 mb-3">
+  <div class="card h-100 alert-card">
+    <div class="card-body p-2">
+      <div class="d-flex align-items-center mb-2">
+        {% set img = alert.asset_image %}
+        <img class="asset-icon me-2" src="{{ url_for('static', filename='images/' + img) }}" alt="{{ alert.asset }}" width="24" height="24">
+        <strong class="me-auto">{{ alert.asset or 'N/A' }}</strong>
+        <span class="badge text-bg-secondary">{{ alert.level }}</span>
+      </div>
+      <div class="small">
+        <div>Type: {{ alert.alert_type }}</div>
+        <div>Value: {{ "{:,.2f}".format(alert.evaluated_value or 0) }}</div>
+        <div>Trigger: {{ "{:,.2f}".format(alert.trigger_value or 0) }}</div>
+      </div>
+    </div>
+  </div>
+</div>

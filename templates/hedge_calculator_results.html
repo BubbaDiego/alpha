@@ -1,0 +1,36 @@
+<!-- Hedge Calculator Results Section -->
+<!-- Rows 4-6 from hedge_calculator.html -->
+<div id="projectedOutputRow" class="row mb-4">
+  <!-- Price slider removed -->
+  <div class="col-md-12 slider-box mb-3">
+    <label for="leverageSlider" class="form-label"><strong>Projected Leverage</strong></label>
+    <input type="range" class="form-range" id="leverageSlider" min="1" max="20" step="0.1">
+    <div id="leverageValue" class="mt-2">Leverage: 1x</div>
+  </div>
+</div>
+
+<!-- Row 5: Output Boxes -->
+<div id="outputRow" class="row mb-4">
+  <div class="col-md-6 mb-3">
+    <div class="border rounded p-3 reduced-height position-details-section">
+      <h5 class="text-center">Long Position Output</h5>
+      <p id="longPnL">P&L: 0</p>
+    </div>
+  </div>
+  <div class="col-md-6 mb-3">
+    <div class="border rounded p-3 reduced-height position-details-section">
+      <h5 class="text-center">Short Position Output</h5>
+      <p id="shortPnL">P&L: 0</p>
+    </div>
+  </div>
+</div>
+
+<!-- Row 6: Recommendation Box -->
+<div id="recommendationRow" class="row mb-4">
+  <div class="col text-center">
+    <div class="recommendation-box">
+      <span id="recommendationText">Recommendation will appear here.</span>
+    </div>
+  </div>
+</div>
+<script src="{{ url_for('static', filename='js/hedge_calculator_results.js') }}"></script>

@@ -1,0 +1,12 @@
+{
+  "name": "Wizard",
+  "profile": "Experimental",
+  "strategy_weights": {
+    "dynamic_hedging": 0.9,
+    "profit_management": 0.1
+  },
+  "moods": {
+    "high_heat": "determined"
+  },
+  "description": "Mystical risk wizard balancing cosmic distance weighting with low leverage behavior."
+}

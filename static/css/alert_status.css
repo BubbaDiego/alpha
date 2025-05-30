@@ -1,0 +1,139 @@
+.alert-table,
+.alert-bars {
+  width: 100%;
+}
+
+.positions-table-wrapper {
+  width: 100%;
+  overflow-x: auto;
+  background: transparent;
+  padding: 0;
+  margin: 0;
+  min-height: 200px;
+}
+
+.positions-table {
+  background: var(--container-bg);
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  border-collapse: collapse;
+  background: transparent;
+  font-size: 1rem;
+}
+
+.positions-table thead th {
+  background: var(--title-bar-bg);
+  color: var(--panel-title);
+  font-weight: 700;
+  padding: 0.7em 0.6em;
+  border-bottom: 2px solid var(--panel-border);
+  user-select: none;
+  cursor: pointer;
+  vertical-align: middle;
+}
+
+.positions-table th.left,
+.positions-table td.left { text-align: left; }
+.positions-table th.right,
+.positions-table td.right { text-align: right; }
+
+.positions-table tbody td {
+  background: var(--container-bg);
+  color: var(--text);
+  padding: 0.7em 0.6em;
+  border-bottom: 1px solid var(--panel-border);
+  vertical-align: middle;
+}
+
+.positions-table tfoot th {
+  background: var(--accent);
+  color: var(--text);
+  font-weight: bold;
+  border-top: 2px solid var(--panel-border);
+  text-align: right;
+}
+.positions-table tfoot th.left { text-align: left; }
+
+.sort-indicator {
+  font-size: 1em;
+  margin-left: 4px;
+  color: var(--panel-title);
+  opacity: 0.8;
+}
+th.sorted-asc .sort-indicator { color: var(--primary); }
+th.sorted-desc .sort-indicator { color: var(--primary); }
+
+.no-data {
+  text-align: center;
+  color: var(--text);
+  padding: 1.2rem;
+  font-style: italic;
+}
+
+
+/* Align bars rows with table rows */
+.alert-bars #alertBars {
+  display: flex;
+  flex-direction: column;
+}
+
+.alert-bars .liq-row {
+  padding: 0.7em 0.6em;
+  margin: 0;
+  border-bottom: 1px solid var(--panel-border);
+  background: var(--container-bg);
+  box-sizing: border-box;
+}
+
+/* Color coding for alert levels */
+.alert-bars .level-normal .liq-bar-fill,
+.alert-bars .level-normal .liq-flame-container {
+  background: #007bff;
+}
+
+.alert-bars .level-low .liq-bar-fill,
+.alert-bars .level-low .liq-flame-container {
+  background: #28a745;
+}
+
+.alert-bars .level-medium .liq-bar-fill,
+.alert-bars .level-medium .liq-flame-container {
+  background: #ffc107;
+  color: #000;
+}
+
+.alert-bars .level-high .liq-bar-fill,
+.alert-bars .level-high .liq-flame-container {
+  background: #dc3545;
+}
+
+/* --- Alert Management Dropdown --- */
+.alert-menu-btn {
+  background: var(--title-bar-bg);
+  color: var(--panel-title);
+  border: 1px solid var(--panel-border);
+  padding: 0.25rem 0.55rem;
+  font-size: 1rem;
+}
+
+.alert-menu-btn:hover,
+.alert-menu-btn:focus {
+  background: var(--primary);
+  color: #fff;
+  border-color: var(--primary);
+}
+
+.alert-menu-dropdown {
+  background: var(--card-bg);
+  border: 1px solid var(--panel-border);
+}
+
+.alert-menu-dropdown .dropdown-item {
+  color: var(--text);
+}
+
+.alert-menu-dropdown .dropdown-item:hover {
+  background: var(--accent);
+  color: var(--text);
+}

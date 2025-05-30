@@ -1,0 +1,117 @@
+.positions-table-wrapper {
+  width: 100%;
+  overflow-x: auto;
+  background: transparent;
+  padding: 0;
+  margin: 0;
+  min-height: 200px;
+}
+
+.positions-table {
+  background: var(--container-bg);
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 1rem;
+}
+
+.positions-table thead th {
+  background: var(--title-bar-bg);
+  color: var(--panel-title);
+  font-weight: 700;
+  padding: 0.7em 0.6em;
+  border-bottom: 2px solid var(--panel-border);
+  user-select: none;
+  cursor: pointer;
+  vertical-align: middle;
+}
+
+.positions-table th.left,
+.positions-table td.left { text-align: left; }
+.positions-table th.right,
+.positions-table td.right { text-align: right; }
+.positions-table th.center,
+.positions-table td.center { text-align: center; }
+
+.positions-table tbody td {
+  background: var(--container-bg);
+  color: var(--text);
+  padding: 0.7em 0.6em;
+  border-bottom: 1px solid var(--panel-border);
+  vertical-align: middle;
+}
+
+.positions-table tfoot td {
+  background: var(--accent);
+  color: var(--text);
+  font-weight: bold;
+  border-top: 2px solid var(--panel-border);
+  text-align: right;
+}
+.positions-table tfoot td.left { text-align: left; }
+.positions-table tfoot td.center { text-align: center; }
+
+.sort-indicator {
+  font-size: 1em;
+  margin-left: 4px;
+  color: var(--panel-title);
+  opacity: 0.8;
+}
+th.sorted-asc .sort-indicator,
+th.sorted-desc .sort-indicator { color: var(--primary); }
+
+.no-data {
+  text-align: center;
+  color: var(--text);
+  padding: 1.2rem;
+  font-style: italic;
+}
+
+/* Container when short and long tables share a single panel */
+/* Expand the panel so the tables get the full available width */
+.hedge-report-panel {
+  max-width: none;
+  width: 100%;
+  margin: 0;           /* remove default horizontal margin */
+  padding-left: 2rem;  /* retain standard inner spacing */
+  padding-right: 2rem;
+}
+
+/* Wider container for the top section of the hedge report */
+.hedge-top-section {
+  width: 100%;         /* allow container to span the full screen width */
+  max-width: none;
+}
+
+.dual-table-wrapper {
+  display: flex;
+  width: 100%;
+}
+
+.dual-table-wrapper .positions-table-wrapper {
+  flex: 1 1 0;
+}
+
+/* Outer borders for tables */
+#short-table {
+  border-left: var(--panel-border-width) solid var(--panel-border);
+  border-top: var(--panel-border-width) solid var(--panel-border);
+  border-bottom: var(--panel-border-width) solid var(--panel-border);
+}
+
+#long-table {
+  border-right: var(--panel-border-width) solid var(--panel-border);
+  border-top: var(--panel-border-width) solid var(--panel-border);
+  border-bottom: var(--panel-border-width) solid var(--panel-border);
+}
+
+/* Thick separator between size columns */
+.positions-table th.size-col,
+.positions-table td.size-col {
+  border-right: calc(2 * var(--panel-border-width)) solid var(--panel-border);
+}
+
+#long-table th.size-col,
+#long-table td.size-col {
+  border-left: calc(2 * var(--panel-border-width)) solid var(--panel-border);
+  border-right: none;
+}

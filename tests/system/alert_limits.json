@@ -1,0 +1,13 @@
+{
+    "alert_cooldown_seconds": 900,
+    "global_alert_config": {
+        "max_alerts": 1000
+    },
+    "alert_ranges": {
+        "PriceThreshold": {
+            "LOW": 5000,
+            "MEDIUM": 10000,
+            "HIGH": 20000
+        }
+    }
+}

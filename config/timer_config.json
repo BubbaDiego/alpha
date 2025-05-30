@@ -1,0 +1,13 @@
+{
+  "sonic_loop_start_time": "2025-05-17T03:33:51.252141+00:00",
+  "price_loop_start_time": "2025-04-18T23:02:13.967965+00:00",
+  "den_mother_start_time": "2025-04-21T12:30:07.055013+00:00",
+  "position_loop_start_time": "2025-04-23T01:06:27.974693+00:00",
+  "pricemonitor_last_run": "2025-04-22T13:52:24.707969+00:00",
+  "positionmonitor_last_run": "2025-04-22T13:52:30.686885+00:00",
+  "position_monitor_last_run": "2025-05-14T15:29:24.732573+00:00",
+  "price_monitor_last_run": "2025-05-14T15:31:44.116844+00:00",
+  "sonicmonitor_last_run": "2025-04-25T03:18:25.955816+00:00",
+  "operations_monitor_last_run": "2025-05-14T15:31:44.122164+00:00",
+  "latency_monitor_last_run": "2025-05-14T15:31:44.840940+00:00"
+}

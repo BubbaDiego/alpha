@@ -1,0 +1,8 @@
+{
+  "name": "risk_averse",
+  "strategy_weights": {
+    "safe": 0.7,
+    "cautious": 0.3
+  },
+  "instructions": "Adopt a conservative trading approach."
+}

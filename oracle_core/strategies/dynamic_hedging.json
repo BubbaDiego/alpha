@@ -1,0 +1,25 @@
+{
+  "name": "dynamic_hedging",
+  "deprecated": true,
+  "description": "Implements a volatility-sensitive delta-neutral strategy with real-time gamma scalping influences.",
+  "modifiers": {
+    "hedging_frequency": "adaptive",
+    "target_delta": 0,
+    "rebalancing_trigger": [
+      "volatility_spike",
+      "price_jump",
+      "delta_threshold_breach"
+    ],
+    "trade_type_preference": "limit_when_possible",
+    "volatility_indicators": [
+      "IV",
+      "RV",
+      "FundingRates"
+    ],
+    "execution_constraints": {
+      "slippage_tolerance": 0.3,
+      "latency_max": 250
+    }
+  },
+  "instructions": "Use delta-neutral dynamic hedging with gamma scalping overlays. Focus on realized volatility swings and funding arbitrage. Prioritize rebalancing if delta drifts, or IV spikes. Recommend hedge adjustments, not just summaries."
+}
