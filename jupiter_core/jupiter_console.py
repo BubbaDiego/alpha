@@ -13,7 +13,7 @@ from auto_engine.step_registry import build_step_registry
 console = Console()
 
 # Dummy config – in practice, replace with env or CLI args
-EXTENSION_PATH = r"C:\\v0.83\\wallets\\phantom_wallet"
+EXTENSION_PATH = r"C:\v0.83\wallets\phantom_wallet"
 DAPP_URL = "https://jup.ag/perps-legacy/short/SOL-SOL"
 PHANTOM_PASSWORD = os.environ.get("PHANTOM_PASSWORD")
 
