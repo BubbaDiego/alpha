@@ -10,9 +10,13 @@ from jupiter_core import jupiter_perps_steps as steps_module
 console = Console()
 
 STEPS = [
-    ("Connect Wallet", steps_module.connect_wallet),
-    ("Unlock Wallet", steps_module.unlock_wallet),
-    ("Select Position Type", steps_module.select_position_type),
+    ("🔗 Connect Wallet", steps_module.connect_wallet),
+    ("🔓 Unlock Wallet", steps_module.unlock_wallet),
+    ("📊 Select Position Type", steps_module.select_position_type),
+    ("📦 Select Order Asset", steps_module.select_order_asset),
+    ("📈 Select Order Type", steps_module.select_order_type),
+    ("🎯 Place TP/SL Limit Order", steps_module.place_tp_sl_limit_order),
+    ("🧹 Dump Visible Buttons", steps_module.dump_visible_buttons),
 ]
 
 async def main() -> None:

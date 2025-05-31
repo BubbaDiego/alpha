@@ -11,7 +11,7 @@ playground.  Steps live in `jupiter_core/steps` and are loaded dynamically by
    `engine.pm` (the `PhantomManager`) or `engine.jp` (the `JupiterPerpsFlow`).
 3. When the console runs it will automatically pick up the new module.
 
-## Running the Console
+## Running the Console[jupiter_perps_steps.py](jupiter_perps_steps.py)
 
 ```bash
 python -m jupiter_core.jupiter_modular_console

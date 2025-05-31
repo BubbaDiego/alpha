@@ -82,6 +82,8 @@ instance/
 **/playwright-data/
 jupiter_core/playwright-data/
 
+jupiter_core/phantom_wallet/
+
 
 # Sphinx documentation
 docs/_build/

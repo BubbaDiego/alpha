@@ -8,7 +8,8 @@ except Exception:  # pragma: no cover - optional dependency may be missing
     def load_dotenv(*_args, **_kwargs):
         pass
 
-from jupiter_integration.playwright import PhantomManager, JupiterPerpsFlow
+from jupiter_integration.phantom_manager import PhantomManager
+
 
 load_dotenv()
 

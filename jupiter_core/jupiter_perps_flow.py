@@ -259,7 +259,25 @@ class JupiterPerpsFlow:
             raise
         print("Position opened.")
 
-    def click_collateral_pencil(self, asset: str, position_type: str):
+    
+    async def select_order_asset(self, asset_symbol: str):
+        """
+        Selects the perp pair asset by clicking the token button in the top-left UI (e.g., SOL, ETH, BTC).
+        """
+        from playwright.async_api import Error
+        logger.debug("Selecting order asset: %s", asset_symbol)
+        try:
+            selector = f"button:has-text('{asset_symbol.upper()}')"
+            await self.page.wait_for_selector(selector, timeout=5000)
+            await self.page.click(selector, timeout=5000)
+            logger.debug("✅ Order asset selected: %s", asset_symbol)
+            self.order_definition["asset"] = asset_symbol.upper()
+        except Error as e:
+            logger.error("❌ Error selecting order asset %s: %s", asset_symbol, e)
+            raise
+    
+
+def click_collateral_pencil(self, asset: str, position_type: str):
         position_type_cap = position_type.capitalize()
         row_selector = f"tr:has-text('{asset}'):has-text('{position_type_cap}')"
         pencil_selector = "button.fill-current.text-v2-primary"
