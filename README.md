@@ -74,6 +74,13 @@ install the requirements first:
 python scripts/setup_test_env.py
 ```
 This step is optional and not part of the default test run.
+
+### Test Reports
+
+Running `pytest` creates log and report files in the `reports` directory,
+including `last_test_log.txt` and `sync_report_<timestamp>.html`. These files
+are ignored by Git and can be safely deleted. Re-run the tests to regenerate
+them as needed.
 ### Debug Logging
 
 To see verbose output from the console logger, pass `debug=True` when

@@ -1,3 +1,0 @@
-{"timestamp": "2025-05-16T15:55:17.099294", "message": "\ud83d\udc80 CLI death nail test", "payload": {"trigger": "manual CLI", "reason": "you ran the file directly"}, "level": "HIGH"}
-{"timestamp": "2025-05-16T15:56:25.116113", "message": "\ud83d\udc80 CLI death nail test", "payload": {"trigger": "manual CLI", "reason": "you ran the file directly"}, "level": "HIGH"}
-{"timestamp": "2025-05-16T15:57:46.957014", "message": "\ud83d\udc80 CLI death nail test", "payload": {"trigger": "manual CLI", "reason": "you ran the file directly"}, "level": "HIGH"}
