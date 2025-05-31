@@ -50,6 +50,14 @@ coverage.xml
 .hypothesis/
 .pytest_cache/
 cover/
+death_log.txt
+*/death_log.txt
+*travel_drift*.txt
+logs/
+data/logs/
+monitor/logs/
+reports/*.html
+reports/*.txt
 
 # Translations
 *.mo
@@ -60,8 +68,7 @@ cover/
 local_settings.py
 db.sqlite3
 db.sqlite3-journal
-mother_brain.db-shm
-mother_brain.db-wal
+mother_brain.db*
 *.db-wal
 
 # Flask stuff:
