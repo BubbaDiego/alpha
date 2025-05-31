@@ -1,8 +1,6 @@
 import logging
 from playwright.sync_api import Error
 from data.models import Order  # Import the new Order model from models.py
-import uuid  # Only needed if you want to do additional ID handling
-from datetime import datetime
 from dotenv import load_dotenv
 load_dotenv()
 
