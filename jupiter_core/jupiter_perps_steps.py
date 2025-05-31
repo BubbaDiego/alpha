@@ -29,15 +29,25 @@ async def set_collateral_asset(engine):
     from utils.console_logger import ConsoleLogger
     ConsoleLogger.info("↪ Entering set_collateral_asset", source="Steps")
 
-    asset = Prompt.ask("💰 Choose collateral asset", choices=["SOL", "USDC", "ETH", "WBTC"], default="USDC")
     try:
-        container = engine.pm.page.locator("div.flex.gap-2")  # reuse the scoped asset button group
-        await container.locator(f"button:has-text('{asset}')").click()
-        engine.jp.order_definition["collateral_asset"] = asset.upper()
-        ConsoleLogger.success(f"✅ Collateral asset set: {asset}", source="Steps")
-    except Exception as e:
-        ConsoleLogger.error("❌ Failed to set collateral asset", payload={"error": str(e)}, source="Steps")
+        # NOTE [SPEC]: Collateral asset selection via dropdown is currently unstable.
+        # Attempts to click the "You're Paying" selector and open the token modal have failed
+        # due to dynamic rendering / DOM structure. As a result, this step assumes the default
+        # collateral asset (SOL) is selected and logs that choice instead of modifying it.
+        # When resolved, this function should:
+        #   1. Click the "You're Paying" token selector
+        #   2. Wait for modal (aria-modal=true)
+        #   3. Search + click token in list
+        #   4. Update order_definition["collateral_asset"]
+        #
+        # Until then, SOL will be used by default.
 
+        asset = "SOL"
+        engine.jp.order_definition["collateral_asset"] = asset
+        ConsoleLogger.success(f"⚠️ Defaulted collateral asset to {asset}", source="Steps")
+
+    except Exception as e:
+        ConsoleLogger.error("❌ Failed to set collateral asset (fallback path)", payload={"error": str(e)}, source="Steps")
 
 
 async def set_position_size(engine):
