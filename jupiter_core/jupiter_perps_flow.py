@@ -70,8 +70,10 @@ class JupiterPerpsFlow:
         """
         logger.debug("Selecting payment asset: %s", asset_symbol)
         try:
+            await self.page.wait_for_selector("button.bg-v3-input-secondary-background", timeout=5000)
             await self.page.click("button.bg-v3-input-secondary-background", timeout=5000)
             logger.debug("Pulldown button clicked to reveal asset options.")
+            await self.page.wait_for_selector(f"li:has-text('{asset_symbol}')", timeout=5000)
             await self.page.click(f"li:has-text('{asset_symbol}')", timeout=5000)
             logger.debug("✅ Payment asset selected: %s", asset_symbol)
             self.order_definition["collateral_asset"] = asset_symbol.upper()
