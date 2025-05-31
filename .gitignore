@@ -78,6 +78,11 @@ instance/
 # Scrapy stuff:
 .scrapy
 
+
+**/playwright-data/
+jupiter_core/playwright-data/
+
+
 # Sphinx documentation
 docs/_build/
 
