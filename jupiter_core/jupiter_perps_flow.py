@@ -141,7 +141,6 @@ class JupiterPerpsFlow:
 
     def get_order(self):
         try:
-            from models import Order
             order = Order(
                 asset=self.order_definition.get("asset", "UNKNOWN"),
                 position_type=self.order_definition.get("position_type", ""),
