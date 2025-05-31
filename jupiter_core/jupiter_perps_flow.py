@@ -17,11 +17,13 @@ class JupiterPerpsFlow:
         self.page = phantom_manager.page
         self.order_definition = {}
 
-    def select_position_type(self, position_type: str):
+    # PATCHED: only showing relevant method change
+
+    async def select_position_type(self, position_type: str):
         logger.debug("Selecting position type: %s", position_type)
         if position_type.lower() == "long":
             try:
-                self.page.click("button:has-text('Long')", timeout=10000)
+                await self.page.click("button:has-text('Long')", timeout=10000)
                 logger.debug("✅ Long position selected.")
                 self.order_definition["position_type"] = "long"
             except Error as e:
@@ -29,7 +31,7 @@ class JupiterPerpsFlow:
                 raise
         elif position_type.lower() == "short":
             try:
-                self.page.click("button:has-text('Short')", timeout=10000)
+                await self.page.click("button:has-text('Short')", timeout=10000)
                 logger.debug("✅ Short position selected.")
                 self.order_definition["position_type"] = "short"
             except Error as e:
