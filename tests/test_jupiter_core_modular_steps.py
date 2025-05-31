@@ -25,7 +25,7 @@ class DummyJP:
     def __init__(self, *_):
         self.called = []
 
-    def select_position_type(self, typ):
+    async def select_position_type(self, typ):
         self.called.append(("select_position_type", typ))
 
 
@@ -55,7 +55,7 @@ prompt_mod.Prompt = type("Prompt", (), {"ask": lambda *a, **k: "long"})
 sys.modules.setdefault("rich.prompt", prompt_mod)
 
 from jupiter_core.engine.jupiter_engine_core import JupiterEngineCore
-from jupiter_core.steps import jupiter_perps_steps
+from jupiter_core import jupiter_perps_steps
 
 
 @pytest.mark.asyncio

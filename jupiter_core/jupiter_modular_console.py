@@ -5,7 +5,7 @@ from rich.console import Console
 from rich.prompt import Prompt
 
 from jupiter_core.engine.jupiter_engine_core import JupiterEngineCore
-from jupiter_core.steps import jupiter_perps_steps as steps_module
+from jupiter_core import jupiter_perps_steps as steps_module
 
 console = Console()
 
