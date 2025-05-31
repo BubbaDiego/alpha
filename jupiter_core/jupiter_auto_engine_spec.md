@@ -1,86 +1,63 @@
-# 🚀 Jupiter Auto Engine Specification
+# 🚀 Jupiter Core Step Engine Specification
 
-> Version: `v0.1`
+> Version: `v1.1`
 > Author: `BuildOps 🛠️`
-> Scope: Modular automation engine for orchestrating Phantom wallet workflows, Jupiter interactions, and order lifecycle automation.
+> Scope: Modular step engine for Phantom wallet automation and Jupiter interactions.
 
 ---
 
 ## 📦 Objective
-The Jupiter Auto Engine is a modular automation layer designed to programmatically execute finite steps in a structured sequence. It mirrors the design of the Cyclone orchestration engine, enabling reusability, testability, and eventual front-end integration.
+The Jupiter Core step engine executes discrete async steps that automate Phantom wallet flows and Jupiter dApp interactions. Each step lives in its own module and receives a `JupiterEngineCore` instance for browser automation.
 
 It supports:
 
+- Modular execution from the CLI or future API
 - Wallet connection and approval via Phantom
 - Interaction with Jupiter dApps (e.g., perps)
-- Modular execution via CLI or API
-- Finite step execution (cookie-cutter additions)
+- Easy addition of new step modules
 
 ## 📂 Directory Layout
 ```txt
 jupiter_core/
-├── auto_engine/
-│   ├── jupiter_auto_engine.py         # 🎯 Orchestration layer
-│   ├── jupiter_wallet_service.py      # 👛 Phantom wallet steps
-│   ├── jupiter_position_service.py    # 📈 Position setup helpers
-│   ├── jupiter_order_service.py       # 💱 Order management
-│   └── step_registry.py               # 📋 Maps step names to callable methods
-├── phantom_manager.py                 # Phantom browser integration
-├── jupiter_perps_flow.py              # Existing dApp interaction helpers
-├── console_logger.py                  # Enhanced colored logging
-├── jupiter_console.py                 # 🎛️ CLI test console (like cyclone_app.py)
+├── engine/
+│   └── jupiter_engine_core.py    # Async engine wrapper
+├── steps/
+│   ├── auto_connect_wallet.py    # Example step module
+│   ├── auto_unlock_wallet.py
+│   └── auto_set_position_type.py
+├── jupiter_modular_console.py    # Rich CLI for running steps
+├── phantom_manager.py            # Playwright integration
+├── jupiter_perps_flow.py         # Jupiter UI helpers
 ```
 
-### 🧠 `JupiterAutoEngine`
+### 🧠 `JupiterEngineCore`
 ```python
-JupiterAutoEngine(extension_path, dapp_url, phantom_password=None, headless=False)
+async with JupiterEngineCore(extension_path, dapp_url, phantom_password=None, headless=False) as engine:
+    ...
 ```
-- Sets up `PhantomManager` and `JupiterPerpsFlow`.
-- Uses `ConsoleLogger` for all logging.
-- Central entry point for step execution.
+- Launches Playwright with `PhantomManager`.
+- Exposes `engine.pm` and `engine.jp` for step modules.
+- Can be used as an async context manager via `launch()` and `close()`.
 
-### 🧱 `run_cycle()`
-```python
-async def run_cycle(self, steps: Optional[List[str]] = None) -> None:
-```
-- Accepts a list of steps to run.
-- Maps step names to method calls via an internal registry.
-- Emits emoji-rich log statements before and after each step.
-- Catches and logs terminal errors per step.
+### 🔗 Step Modules
+- Located under `jupiter_core/steps`.
+- Named `auto_<name>.py` and define `async def run(engine)`.
+- Use `engine.pm` and `engine.jp` to drive wallet or dApp actions.
 
-### 🔁 Example Execution Steps
-| Step Name | Description | Method Name |
-|-----------|-------------|-------------|
-| `connect_wallet` | Opens Phantom popup and connects wallet | `step_connect_wallet` |
-| `unlock_wallet` | Unlocks Phantom via password input | `step_unlock_wallet` |
-| `set_position_type` | Selects long or short | `step_set_position_type` |
-| `set_payment_asset` | Sets asset for margin/collateral | `step_set_payment_asset` |
-| `set_leverage` | Adjusts slider to match input leverage | `step_set_leverage` |
-| `set_position_size` | Sets size field | `step_set_position_size` |
-| `approve_transaction` | Confirms tx in Phantom | `step_approve_transaction` |
-| `capture_order_payload` | Waits for specific POST | `step_capture_order_payload` |
-
-Each `step_*` method is:
-
-- Self-contained
-- Logged before and after
-- Callable from the CLI console or frontend runner
-
-### 🖥️ CLI Console: `jupiter_console.py`
-- Text-based UI using `rich`.
-- Step menu for selecting and executing steps.
-- Supports batch or interactive flow.
-- Uses `JupiterAutoEngine` under the hood.
+### 🖥️ CLI Console: `jupiter_modular_console.py`
+- Scans the `steps` directory and presents a menu.
+- Selected steps run inside the same browser session.
+- Demonstrates how the step engine can be driven interactively.
 
 ### 🔗 Front-End Integration
-- Every method in `JupiterAutoEngine` is frontend-callable.
-- Plan to expose a REST or WebSocket interface.
-- Return value should contain structured logs, status flags, and optional payloads.
+- Step modules can be triggered from a console, API, or front-end.
+- Future versions may expose a REST or WebSocket interface.
+- Each step should return structured logs and optional payloads.
 
 ### ✅ Design Principles
 - **Composable**: Each step should be isolated and testable.
 - **Traceable**: Use `ConsoleLogger` for consistent logging.
-- **Extendable**: New steps are added via `step_registry` or engine methods.
+- **Extendable**: New steps are added by dropping modules in the `steps` folder.
 - **Robust**: Errors log a terminal event but don’t crash unless critical.
 
 ### 📌 Initial Focus
@@ -93,4 +70,4 @@ Each `step_*` method is:
 - Strategy injectors (e.g., DCA, hedge pairs)
 - Async job queue for scheduled runs
 
-The Jupiter Auto Engine is the execution layer for your automated trading brain. It replaces brittle scripts with orchestrated flows and centralized logging.
+The Jupiter Core step engine is the execution layer for your automated trading brain. It replaces brittle scripts with modular flows and centralized logging.
