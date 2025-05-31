@@ -2,7 +2,7 @@
 
 This folder contains a minimal async automation framework used for the Jupiter
 playground.  Steps live in `jupiter_core/steps` and are loaded dynamically by
-`jupiter_core/jupiter_modular_console.py`.
+`jupiter_core/jupiter_auto_console.py`.
 
 ## Adding Steps
 
@@ -14,7 +14,7 @@ playground.  Steps live in `jupiter_core/steps` and are loaded dynamically by
 ## Running the Console
 
 ```bash
-python -m jupiter_core.jupiter_modular_console
+python -m jupiter_core.jupiter_auto_console
 ```
 
 Select a step number from the menu and it will be executed in the launched
