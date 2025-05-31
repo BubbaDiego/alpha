@@ -108,6 +108,19 @@ class JupiterPerpsFlow:
             logger.error("❌ Error setting leverage: %s", e)
             raise
 
+    def switch_to_isolated_margin(self):
+        """Switch the margin mode from Cross to Isolated."""
+        logger.debug("Switching margin mode to Isolated")
+        try:
+            if self.page.is_visible("button:has-text('Cross')"):
+                self.page.click("button:has-text('Cross')", timeout=5000)
+            self.page.click("text=Isolated", timeout=5000)
+            logger.debug("✅ Isolated margin selected")
+            self.order_definition["margin_mode"] = "isolated"
+        except Error as e:
+            logger.error("❌ Error switching margin mode: %s", e)
+            raise
+
     def capture_order_payload(self, url_keyword: str, timeout: int = 10000):
         logger.debug("Waiting for network request with keyword: %s", url_keyword)
         try:
