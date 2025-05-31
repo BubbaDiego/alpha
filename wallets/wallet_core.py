@@ -35,6 +35,7 @@ except ImportError as e:  # pragma: no cover - optional dependency
 
 from wallets.blockchain_balance_service import BlockchainBalanceService
 from wallets.jupiter_service import JupiterService
+from wallets.jupiter_trigger_service import JupiterTriggerService
 
 from wallets.wallet_service import WalletService
 from wallets.wallet import Wallet
@@ -53,6 +54,7 @@ class WalletCore:
         # so ``load_wallets`` can gracefully attempt balance lookups.
         self.balance_service = BlockchainBalanceService()
         self.jupiter = JupiterService() if Client else None
+        self.jupiter_trigger = JupiterTriggerService() if Client else None
         log.debug(
             f"WalletCore initialized with RPC {rpc_endpoint}" + (" (stubbed)" if Client is None else ""),
             source="WalletCore",
@@ -163,3 +165,43 @@ class WalletCore:
         except Exception as e:  # pragma: no cover - network failures
             log.error(f"Withdraw failed for {wallet.name}: {e}", source="WalletCore")
             return None
+
+    def place_trigger_order(
+        self,
+        wallet: Wallet,
+        market: str,
+        trigger_price: float,
+        size: float,
+        is_long: bool,
+    ) -> Optional[str]:
+        """Create a trigger order and send the resulting transaction."""
+        if not Client or not self.jupiter_trigger:
+            log.debug("place_trigger_order skipped; solana client unavailable", source="WalletCore")
+            return None
+        try:
+            resp = self.jupiter_trigger.create_trigger_order(
+                wallet.public_address,
+                market,
+                trigger_price,
+                size,
+                is_long,
+            )
+            tx_data = resp.get("transaction")
+            if not tx_data:
+                log.error("Trigger order response missing transaction", source="WalletCore")
+                return None
+            tx_obj = None
+            if isinstance(tx_data, Transaction):
+                tx_obj = tx_data
+            else:
+                try:
+                    import base64
+                    tx_obj = Transaction.deserialize(base64.b64decode(tx_data))
+                except Exception as exc:
+                    log.error(f"Failed to decode trigger transaction: {exc}", source="WalletCore")
+                    return None
+            return self.send_transaction(wallet, tx_obj)
+        except Exception as e:  # pragma: no cover - network failures
+            log.error(f"Trigger order failed for {wallet.name}: {e}", source="WalletCore")
+            return None
+
