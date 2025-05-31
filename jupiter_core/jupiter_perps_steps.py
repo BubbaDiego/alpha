@@ -15,4 +15,4 @@ async def unlock_wallet(engine):
 async def select_position_type(engine):
     """Prompt for Long/Short and select the position type via JupiterPerpsFlow."""
     choice = Prompt.ask("Choose position type", choices=["long", "short"], default="long")
-    engine.jp.select_position_type(choice)
+    await engine.jp.select_position_type(choice)
