@@ -26,7 +26,7 @@ class DummyJP:
     def __init__(self, *_):
         self.called = []
 
-    def select_position_type(self, typ):
+    async def select_position_type(self, typ):
         self.called.append(("select_position_type", typ))
 
 
