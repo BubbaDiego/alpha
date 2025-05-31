@@ -1,6 +1,9 @@
 import os
-from phantom_manager import PhantomManager
-from auto_core.playwright import JupiterPerpsFlow
+try:  # Support running as a module or as a script
+    from jupiter_core import PhantomManager, JupiterPerpsFlow
+except Exception:  # pragma: no cover - fallback for direct execution
+    from phantom_manager import PhantomManager
+    from jupiter_perps_flow import JupiterPerpsFlow
 from dotenv import load_dotenv
 load_dotenv()
 
