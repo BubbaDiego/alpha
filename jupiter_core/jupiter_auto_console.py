@@ -14,9 +14,13 @@ STEPS = [
     ("🔓 Unlock Wallet", steps_module.unlock_wallet),
     ("📊 Select Position Type", steps_module.select_position_type),
     ("📦 Select Order Asset", steps_module.select_order_asset),
+    ("💰 Set Collateral Asset", steps_module.set_collateral_asset),
+    ("📏 Set Position Size", steps_module.set_position_size),
+    ("⚖️ Set Leverage", steps_module.set_leverage),
     ("📈 Select Order Type", steps_module.select_order_type),
     ("🎯 Place TP/SL Limit Order", steps_module.place_tp_sl_limit_order),
     ("🧹 Dump Visible Buttons", steps_module.dump_visible_buttons),
+    ("🪟 Dump Visible Divs", steps_module.dump_visible_divs),
 ]
 
 async def main() -> None:
@@ -27,6 +31,11 @@ async def main() -> None:
         headless=False,
     )
     await engine.launch()
+# Auto-connect wallet for testing
+    await engine.pm.connect_wallet(
+        dapp_url=engine.dapp_url,
+        phantom_password=engine.phantom_password,
+    )
 
     while True:
         console.print("\n[bold magenta]Available Steps:[/bold magenta]")

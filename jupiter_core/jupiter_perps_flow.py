@@ -63,51 +63,62 @@ class JupiterPerpsFlow:
             logger.error("❌ Invalid order type provided: %s", order_type)
             raise Exception("Invalid order type provided. Choose 'market' or 'limit'.")
 
-    def select_payment_asset(self, asset_symbol: str):
+    async def select_payment_asset(self, asset_symbol: str):
         """
         Selects the payment/funding asset.
         :param asset_symbol: The asset symbol (e.g., SOL, USDT, USDC, WBTC, WETH).
         """
         logger.debug("Selecting payment asset: %s", asset_symbol)
         try:
-            self.page.click("button.bg-v3-input-secondary-background", timeout=5000)
+            await self.page.click("button.bg-v3-input-secondary-background", timeout=5000)
             logger.debug("Pulldown button clicked to reveal asset options.")
-            self.page.click(f"li:has-text('{asset_symbol}')", timeout=5000)
+            await self.page.click(f"li:has-text('{asset_symbol}')", timeout=5000)
             logger.debug("✅ Payment asset selected: %s", asset_symbol)
             self.order_definition["collateral_asset"] = asset_symbol.upper()
         except Error as e:
             logger.error("❌ Error selecting payment asset (%s): %s", asset_symbol, e)
             raise
 
-    def set_position_size(self, size: str):
+    async def set_position_size(self, size: str):
         logger.debug("Setting position size: %s", size)
         try:
-            self.page.fill("input.position-size", size, timeout=5000)
+            await self.page.wait_for_selector("input[placeholder='0.00']", timeout=10000)
+            await self.page.fill("input[placeholder='0.00']", size)
             logger.debug("✅ Position size set to %s", size)
             self.order_definition["position_size"] = float(size)
         except Error as e:
             logger.error("❌ Error setting position size: %s", e)
             raise
 
-    def set_leverage(self, leverage: str):
-        logger.debug("Setting leverage: %s", leverage)
+    async def set_leverage(self, leverage: str):
+        """
+        Set leverage by simulating clicks on the "+" button.
+
+        Calibration:
+        - Starting leverage is 1.1x
+        - Each "+" click increases leverage by 0.1x
+        - Clicks = int((target - 1.1) / 0.1)
+
+        Uses stable UI elements (the "+" button) for interaction.
+        """
+        logger.debug("Setting leverage via 0.1x increment clicks: %s", leverage)
         try:
             desired = float(leverage.lower().replace("x", "").strip())
-            min_val = 1.1
-            max_val = 100.0
-            slider_track = self.page.query_selector("div.rc-slider-track")
-            if not slider_track:
-                raise Exception("Slider track element not found")
-            box = slider_track.bounding_box()
-            ratio = (desired - min_val) / (max_val - min_val)
-            target_x = box["x"] + ratio * box["width"]
-            target_y = box["y"] + box["height"] / 2
-            logger.debug("Calculated target coordinates for leverage: (%.2f, %.2f)", target_x, target_y)
-            self.page.mouse.click(target_x, target_y)
-            logger.debug("✅ Leverage set to %s", leverage)
-            self.order_definition["leverage"] = desired
-        except Error as e:
-            logger.error("❌ Error setting leverage: %s", e)
+            if desired < 1.1:
+                raise ValueError("Minimum leverage is 1.1x")
+
+            # Determine number of clicks needed
+            clicks = int((desired - 1.1) / 0.1)
+            logger.debug("Calculated clicks needed: %d (target: %.2fx)", clicks, desired)
+
+            for _ in range(clicks):
+                await self.page.click("button:has-text('+')")
+                await self.page.wait_for_timeout(100)
+
+            self.order_definition["leverage"] = 1.1 + clicks * 0.1
+            logger.debug("✅ Leverage set to %.2fx", self.order_definition["leverage"])
+        except Exception as e:
+            logger.error("❌ Error setting leverage with 0.1x steps: %s", e)
             raise
 
     def switch_to_isolated_margin(self):
@@ -259,25 +270,7 @@ class JupiterPerpsFlow:
             raise
         print("Position opened.")
 
-    
-    async def select_order_asset(self, asset_symbol: str):
-        """
-        Selects the perp pair asset by clicking the token button in the top-left UI (e.g., SOL, ETH, BTC).
-        """
-        from playwright.async_api import Error
-        logger.debug("Selecting order asset: %s", asset_symbol)
-        try:
-            selector = f"button:has-text('{asset_symbol.upper()}')"
-            await self.page.wait_for_selector(selector, timeout=5000)
-            await self.page.click(selector, timeout=5000)
-            logger.debug("✅ Order asset selected: %s", asset_symbol)
-            self.order_definition["asset"] = asset_symbol.upper()
-        except Error as e:
-            logger.error("❌ Error selecting order asset %s: %s", asset_symbol, e)
-            raise
-    
-
-def click_collateral_pencil(self, asset: str, position_type: str):
+    def click_collateral_pencil(self, asset: str, position_type: str):
         position_type_cap = position_type.capitalize()
         row_selector = f"tr:has-text('{asset}'):has-text('{position_type_cap}')"
         pencil_selector = "button.fill-current.text-v2-primary"
