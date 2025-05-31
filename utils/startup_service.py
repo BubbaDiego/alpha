@@ -72,7 +72,7 @@ class DotSpinner:
         sys.stdout.write("\n")
         sys.stdout.flush()
 
-from utils.config_loader import save_config
+from config.config_loader import save_config
 from core.core_imports import log
 
 if _loaded_env:
