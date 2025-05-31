@@ -1,6 +1,5 @@
 import sys
 import types
-import importlib
 import pytest
 
 
@@ -50,22 +49,28 @@ playwright_sync = types.ModuleType("playwright.sync_api")
 playwright_sync.Error = Exception
 sys.modules.setdefault("playwright.sync_api", playwright_sync)
 
+# Stub out rich.prompt for step module
+prompt_mod = types.ModuleType("rich.prompt")
+prompt_mod.Prompt = type("Prompt", (), {"ask": lambda *a, **k: "long"})
+sys.modules.setdefault("rich.prompt", prompt_mod)
+
 from jupiter_core.engine.jupiter_engine_core import JupiterEngineCore
+from jupiter_core.steps import jupiter_perps_steps
 
 
 @pytest.mark.asyncio
-async def test_step_modules_execute():
+async def test_step_functions_execute():
     engine = JupiterEngineCore("ext", "url", phantom_password="pw")
     await engine.launch()
 
-    modules = [
-        importlib.import_module("jupiter_core.steps.auto_connect_wallet"),
-        importlib.import_module("jupiter_core.steps.auto_unlock_wallet"),
-        importlib.import_module("jupiter_core.steps.auto_set_position_type"),
+    steps = [
+        jupiter_perps_steps.connect_wallet,
+        jupiter_perps_steps.unlock_wallet,
+        jupiter_perps_steps.select_position_type,
     ]
 
-    for mod in modules:
-        await mod.run(engine)
+    for step in steps:
+        await step(engine)
 
     pm: DummyPM = engine.pm  # type: ignore
     jp: DummyJP = engine.jp  # type: ignore
