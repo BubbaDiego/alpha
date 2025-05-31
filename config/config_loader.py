@@ -3,6 +3,7 @@ import os
 from pathlib import Path
 from core.core_imports import ALERT_THRESHOLDS_PATH, log
 from core.locker_factory import get_locker
+from core.constants import CONFIG_DIR
 from typing import Optional
 
 
@@ -76,6 +77,19 @@ def update_config(new_config: dict, filename: Optional[str] = None) -> dict:
     merged = _deep_merge(current, new_config)
     locker.system.set_var("alert_thresholds", merged)
     return merged
+
+
+def save_config(filename: str, data: dict) -> None:
+    """Save ``data`` to ``filename`` resolving default locations."""
+    path = Path(filename)
+    if path.name == "alert_thresholds.json":
+        path = ALERT_THRESHOLDS_PATH
+    elif not path.is_absolute():
+        path = CONFIG_DIR / path
+    path.parent.mkdir(parents=True, exist_ok=True)
+    with open(path, "w", encoding="utf-8") as f:
+        json.dump(data, f, indent=2)
+    log.info(f"✅ [ConfigLoader] Saved config to: {path}", source="ConfigLoader")
 
 
 

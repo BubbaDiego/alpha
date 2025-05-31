@@ -42,7 +42,7 @@ def test_ensure_alert_thresholds_creates_default_with_source(tmp_path, monkeypat
 
     importlib.reload(ss)
     monkeypatch.setattr(ss, "ALERT_THRESHOLDS_PATH", default_file)
-    import utils.config_loader as cfg
+    import config.config_loader as cfg
     monkeypatch.setattr(cfg, "ALERT_THRESHOLDS_PATH", default_file)
     monkeypatch.setattr(SchemaValidationService, "ALERT_THRESHOLDS_FILE", str(default_file))
 
