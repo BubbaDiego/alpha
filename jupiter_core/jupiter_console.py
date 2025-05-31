@@ -1,29 +1,25 @@
-import asyncio
+import sys
 import os
+sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "auto_engine")))
+
+import asyncio
 from inspect import signature
 from rich.console import Console
 from rich.panel import Panel
 from rich.prompt import Prompt
-from jupiter_auto_engine import JupiterAutoEngine
-from step_registry import build_step_registry
+from auto_engine.jupiter_auto_engine import JupiterAutoEngine
+from auto_engine.step_registry import build_step_registry
 
 console = Console()
 
 # Dummy config – in practice, replace with env or CLI args
-EXTENSION_PATH = r"C:\v0.83\wallets\phantom_wallet"
+EXTENSION_PATH = r"C:\\v0.83\\wallets\\phantom_wallet"
 DAPP_URL = "https://jup.ag/perps-legacy/short/SOL-SOL"
 PHANTOM_PASSWORD = os.environ.get("PHANTOM_PASSWORD")
 
-engine = JupiterAutoEngine(
-    extension_path=EXTENSION_PATH,
-    dapp_url=DAPP_URL,
-    phantom_password=PHANTOM_PASSWORD,
-    headless=False
-)
-engine.setup_browser()
-
-step_registry = build_step_registry(engine)
-step_definitions = list(step_registry.items())
+engine = None
+step_registry = {}
+step_definitions = []
 
 async def step_menu():
     while True:
@@ -63,5 +59,44 @@ async def step_menu():
                 console.print(f"[red]❌ {name} failed:[/red] {e}")
             input("Press Enter to continue...")
 
+async def main_menu():
+    global engine, step_registry, step_definitions
+    while True:
+        os.system("cls" if os.name == "nt" else "clear")
+        console.print(Panel("[bold cyan]🌐 Jupiter Automation Main Menu[/bold cyan]", border_style="blue"))
+        console.print("""
+1) 🧠 Launch Browser
+2) 🧪 Step Menu
+3) ❌ Exit
+""")
+        choice = Prompt.ask("→ Select an option")
+
+        if choice == "1":
+            engine = JupiterAutoEngine(
+                extension_path=EXTENSION_PATH,
+                dapp_url=DAPP_URL,
+                phantom_password=PHANTOM_PASSWORD,
+                headless=False
+            )
+            await engine.setup_browser()
+            step_registry = build_step_registry(engine)
+            step_definitions = list(step_registry.items())
+            console.print("[green]✅ Browser launched and engine initialized.[/green]")
+            input("Press Enter to continue...")
+
+        elif choice == "2":
+            if not engine:
+                console.print("[red]❌ You must launch the browser first.[/red]")
+                input("Press Enter to continue...")
+            else:
+                await step_menu()
+
+        elif choice == "3":
+            console.print("[green]Goodbye![/green]")
+            break
+        else:
+            console.print("[red]Invalid option[/red]")
+            await asyncio.sleep(1.5)
+
 if __name__ == "__main__":
-    asyncio.run(step_menu())
+    asyncio.run(main_menu())
