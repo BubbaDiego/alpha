@@ -1,6 +1,6 @@
 """Wallet domain package."""
 
-__all__ = ["WalletService", "WalletCore"]
+__all__ = ["WalletService", "WalletCore", "JupiterTriggerService"]
 
 
 def __getattr__(name):
@@ -11,6 +11,9 @@ def __getattr__(name):
     if name == "WalletCore":
         from .wallet_core import WalletCore as core
         return core
+    if name == "JupiterTriggerService":
+        from .jupiter_trigger_service import JupiterTriggerService as svc
+        return svc
     raise AttributeError(name)
 
 
