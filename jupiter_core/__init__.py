@@ -8,4 +8,9 @@ try:
 except Exception:
     PhantomManager = None
 
-__all__ = ["JupiterPerpsFlow", "PhantomManager"]
+try:
+    from .engine import JupiterEngineCore
+except Exception:
+    JupiterEngineCore = None
+
+__all__ = ["JupiterPerpsFlow", "PhantomManager", "JupiterEngineCore"]
