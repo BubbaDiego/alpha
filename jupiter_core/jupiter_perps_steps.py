@@ -18,10 +18,27 @@ async def select_position_type(engine):
     await engine.jp.select_position_type(choice)
 
 
+async def select_order_asset(engine):
+    from utils.console_logger import ConsoleLogger
+    asset = Prompt.ask("📦 Choose order asset", choices=["SOL", "ETH", "WBTC"], default="SOL")
+    await engine.pm.page.click(f"button:has-text('{asset}')", timeout=5000)
+    engine.jp.order_definition["asset"] = asset.upper()
+    ConsoleLogger.success(f"✅ Order asset set: {asset}", source="Steps")
+
 async def set_collateral_asset(engine):
-    """Set the collateral asset (token being paid)."""
+    from utils.console_logger import ConsoleLogger
+    ConsoleLogger.info("↪ Entering set_collateral_asset", source="Steps")
+
     asset = Prompt.ask("💰 Choose collateral asset", choices=["SOL", "USDC", "ETH", "WBTC"], default="USDC")
-    await engine.jp.select_payment_asset(asset)  # Reusing order asset selection logic here
+    try:
+        container = engine.pm.page.locator("div.flex.gap-2")  # reuse the scoped asset button group
+        await container.locator(f"button:has-text('{asset}')").click()
+        engine.jp.order_definition["collateral_asset"] = asset.upper()
+        ConsoleLogger.success(f"✅ Collateral asset set: {asset}", source="Steps")
+    except Exception as e:
+        ConsoleLogger.error("❌ Failed to set collateral asset", payload={"error": str(e)}, source="Steps")
+
+
 
 async def set_position_size(engine):
     """Set the size of the position."""
@@ -34,8 +51,16 @@ async def set_leverage(engine):
     await engine.jp.set_leverage(leverage)
 
 async def select_order_asset(engine):
-    asset = Prompt.ask("📦 Choose order asset", choices=["SOL", "ETH", "BTC"], default="SOL")
-    await engine.jp.select_payment_asset(asset)
+    from utils.console_logger import ConsoleLogger
+    ConsoleLogger.info("↪ Entering select_order_asset", source="Steps")
+
+    asset = Prompt.ask("📦 Choose order asset", choices=["SOL", "ETH", "WBTC"], default="SOL")
+    try:
+        await engine.pm.page.locator(f"button:visible:has-text('{asset}')").first.click(timeout=10000)
+        engine.jp.order_definition["asset"] = asset.upper()
+        ConsoleLogger.success(f"✅ Order asset set: {asset}", source="Steps")
+    except Exception as e:
+        ConsoleLogger.error("❌ Failed to set order asset", payload={"error": str(e)}, source="Steps")
 
 
 from rich.prompt import Prompt
