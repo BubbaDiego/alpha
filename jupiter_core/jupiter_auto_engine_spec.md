@@ -1,6 +1,6 @@
 # 🚀 Jupiter Auto Engine Specification
 
-> Version: `v1.0`
+> Version: `v1.1`
 > Author: `CoreOps 🥷`
 > Scope: Phantom wallet automation and Jupiter Perps flows
 
@@ -150,6 +150,42 @@ Order types are toggled similarly:
 ```
 【F:jupiter_core/jupiter_perps_flow.py†L44-L64】
 
+Additional helpers manage collateral selection and leverage:
+
+```python
+    async def select_payment_asset(self, asset_symbol: str):
+        ...
+
+    async def set_position_size(self, size: str):
+        ...
+
+    async def set_leverage(self, leverage: str):
+        ...
+```
+【F:jupiter_core/jupiter_perps_flow.py†L66-L122】
+
+Withdrawal helpers allow managing collateral via modal or row actions:
+
+```python
+    def withdraw_funds_modal(self, asset: str, position_type: str, withdraw_amount: str):
+        ...
+
+    def withdraw_funds_row(self, asset: str, position_type: str, withdraw_amount: str):
+        ...
+```
+【F:jupiter_core/jupiter_perps_flow.py†L174-L256】
+
+Order details can be captured and returned as an `Order` dataclass:
+
+```python
+    def capture_order_payload(self, url_keyword: str, timeout: int = 10000):
+        ...
+
+    def get_order(self):
+        ...
+```
+【F:jupiter_core/jupiter_perps_flow.py†L137-L172】
+
 ### 🖥️ Console and Step Modules
 `jupiter_auto_console.py` exposes an interactive menu that runs step functions from `jupiter_perps_steps`:
 
@@ -164,7 +200,7 @@ STEPS = [
     ("🧹 Dump Visible Buttons", steps_module.dump_visible_buttons),
 ]
 ```
-【F:jupiter_core/jupiter_auto_console.py†L12-L20】
+【F:jupiter_core/jupiter_auto_console.py†L12-L23】
 
 Each step calls into the engine to perform actions. Example step implementations:
 
@@ -184,3 +220,10 @@ async def select_position_type(engine):
 - The Phantom browser extension is bundled in `phantom_wallet/` for offline automation.
 - `JupiterEngineCore` can be used as an async context manager to ensure proper cleanup.
 - Step modules are easily extended by adding new `auto_*.py` files within the package.
+
+### 📝 Change List (2025-05-31)
+- Version bumped to **v1.1**.
+- Added step helpers for setting collateral asset, position size and leverage.
+- Console menu now includes utilities for dumping visible buttons and `<div>` content.
+- `JupiterPerpsFlow` gains payment asset selection, leverage controls and withdrawal helpers.
+- New `capture_order_payload()` and `get_order()` methods expose captured order data.
