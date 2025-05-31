@@ -23,10 +23,10 @@ def open_extension_popup(context: BrowserContext, extension_id: Optional[str]) -
 
 def connect_wallet(page: Page) -> None:
     """Connect Phantom wallet on Jupiter using the connect popup."""
-    # Click the connect button on Jupiter
-    page.click("button:has-text('Connect')")
-    popup = page.context.wait_for_event("page")
-    wallet_page = popup.value if hasattr(popup, "value") else popup
+    # Click the connect button and wait for Phantom to open
+    with page.context.expect_page() as popup_info:
+        page.click("button:has-text('Connect')")
+    wallet_page = popup_info.value
     wallet_page.wait_for_selector("button:has-text('Connect')")
     wallet_page.click("button:has-text('Connect')")
     wallet_page.close()
