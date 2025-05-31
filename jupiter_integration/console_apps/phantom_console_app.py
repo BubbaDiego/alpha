@@ -1,7 +1,6 @@
 """Interactive console application for Phantom wallet testing."""
 
 import os
-from pathlib import Path
 
 try:  # Optional dependency for loading environment variables
     from dotenv import load_dotenv
@@ -14,14 +13,10 @@ from jupiter_integration.playwright import PhantomManager, JupiterPerpsFlow
 load_dotenv()
 
 
-def main() -> None:
+def main():
     """Run the Phantom wallet demo console."""
 
-    # Set paths and URL (update these as needed)
-    EXTENSION_PATH = os.getenv(
-        "PHANTOM_PATH",
-        str(Path(__file__).resolve().parents[2] / "wallets" / "phantom_wallet"),
-    )
+    EXTENSION_PATH = r"C:\\v0.83\\wallets\\phantom_wallet"
     DAPP_URL = "https://jup.ag/perps-legacy/short/SOL-SOL"
     phantom_password = os.environ.get("PHANTOM_PASSWORD")
 
@@ -53,6 +48,9 @@ def main() -> None:
         print("9: Open Position 🚀")
         print("10: Capture Order Payload 📦")
         print("11: Exit ❌")
+        print("12: Dump Visible Buttons 🧹")
+        print("13: Dump All Text Nodes 📄")
+        print("14: Dump All <div> With Text 🔍")
         cmd = input("Enter command number: ").strip()
 
         if cmd == "1":
@@ -131,6 +129,41 @@ def main() -> None:
                 print(payload)
             except Exception as e:  # pragma: no cover - demo utility
                 print("Error capturing order payload:", e)
+        elif cmd == "12":
+            try:
+                print("🕵️ Dumping visible buttons to button_dump.txt...")
+                from phantom_debug_mode_patch import dump_visible_buttons
+                dump_visible_buttons(pm.page)
+                print("✅ Dump complete. Check button_dump.txt")
+            except Exception as e:
+                print(f"Error during DOM sweep: {e}")
+        elif cmd == "13":
+            try:
+                all_text = pm.page.locator("*").all_inner_texts()
+                with open("all_text_dump.txt", "w", encoding="utf-8") as f:
+                    for text in all_text:
+                        cleaned = text.strip()
+                        if cleaned:
+                            f.write(cleaned + "\n")
+                print("✅ Dumped all visible inner text to all_text_dump.txt")
+            except Exception as e:
+                print(f"Error dumping text nodes: {e}")
+        elif cmd == "14":
+            try:
+                divs = pm.page.locator("div")
+                with open("div_text_dump.txt", "w", encoding="utf-8") as f:
+                    for i in range(divs.count()):
+                        try:
+                            div = divs.nth(i)
+                            if div.is_visible():
+                                text = div.inner_text().strip()
+                                if text:
+                                    f.write(f"[{i}] {text}\n")
+                        except Exception:
+                            pass
+                print("✅ Dumped visible <div> elements to div_text_dump.txt")
+            except Exception as e:
+                print(f"Error dumping <div> content: {e}")
         elif cmd == "11":
             print("❌ Exiting...")
             break
