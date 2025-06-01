@@ -340,3 +340,13 @@ def api_run_playwright_test():
     except Exception as e:
         current_app.logger.error(f"Playwright test failed: {e}", exc_info=True)
         return jsonify({"error": str(e)}), 500
+
+
+# -----------------------------------------------------------
+# Order Factory Page
+# -----------------------------------------------------------
+
+@sonic_labs_bp.route("/order_factory", methods=["GET"])
+def order_factory_page():
+    """Render the OrderCore layout demo."""
+    return render_template("order_factory.html")
