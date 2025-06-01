@@ -20,8 +20,28 @@ try:
     from flask_socketio import SocketIO
 except Exception:  # pragma: no cover - optional dependency
     class Flask:
+        """Minimal stub used when Flask isn't installed."""
+
         def __init__(self, *a, **k):
-            pass
+            self.config = {}
+            self.view_functions = {}
+
+        def route(self, *args, **kwargs):
+            def decorator(func):
+                self.view_functions[func.__name__] = func
+                return func
+
+            return decorator
+
+        def add_url_rule(self, rule, endpoint=None, view_func=None, **options):
+            if view_func:
+                self.view_functions[endpoint or view_func.__name__] = view_func
+
+        def context_processor(self, func):
+            return func
+
+        def run(self, *a, **k):  # pragma: no cover - not executed in tests
+            raise RuntimeError("Flask not installed")
 
     def redirect(location):
         return location
