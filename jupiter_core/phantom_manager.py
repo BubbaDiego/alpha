@@ -53,14 +53,31 @@ class PhantomManager:
         await self.popup.wait_for_load_state()
         return self.popup
 
-    async def unlock_phantom(self, phantom_password: str) -> None:
-        logger.debug("Unlocking Phantom: selecting password input field.")
-        if self.popup is None or self.popup.is_closed():
-            await self.open_phantom_popup()
-        await self.popup.wait_for_selector("input[data-testid='unlock-form-password-input']", timeout=5000)
-        await self.popup.fill("input[data-testid='unlock-form-password-input']", phantom_password, timeout=2000)
-        await self.popup.click("button[data-testid='unlock-form-submit-button']", timeout=5000)
-        await self.popup.wait_for_timeout(2000)
+    async def unlock_phantom(self, phantom_password: str):
+        from utils.console_logger import ConsoleLogger
+        ConsoleLogger.info("🔐 Attempting to unlock Phantom", source="Phantom")
+
+        try:
+            # Open popup if needed
+            if self.popup is None or self.popup.is_closed():
+                self.popup = await self.open_phantom_popup()
+
+            # Wait for the unlock field
+            await self.popup.wait_for_selector("input[data-testid='unlock-form-password-input']", timeout=7000)
+
+            # Fill password
+            ConsoleLogger.info("🔑 Filling password input", source="Phantom")
+            await self.popup.fill("input[data-testid='unlock-form-password-input']", phantom_password)
+
+            # Click unlock
+            await self.popup.click("button[data-testid='unlock-form-submit-button']", timeout=3000)
+
+            # Optionally wait for it to disappear
+            await self.popup.wait_for_timeout(1000)
+            ConsoleLogger.success("✅ Phantom unlocked", source="Phantom")
+
+        except Exception as e:
+            ConsoleLogger.error("❌ Failed to unlock Phantom", payload={"error": str(e)}, source="Phantom")
 
     async def connect_wallet(
         self,

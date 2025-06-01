@@ -56,10 +56,12 @@ configure_console_log(debug=True)
 app = Flask(__name__)
 app.debug = False
 app.secret_key = "i-like-lamp"
-app.config["PHANTOM_PATH"] = os.getenv(
-    "PHANTOM_PATH",
-    str(BASE_DIR / "wallets" / "phantom_wallet"),
-)
+
+# ✅ Safe to assign config values now
+app.config["PHANTOM_PATH"] = os.getenv("PHANTOM_PATH", "C:/alpha/wallets/phantom_wallet")
+app.config["SOLFLARE_PATH"] = os.getenv("SOLFLARE_PATH", "C:/alpha/wallets/solflare_wallet")
+# Any other config values...
+
 socketio = SocketIO(app)
 
 # --- SINGLETON BACKEND ---
