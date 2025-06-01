@@ -1,0 +1,1611 @@
+[0] Jup.ag
+Spot
+Pro
+Perps
+New
+Portfolio
+More
+6v…ca
+SOL
+ETH
+WBTC
+Earn
+24H Vol
+$389.88M
+24H High
+$161.49
+24H Low
+$152.20
+Positions
+(5)
+Open Orders
+History
+Show Positions on Chart
+Position
+Value
+(Ex. open/close/borrow fees)
+Entry / Mark Price
+Liq. Price
+Size
+Collateral
+TP / SL
+Close All
+WBTC
+27.49x Long
+$72.62
+-$90.12 (-54.39%)
+$106,703.15
+/
+$104,592.14
+$103,115.25
+$4,555.26
+0.04269094 WBTC
+$165.69
+N/A
+N/A
+Close
+ETH
+21.9x Long
+$68.60
+-$124.97 (-63.67%)
+$2,612.00
+/
+$2,536.07
+$2,499.86
+$4,298.51
+1.64567577 ETH
+$196.27
+N/A
+N/A
+Close
+ETH
+31.57x Short
+$89.36
+-$6.19 (-6.35%)
+$2,530.97
+/
+$2,536.07
+$2,604.30
+$3,074.99
+1.21494675 ETH
+$97.40
+N/A
+N/A
+Close
+WBTC
+25.03x Short
+$62.33
+-$9.16 (-12.61%)
+$104,067.97
+/
+$104,592.14
+$107,939.17
+$1,819.21
+0.01748095 WBTC
+$72.66
+N/A
+N/A
+Close
+SOL
+2.89x Long
+$15.59
++$0.03 (+0.19%)
+$156.19
+/
+$156.29
+$102.70
+$45.16
+0.289098986 SOL
+$15.59
+N/A
+N/A
+Close
+$156.29
+-2.24%
+Long/Buy
+Short/Sell
+Market
+Limit
+$156.29
+You're paying
+0.174138839 SOL
+HALF
+MAX
+SOL
+$14.07
+1.1x
+20x
+40x
+60x
+80x
+100x
+:
+Slippage: 2.0%
+Available Liq.
+$2.50M
+Borrow Rate
+0.0032% / hr
+Long/Buy 0.8937 SOL
+≈ $139.68
+Entry Price
+
+$156.19 → $156.27
+
+Liquidation Price
+
+$102.70 → $131.70
+
+Total Fees
+borrow fees due:
+$0.00
+≈ 0.10 USD
+Jupiter Perps
+Feedback
+[2] Jup.ag
+Spot
+Pro
+Perps
+New
+Portfolio
+More
+6v…ca
+SOL
+ETH
+WBTC
+Earn
+24H Vol
+$389.88M
+24H High
+$161.49
+24H Low
+$152.20
+Positions
+(5)
+Open Orders
+History
+Show Positions on Chart
+Position
+Value
+(Ex. open/close/borrow fees)
+Entry / Mark Price
+Liq. Price
+Size
+Collateral
+TP / SL
+Close All
+WBTC
+27.49x Long
+$72.62
+-$90.12 (-54.39%)
+$106,703.15
+/
+$104,592.14
+$103,115.25
+$4,555.26
+0.04269094 WBTC
+$165.69
+N/A
+N/A
+Close
+ETH
+21.9x Long
+$68.60
+-$124.97 (-63.67%)
+$2,612.00
+/
+$2,536.07
+$2,499.86
+$4,298.51
+1.64567577 ETH
+$196.27
+N/A
+N/A
+Close
+ETH
+31.57x Short
+$89.36
+-$6.19 (-6.35%)
+$2,530.97
+/
+$2,536.07
+$2,604.30
+$3,074.99
+1.21494675 ETH
+$97.40
+N/A
+N/A
+Close
+WBTC
+25.03x Short
+$62.33
+-$9.16 (-12.61%)
+$104,067.97
+/
+$104,592.14
+$107,939.17
+$1,819.21
+0.01748095 WBTC
+$72.66
+N/A
+N/A
+Close
+SOL
+2.89x Long
+$15.59
++$0.03 (+0.19%)
+$156.19
+/
+$156.29
+$102.70
+$45.16
+0.289098986 SOL
+$15.59
+N/A
+N/A
+Close
+$156.29
+-2.24%
+Long/Buy
+Short/Sell
+Market
+Limit
+$156.29
+You're paying
+0.174138839 SOL
+HALF
+MAX
+SOL
+$14.07
+1.1x
+20x
+40x
+60x
+80x
+100x
+:
+Slippage: 2.0%
+Available Liq.
+$2.50M
+Borrow Rate
+0.0032% / hr
+Long/Buy 0.8937 SOL
+≈ $139.68
+Entry Price
+
+$156.19 → $156.27
+
+Liquidation Price
+
+$102.70 → $131.70
+
+Total Fees
+borrow fees due:
+$0.00
+≈ 0.10 USD
+Jupiter Perps
+Feedback
+[3] Jup.ag
+Spot
+Pro
+Perps
+New
+Portfolio
+More
+6v…ca
+[4] Jup.ag
+Spot
+Pro
+Perps
+New
+Portfolio
+More
+6v…ca
+[5] Jup.ag
+Spot
+Pro
+Perps
+New
+Portfolio
+More
+6v…ca
+[6] Jup.ag
+Spot
+Pro
+Perps
+New
+Portfolio
+More
+6v…ca
+[7] Jup.ag
+Spot
+Pro
+Perps
+New
+Portfolio
+More
+[8] Jup.ag
+[9] Spot
+Pro
+Perps
+New
+Portfolio
+More
+[10] Spot
+Pro
+Perps
+New
+Portfolio
+More
+[11] New
+Portfolio
+[12] New
+[15] 6v…ca
+[19] 6v…ca
+[24] 6v…ca
+[29] SOL
+ETH
+WBTC
+Earn
+24H Vol
+$389.88M
+24H High
+$161.49
+24H Low
+$152.20
+Positions
+(5)
+Open Orders
+History
+Show Positions on Chart
+Position
+Value
+(Ex. open/close/borrow fees)
+Entry / Mark Price
+Liq. Price
+Size
+Collateral
+TP / SL
+Close All
+WBTC
+27.49x Long
+$72.62
+-$90.12 (-54.39%)
+$106,703.15
+/
+$104,592.14
+$103,115.25
+$4,555.26
+0.04269094 WBTC
+$165.69
+N/A
+N/A
+Close
+ETH
+21.9x Long
+$68.60
+-$124.97 (-63.67%)
+$2,612.00
+/
+$2,536.07
+$2,499.86
+$4,298.51
+1.64567577 ETH
+$196.27
+N/A
+N/A
+Close
+ETH
+31.57x Short
+$89.36
+-$6.19 (-6.35%)
+$2,530.97
+/
+$2,536.07
+$2,604.30
+$3,074.99
+1.21494675 ETH
+$97.40
+N/A
+N/A
+Close
+WBTC
+25.03x Short
+$62.33
+-$9.16 (-12.61%)
+$104,067.97
+/
+$104,592.14
+$107,939.17
+$1,819.21
+0.01748095 WBTC
+$72.66
+N/A
+N/A
+Close
+SOL
+2.89x Long
+$15.59
++$0.03 (+0.19%)
+$156.19
+/
+$156.29
+$102.70
+$45.16
+0.289098986 SOL
+$15.59
+N/A
+N/A
+Close
+$156.29
+-2.24%
+Long/Buy
+Short/Sell
+Market
+Limit
+$156.29
+You're paying
+0.174138839 SOL
+HALF
+MAX
+SOL
+$14.07
+1.1x
+20x
+40x
+60x
+80x
+100x
+:
+Slippage: 2.0%
+Available Liq.
+$2.50M
+Borrow Rate
+0.0032% / hr
+Long/Buy 0.8937 SOL
+≈ $139.68
+Entry Price
+
+$156.19 → $156.27
+
+Liquidation Price
+
+$102.70 → $131.70
+
+Total Fees
+borrow fees due:
+$0.00
+≈ 0.10 USD
+[56] SOL
+ETH
+WBTC
+Earn
+24H Vol
+$389.88M
+24H High
+$161.49
+24H Low
+$152.20
+Positions
+(5)
+Open Orders
+History
+Show Positions on Chart
+Position
+Value
+(Ex. open/close/borrow fees)
+Entry / Mark Price
+Liq. Price
+Size
+Collateral
+TP / SL
+Close All
+WBTC
+27.49x Long
+$72.62
+-$90.12 (-54.39%)
+$106,703.15
+/
+$104,592.14
+$103,115.25
+$4,555.26
+0.04269094 WBTC
+$165.69
+N/A
+N/A
+Close
+ETH
+21.9x Long
+$68.60
+-$124.97 (-63.67%)
+$2,612.00
+/
+$2,536.07
+$2,499.86
+$4,298.51
+1.64567577 ETH
+$196.27
+N/A
+N/A
+Close
+ETH
+31.57x Short
+$89.36
+-$6.19 (-6.35%)
+$2,530.97
+/
+$2,536.07
+$2,604.30
+$3,074.99
+1.21494675 ETH
+$97.40
+N/A
+N/A
+Close
+WBTC
+25.03x Short
+$62.33
+-$9.16 (-12.61%)
+$104,067.97
+/
+$104,592.14
+$107,939.17
+$1,819.21
+0.01748095 WBTC
+$72.66
+N/A
+N/A
+Close
+SOL
+2.89x Long
+$15.59
++$0.03 (+0.19%)
+$156.19
+/
+$156.29
+$102.70
+$45.16
+0.289098986 SOL
+$15.59
+N/A
+N/A
+Close
+[57] SOL
+ETH
+WBTC
+Earn
+24H Vol
+$389.88M
+24H High
+$161.49
+24H Low
+$152.20
+[58] SOL
+ETH
+WBTC
+Earn
+[59] SOL
+ETH
+WBTC
+[60] Earn
+[62] 24H Vol
+$389.88M
+24H High
+$161.49
+24H Low
+$152.20
+[63] 24H Vol
+$389.88M
+[64] 24H High
+$161.49
+[65] 24H Low
+$152.20
+[66] Positions
+(5)
+Open Orders
+History
+Show Positions on Chart
+Position
+Value
+(Ex. open/close/borrow fees)
+Entry / Mark Price
+Liq. Price
+Size
+Collateral
+TP / SL
+Close All
+WBTC
+27.49x Long
+$72.62
+-$90.12 (-54.39%)
+$106,703.15
+/
+$104,592.14
+$103,115.25
+$4,555.26
+0.04269094 WBTC
+$165.69
+N/A
+N/A
+Close
+ETH
+21.9x Long
+$68.60
+-$124.97 (-63.67%)
+$2,612.00
+/
+$2,536.07
+$2,499.86
+$4,298.51
+1.64567577 ETH
+$196.27
+N/A
+N/A
+Close
+ETH
+31.57x Short
+$89.36
+-$6.19 (-6.35%)
+$2,530.97
+/
+$2,536.07
+$2,604.30
+$3,074.99
+1.21494675 ETH
+$97.40
+N/A
+N/A
+Close
+WBTC
+25.03x Short
+$62.33
+-$9.16 (-12.61%)
+$104,067.97
+/
+$104,592.14
+$107,939.17
+$1,819.21
+0.01748095 WBTC
+$72.66
+N/A
+N/A
+Close
+SOL
+2.89x Long
+$15.59
++$0.03 (+0.19%)
+$156.19
+/
+$156.29
+$102.70
+$45.16
+0.289098986 SOL
+$15.59
+N/A
+N/A
+Close
+[71] Positions
+(5)
+Open Orders
+History
+Show Positions on Chart
+Position
+Value
+(Ex. open/close/borrow fees)
+Entry / Mark Price
+Liq. Price
+Size
+Collateral
+TP / SL
+Close All
+WBTC
+27.49x Long
+$72.62
+-$90.12 (-54.39%)
+$106,703.15
+/
+$104,592.14
+$103,115.25
+$4,555.26
+0.04269094 WBTC
+$165.69
+N/A
+N/A
+Close
+ETH
+21.9x Long
+$68.60
+-$124.97 (-63.67%)
+$2,612.00
+/
+$2,536.07
+$2,499.86
+$4,298.51
+1.64567577 ETH
+$196.27
+N/A
+N/A
+Close
+ETH
+31.57x Short
+$89.36
+-$6.19 (-6.35%)
+$2,530.97
+/
+$2,536.07
+$2,604.30
+$3,074.99
+1.21494675 ETH
+$97.40
+N/A
+N/A
+Close
+WBTC
+25.03x Short
+$62.33
+-$9.16 (-12.61%)
+$104,067.97
+/
+$104,592.14
+$107,939.17
+$1,819.21
+0.01748095 WBTC
+$72.66
+N/A
+N/A
+Close
+SOL
+2.89x Long
+$15.59
++$0.03 (+0.19%)
+$156.19
+/
+$156.29
+$102.70
+$45.16
+0.289098986 SOL
+$15.59
+N/A
+N/A
+Close
+[73] Positions
+(5)
+Open Orders
+History
+Show Positions on Chart
+[74] Positions
+(5)
+Open Orders
+History
+[75] Positions
+(5)
+Open Orders
+History
+[77] Show Positions on Chart
+[79] Position
+Value
+(Ex. open/close/borrow fees)
+Entry / Mark Price
+Liq. Price
+Size
+Collateral
+TP / SL
+Close All
+WBTC
+27.49x Long
+$72.62
+-$90.12 (-54.39%)
+$106,703.15
+/
+$104,592.14
+$103,115.25
+$4,555.26
+0.04269094 WBTC
+$165.69
+N/A
+N/A
+Close
+ETH
+21.9x Long
+$68.60
+-$124.97 (-63.67%)
+$2,612.00
+/
+$2,536.07
+$2,499.86
+$4,298.51
+1.64567577 ETH
+$196.27
+N/A
+N/A
+Close
+ETH
+31.57x Short
+$89.36
+-$6.19 (-6.35%)
+$2,530.97
+/
+$2,536.07
+$2,604.30
+$3,074.99
+1.21494675 ETH
+$97.40
+N/A
+N/A
+Close
+WBTC
+25.03x Short
+$62.33
+-$9.16 (-12.61%)
+$104,067.97
+/
+$104,592.14
+$107,939.17
+$1,819.21
+0.01748095 WBTC
+$72.66
+N/A
+N/A
+Close
+SOL
+2.89x Long
+$15.59
++$0.03 (+0.19%)
+$156.19
+/
+$156.29
+$102.70
+$45.16
+0.289098986 SOL
+$15.59
+N/A
+N/A
+Close
+[80] Position
+Value
+(Ex. open/close/borrow fees)
+Entry / Mark Price
+Liq. Price
+Size
+Collateral
+TP / SL
+Close All
+WBTC
+27.49x Long
+$72.62
+-$90.12 (-54.39%)
+$106,703.15
+/
+$104,592.14
+$103,115.25
+$4,555.26
+0.04269094 WBTC
+$165.69
+N/A
+N/A
+Close
+ETH
+21.9x Long
+$68.60
+-$124.97 (-63.67%)
+$2,612.00
+/
+$2,536.07
+$2,499.86
+$4,298.51
+1.64567577 ETH
+$196.27
+N/A
+N/A
+Close
+ETH
+31.57x Short
+$89.36
+-$6.19 (-6.35%)
+$2,530.97
+/
+$2,536.07
+$2,604.30
+$3,074.99
+1.21494675 ETH
+$97.40
+N/A
+N/A
+Close
+WBTC
+25.03x Short
+$62.33
+-$9.16 (-12.61%)
+$104,067.97
+/
+$104,592.14
+$107,939.17
+$1,819.21
+0.01748095 WBTC
+$72.66
+N/A
+N/A
+Close
+SOL
+2.89x Long
+$15.59
++$0.03 (+0.19%)
+$156.19
+/
+$156.29
+$102.70
+$45.16
+0.289098986 SOL
+$15.59
+N/A
+N/A
+Close
+[81] Position
+Value
+(Ex. open/close/borrow fees)
+Entry / Mark Price
+Liq. Price
+Size
+Collateral
+TP / SL
+Close All
+[82] Position
+Value
+(Ex. open/close/borrow fees)
+Entry / Mark Price
+Liq. Price
+Size
+Collateral
+TP / SL
+Close All
+[83] Position
+[84] Value
+(Ex. open/close/borrow fees)
+[86] Entry / Mark Price
+[87] Liq. Price
+[88] Size
+[89] Collateral
+[90] TP / SL
+[91] Close All
+[92] WBTC
+27.49x Long
+$72.62
+-$90.12 (-54.39%)
+$106,703.15
+/
+$104,592.14
+$103,115.25
+$4,555.26
+0.04269094 WBTC
+$165.69
+N/A
+N/A
+Close
+ETH
+21.9x Long
+$68.60
+-$124.97 (-63.67%)
+$2,612.00
+/
+$2,536.07
+$2,499.86
+$4,298.51
+1.64567577 ETH
+$196.27
+N/A
+N/A
+Close
+ETH
+31.57x Short
+$89.36
+-$6.19 (-6.35%)
+$2,530.97
+/
+$2,536.07
+$2,604.30
+$3,074.99
+1.21494675 ETH
+$97.40
+N/A
+N/A
+Close
+WBTC
+25.03x Short
+$62.33
+-$9.16 (-12.61%)
+$104,067.97
+/
+$104,592.14
+$107,939.17
+$1,819.21
+0.01748095 WBTC
+$72.66
+N/A
+N/A
+Close
+SOL
+2.89x Long
+$15.59
++$0.03 (+0.19%)
+$156.19
+/
+$156.29
+$102.70
+$45.16
+0.289098986 SOL
+$15.59
+N/A
+N/A
+Close
+[93] WBTC
+27.49x Long
+$72.62
+-$90.12 (-54.39%)
+$106,703.15
+/
+$104,592.14
+$103,115.25
+$4,555.26
+0.04269094 WBTC
+$165.69
+N/A
+N/A
+Close
+ETH
+21.9x Long
+$68.60
+-$124.97 (-63.67%)
+$2,612.00
+/
+$2,536.07
+$2,499.86
+$4,298.51
+1.64567577 ETH
+$196.27
+N/A
+N/A
+Close
+ETH
+31.57x Short
+$89.36
+-$6.19 (-6.35%)
+$2,530.97
+/
+$2,536.07
+$2,604.30
+$3,074.99
+1.21494675 ETH
+$97.40
+N/A
+N/A
+Close
+WBTC
+25.03x Short
+$62.33
+-$9.16 (-12.61%)
+$104,067.97
+/
+$104,592.14
+$107,939.17
+$1,819.21
+0.01748095 WBTC
+$72.66
+N/A
+N/A
+Close
+SOL
+2.89x Long
+$15.59
++$0.03 (+0.19%)
+$156.19
+/
+$156.29
+$102.70
+$45.16
+0.289098986 SOL
+$15.59
+N/A
+N/A
+Close
+[94] WBTC
+27.49x Long
+$72.62
+-$90.12 (-54.39%)
+$106,703.15
+/
+$104,592.14
+$103,115.25
+$4,555.26
+0.04269094 WBTC
+$165.69
+N/A
+N/A
+Close
+[95] WBTC
+27.49x Long
+$72.62
+-$90.12 (-54.39%)
+$106,703.15
+/
+$104,592.14
+$103,115.25
+$4,555.26
+0.04269094 WBTC
+$165.69
+N/A
+N/A
+Close
+[96] WBTC
+27.49x Long
+[97] WBTC
+27.49x Long
+[98] $72.62
+-$90.12 (-54.39%)
+[99] $72.62
+[101] $106,703.15
+/
+$104,592.14
+[102] $103,115.25
+[103] $103,115.25
+[105] $4,555.26
+0.04269094 WBTC
+[106] $165.69
+[107] N/A
+N/A
+[108] N/A
+N/A
+[109] N/A
+N/A
+[110] N/A
+N/A
+[111] Close
+[114] ETH
+21.9x Long
+$68.60
+-$124.97 (-63.67%)
+$2,612.00
+/
+$2,536.07
+$2,499.86
+$4,298.51
+1.64567577 ETH
+$196.27
+N/A
+N/A
+Close
+[115] ETH
+21.9x Long
+$68.60
+-$124.97 (-63.67%)
+$2,612.00
+/
+$2,536.07
+$2,499.86
+$4,298.51
+1.64567577 ETH
+$196.27
+N/A
+N/A
+Close
+[116] ETH
+21.9x Long
+[117] ETH
+21.9x Long
+[118] $68.60
+-$124.97 (-63.67%)
+[119] $68.60
+[121] $2,612.00
+/
+$2,536.07
+[122] $2,499.86
+[123] $2,499.86
+[125] $4,298.51
+1.64567577 ETH
+[126] $196.27
+[127] N/A
+N/A
+[128] N/A
+N/A
+[129] N/A
+N/A
+[130] N/A
+N/A
+[131] Close
+[134] ETH
+31.57x Short
+$89.36
+-$6.19 (-6.35%)
+$2,530.97
+/
+$2,536.07
+$2,604.30
+$3,074.99
+1.21494675 ETH
+$97.40
+N/A
+N/A
+Close
+[135] ETH
+31.57x Short
+$89.36
+-$6.19 (-6.35%)
+$2,530.97
+/
+$2,536.07
+$2,604.30
+$3,074.99
+1.21494675 ETH
+$97.40
+N/A
+N/A
+Close
+[136] ETH
+31.57x Short
+[137] ETH
+31.57x Short
+[138] $89.36
+-$6.19 (-6.35%)
+[139] $89.36
+[141] $2,530.97
+/
+$2,536.07
+[142] $2,604.30
+[143] $2,604.30
+[145] $3,074.99
+1.21494675 ETH
+[146] $97.40
+[147] N/A
+N/A
+[148] N/A
+N/A
+[149] N/A
+N/A
+[150] N/A
+N/A
+[151] Close
+[154] WBTC
+25.03x Short
+$62.33
+-$9.16 (-12.61%)
+$104,067.97
+/
+$104,592.14
+$107,939.17
+$1,819.21
+0.01748095 WBTC
+$72.66
+N/A
+N/A
+Close
+[155] WBTC
+25.03x Short
+$62.33
+-$9.16 (-12.61%)
+$104,067.97
+/
+$104,592.14
+$107,939.17
+$1,819.21
+0.01748095 WBTC
+$72.66
+N/A
+N/A
+Close
+[156] WBTC
+25.03x Short
+[157] WBTC
+25.03x Short
+[158] $62.33
+-$9.16 (-12.61%)
+[159] $62.33
+[161] $104,067.97
+/
+$104,592.14
+[162] $107,939.17
+[163] $107,939.17
+[165] $1,819.21
+0.01748095 WBTC
+[166] $72.66
+[167] N/A
+N/A
+[168] N/A
+N/A
+[169] N/A
+N/A
+[170] N/A
+N/A
+[171] Close
+[174] SOL
+2.89x Long
+$15.59
++$0.03 (+0.19%)
+$156.19
+/
+$156.29
+$102.70
+$45.16
+0.289098986 SOL
+$15.59
+N/A
+N/A
+Close
+[175] SOL
+2.89x Long
+$15.59
++$0.03 (+0.19%)
+$156.19
+/
+$156.29
+$102.70
+$45.16
+0.289098986 SOL
+$15.59
+N/A
+N/A
+Close
+[176] SOL
+2.89x Long
+[177] SOL
+2.89x Long
+[178] $15.59
++$0.03 (+0.19%)
+[179] $15.59
+[181] $156.19
+/
+$156.29
+[182] $102.70
+[183] $102.70
+[185] $45.16
+0.289098986 SOL
+[186] $15.59
+[187] N/A
+N/A
+[188] N/A
+N/A
+[189] N/A
+N/A
+[190] N/A
+N/A
+[191] Close
+[330] $156.30
+-2.24%
+Long/Buy
+Short/Sell
+Market
+Limit
+$156.30
+You're paying
+0.174138839 SOL
+HALF
+MAX
+SOL
+$14.07
+1.1x
+20x
+40x
+60x
+80x
+100x
+:
+Slippage: 2.0%
+Available Liq.
+$2.50M
+Borrow Rate
+0.0032% / hr
+Long/Buy 0.8937 SOL
+≈ $139.68
+Entry Price
+
+$156.19 → $156.27
+
+Liquidation Price
+
+$102.70 → $131.70
+
+Total Fees
+borrow fees due:
+$0.00
+≈ 0.10 USD
+[331] $156.30
+-2.24%
+[332] $156.30
+-2.24%
+[337] Long/Buy
+Short/Sell
+Market
+Limit
+$156.30
+You're paying
+0.174138839 SOL
+HALF
+MAX
+SOL
+$14.07
+1.1x
+20x
+40x
+60x
+80x
+100x
+:
+Slippage: 2.0%
+Available Liq.
+$2.50M
+Borrow Rate
+0.0032% / hr
+Long/Buy 0.8937 SOL
+≈ $139.68
+Entry Price
+
+$156.19 → $156.27
+
+Liquidation Price
+
+$102.70 → $131.70
+
+Total Fees
+borrow fees due:
+$0.00
+≈ 0.10 USD
+[338] Long/Buy
+Short/Sell
+Market
+Limit
+$156.30
+You're paying
+0.174138839 SOL
+HALF
+MAX
+SOL
+$14.07
+1.1x
+20x
+40x
+60x
+80x
+100x
+:
+Slippage: 2.0%
+Available Liq.
+$2.50M
+Borrow Rate
+0.0032% / hr
+Long/Buy 0.8937 SOL
+≈ $139.68
+[339] Long/Buy
+Short/Sell
+[340] Long/Buy
+Short/Sell
+[341] Market
+Limit
+$156.30
+You're paying
+0.174138839 SOL
+HALF
+MAX
+SOL
+$14.07
+1.1x
+20x
+40x
+60x
+80x
+100x
+:
+Slippage: 2.0%
+Available Liq.
+$2.50M
+Borrow Rate
+0.0032% / hr
+Long/Buy 0.8937 SOL
+≈ $139.68
+[342] Market
+Limit
+$156.30
+[343] Market
+Limit
+[344] $156.30
+[345] You're paying
+0.174138839 SOL
+HALF
+MAX
+SOL
+$14.07
+1.1x
+20x
+40x
+60x
+80x
+100x
+[346] You're paying
+0.174138839 SOL
+HALF
+MAX
+SOL
+$14.07
+[347] You're paying
+0.174138839 SOL
+HALF
+MAX
+[348] 0.174138839 SOL
+HALF
+MAX
+[349] 0.174138839 SOL
+[350] HALF
+MAX
+[351] SOL
+$14.07
+[352] $14.07
+[353] $14.07
+[354] $14.07
+[355] 1.1x
+20x
+40x
+60x
+80x
+100x
+[357] 1.1x
+20x
+40x
+60x
+80x
+100x
+[358] 1.1x
+20x
+40x
+60x
+80x
+100x
+[359] 1.1x
+20x
+40x
+60x
+80x
+100x
+[366] :
+Slippage: 2.0%
+Available Liq.
+$2.50M
+Borrow Rate
+0.0032% / hr
+[367] :
+Slippage: 2.0%
+[368] Available Liq.
+$2.50M
+Borrow Rate
+0.0032% / hr
+[369] Available Liq.
+$2.50M
+[370] Borrow Rate
+0.0032% / hr
+[371] Entry Price
+
+$156.19 → $156.27
+
+Liquidation Price
+
+$102.70 → $131.70
+
+Total Fees
+borrow fees due:
+$0.00
+≈ 0.10 USD
+[372] Entry Price
+
+$156.19 → $156.27
+[373] Liquidation Price
+
+$102.70 → $131.70
+[374] Total Fees
+borrow fees due:
+$0.00
+≈ 0.10 USD
+[375] Total Fees
+borrow fees due:
+$0.00
+[376] borrow fees due:
+$0.00
+[377] Jupiter Perps
+Feedback
+[378] Jupiter Perps
+Feedback
+[379] Feedback

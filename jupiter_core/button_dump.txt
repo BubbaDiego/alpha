@@ -1,0 +1,27 @@
+[0] More
+[3] 6v…ca
+[10] SOL
+[11] ETH
+[12] WBTC
+[13] Positions
+(2)
+[14] Open Orders
+[15] History
+[18] Value
+[20] Close All
+[21] WBTC
+[25] Close
+[26] WBTC
+[30] Close
+[45] Long/Buy
+[46] Short/Sell
+[48] Market
+[49] Limit
+[50] 0.165848288 SOL
+[51] HALF
+[52] MAX
+[53] SOL
+[57] Slippage: 2.0%
+[58] Long/Buy 1.1899 SOL
+≈ $181.05
+[60] Feedback
