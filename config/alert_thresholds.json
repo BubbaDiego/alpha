@@ -1,65 +1,47 @@
 {
   "source": "db",
-  "thresholds": [
-    {
-      "id": "0188e091-ef03-4277-a0a0-1491de4dcec9",
-      "alert_type": "HeatIndex",
-      "alert_class": "Position",
-      "metric_key": "heatindex",
-      "condition": "ABOVE",
+  "alert_ranges": {
+    "liquidation_distance_ranges": {},
+    "travel_percent_liquid_ranges": {},
+    "heat_index_ranges": {
       "low": 10.0,
       "medium": 25.0,
       "high": 45.0,
-      "enabled": 0,
-      "last_modified": "2025-05-31T12:48:54.402225+00:00",
-      "low_notify": "Email",
-      "medium_notify": "Email",
-      "high_notify": "Email"
+      "enabled": false
     },
-    {
-      "id": "b2b1a798-1ac0-4409-ad33-194d5627ec85",
-      "alert_type": "PriceThreshold",
-      "alert_class": "Market",
-      "metric_key": "price",
-      "condition": "ABOVE",
-      "low": 20005.0,
-      "medium": 30010.0,
-      "high": 40020.0,
-      "enabled": 1,
-      "last_modified": "2025-05-31T12:48:54.403230+00:00",
-      "low_notify": "",
-      "medium_notify": "",
-      "high_notify": ""
-    },
-    {
-      "id": "9db07598-99a7-44bc-bbd6-9895a7d02bd9",
-      "alert_type": "Profit",
-      "alert_class": "Position",
-      "metric_key": "profit",
-      "condition": "ABOVE",
+    "profit_ranges": {
       "low": 15.0,
       "medium": 60.0,
       "high": 120.0,
-      "enabled": 0,
-      "last_modified": "2025-05-31T12:48:54.402225+00:00",
-      "low_notify": "SMS,Email,Voice",
-      "medium_notify": "SMS,Email,Voice",
-      "high_notify": "SMS,Email,Voice"
+      "enabled": false
     },
-    {
-      "id": "7ee5eda4-116e-4c03-9ad9-8388afdd9d1e",
-      "alert_type": "TotalValue",
-      "alert_class": "Portfolio",
-      "metric_key": "total_value",
-      "condition": "ABOVE",
-      "low": 10005.0,
-      "medium": 25010.0,
-      "high": 50020.0,
-      "enabled": 0,
-      "last_modified": "2025-05-31T12:48:54.403230+00:00",
-      "low_notify": "",
-      "medium_notify": "",
-      "high_notify": "SMS"
+    "price_alerts": {}
+  },
+  "cooldowns": {
+    "alert_cooldown_seconds": 300,
+    "call_refractory_period": 900,
+    "snooze_countdown": 300
+  },
+  "notifications": {
+    "heat_index": {
+      "low": {"methods": ["Email"]},
+      "medium": {"methods": ["Email"]},
+      "high": {"methods": ["Email"]}
+    },
+    "profit": {
+      "low": {"methods": ["SMS", "Email", "Voice"]},
+      "medium": {"methods": ["SMS", "Email", "Voice"]},
+      "high": {"methods": ["SMS", "Email", "Voice"]}
+    },
+    "price_alerts": {
+      "low": {},
+      "medium": {},
+      "high": {}
     }
-  ]
+  },
+  "global_alert_config": {
+    "enabled": true,
+    "data_fields": {},
+    "thresholds": {}
+  }
 }
