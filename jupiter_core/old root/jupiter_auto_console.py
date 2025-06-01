@@ -1,6 +1,8 @@
 from __future__ import annotations
 
 import asyncio
+from pathlib import Path
+from dotenv import load_dotenv
 from rich.console import Console
 from rich.prompt import Prompt
 from dotenv import load_dotenv
@@ -12,6 +14,10 @@ from utils.console_logger import ConsoleLogger
 
 # Load .env values
 load_dotenv()
+
+base_dir = Path(__file__).resolve().parent.parent
+load_dotenv(base_dir / ".env")
+load_dotenv(base_dir / ".env.example")
 
 console = Console()
 

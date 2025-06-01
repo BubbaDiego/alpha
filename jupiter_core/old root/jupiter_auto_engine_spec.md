@@ -195,9 +195,13 @@ STEPS = [
     ("🔓 Unlock Wallet", steps_module.unlock_wallet),
     ("📊 Select Position Type", steps_module.select_position_type),
     ("📦 Select Order Asset", steps_module.select_order_asset),
+    ("💰 Set Collateral Asset", steps_module.set_collateral_asset),
+    ("📏 Set Position Size", steps_module.set_position_size),
+    ("⚖️ Set Leverage", steps_module.set_leverage),
     ("📈 Select Order Type", steps_module.select_order_type),
     ("🎯 Place TP/SL Limit Order", steps_module.place_tp_sl_limit_order),
     ("🧹 Dump Visible Buttons", steps_module.dump_visible_buttons),
+    ("🪟 Dump Visible Divs", steps_module.dump_visible_divs),
 ]
 ```
 【F:jupiter_core/jupiter_auto_console.py†L12-L23】
@@ -220,6 +224,12 @@ async def select_position_type(engine):
 - The Phantom browser extension is bundled in `phantom_wallet/` for offline automation.
 - `JupiterEngineCore` can be used as an async context manager to ensure proper cleanup.
 - Step modules are easily extended by adding new `auto_*.py` files within the package.
+- Collateral asset selection via the "You're Paying" dropdown is unstable. The
+  `set_collateral_asset` step currently assumes the default asset (**SOL**) and
+  logs that choice until a reliable selector path is found.
+
+### 🔧 TODO
+- Support both the legacy Jupiter Perps interface and the new V2 platform.
 
 ### 📝 Change List (2025-05-31)
 - Version bumped to **v1.1**.
