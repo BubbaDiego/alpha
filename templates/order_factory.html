@@ -9,32 +9,8 @@
 <link rel="stylesheet" href="{{ url_for('static', filename='css/sonic_themes.css') }}">
 <link rel="stylesheet" href="{{ url_for('static', filename='css/sonic_titles.css') }}">
 <style>
-  h1, h2 {
-    text-align: center;
-    margin-top: 1rem;
-  }
   .factory-container {
-    padding: 2rem;
-    display: flex;
-    flex-direction: column;
-    gap: 3rem;
-  }
-  .layout {
-    border: 2px solid #444;
-    border-radius: 8px;
-    padding: 1rem;
-    background-color: #2b2b2b;
-  }
-  .layout h3 {
-    color: #ffcc00;
-    margin-top: 0;
-  }
-  .tab-container {
-    display: flex;
-    gap: 2rem;
-  }
-  .tab-section {
-    flex: 1;
+    margin-top: 2rem;
   }
   .panel {
     background: #333;
@@ -43,11 +19,6 @@
     border-radius: 6px;
     border: 1px solid #666;
   }
-  .section-title {
-    font-weight: bold;
-    color: #7fd3ff;
-    margin-bottom: 0.5rem;
-  }
 </style>
 {% endblock %}
 
@@ -55,56 +26,19 @@
 {% set title_text = 'Order Factory' %}
 {% include "title_bar.html" %}
 
-<div class="factory-container">
-
-    <!-- Variation A -->
-    <div class="layout">
-        <h3>Variation A: Horizontal Tabs + Data Sidebar</h3>
-        <div class="tab-container">
-            <div class="tab-section">
-                <div class="section-title">Tabs</div>
-                <div class="panel">[Atomic Actions]</div>
-                <div class="panel">[Full Order Flow]</div>
-                <div class="panel">[Logs]</div>
-            </div>
-            <div class="tab-section">
-                <div class="section-title">Live Data</div>
-                <div class="panel">Wallet Type: Solflare</div>
-                <div class="panel">Broker: Jupiter</div>
-                <div class="panel">Order Summary Output</div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Variation B -->
-    <div class="layout">
-        <h3>Variation B: Tabs on Top + Full Width Console Below</h3>
-        <div class="panel">[Tabs: Atomic | Sequence | Logs]</div>
-        <div class="panel">[Atomic Control Panel or Sequence Runner]</div>
-        <div class="panel">[Broker & Agent Status Panel]</div>
-        <div class="panel">[Console Output Logs]</div>
-    </div>
-
-    <!-- Variation C -->
-    <div class="layout">
-        <h3>Variation C: Tab Sidebar + Live Reactive Order Summary</h3>
-        <div style="display: flex; gap: 2rem;">
-            <div style="flex: 1;">
-                <div class="section-title">Sidebar Tabs</div>
-                <div class="panel">[Atomic Panel]</div>
-                <div class="panel">[Sequencer]</div>
-                <div class="panel">[Debug Console]</div>
-            </div>
-            <div style="flex: 2;">
-                <div class="section-title">Live Status Area</div>
-                <div class="panel">Wallet: Phantom | Agent Ready</div>
-                <div class="panel">Broker: Jupiter | Quote Ready</div>
-                <div class="panel">Order Preview: Long 0.1 SOL @ 5x</div>
-                <div class="panel">Output Log: Success | Warnings | Steps</div>
-            </div>
-        </div>
-    </div>
-
+<div class="factory-container sonic-section-container sonic-section-middle">
+  <div class="sonic-content-panel">
+    <div class="section-title">Actions</div>
+    <div class="panel">[Atomic Actions]</div>
+    <div class="panel">[Full Order Flow]</div>
+    <div class="panel">[Logs]</div>
+  </div>
+  <div class="sonic-content-panel">
+    <div class="section-title">Live Data</div>
+    <div class="panel">Wallet Type: Solflare</div>
+    <div class="panel">Broker: Jupiter</div>
+    <div class="panel">Order Summary Output</div>
+  </div>
 </div>
 {% endblock %}
 
