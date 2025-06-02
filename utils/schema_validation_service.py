@@ -7,6 +7,7 @@ import json
 import jsonschema
 from jsonschema import validate
 from core.core_imports import log
+from core.constants import ALERT_THRESHOLDS_PATH
 
 class SchemaValidationService:
     """
@@ -14,7 +15,7 @@ class SchemaValidationService:
     Can be invoked in post-deployment or other test suites.
     """
 
-    ALERT_THRESHOLDS_FILE = "c:/v0.8/config/alert_thresholds.json"
+    ALERT_THRESHOLDS_FILE = str(ALERT_THRESHOLDS_PATH)
 
     ALERT_THRESHOLDS_SCHEMA = {
         "type": "object",
