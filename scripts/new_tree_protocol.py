@@ -33,7 +33,16 @@ def ensure_requirements() -> None:
     req = REPO_ROOT / "requirements.txt"
     if not req.exists():
         raise SystemExit("requirements.txt not found")
-    run(f"{sys.executable} -m pip install -r \"{req}\"")
+    cmd = f"{sys.executable} -m pip install -r \"{req}\""
+    print(f"🔧 Running: {cmd}")
+    result = subprocess.run(cmd, shell=True)
+    if result.returncode != 0:
+        print(
+            "❌ Failed to install dependencies. "
+            "Ensure you are using Python 3.10+ and try upgrading pip with"
+        )
+        print(f"   {sys.executable} -m pip install --upgrade pip")
+        raise SystemExit(result.returncode)
 
 
 def seed_database() -> None:

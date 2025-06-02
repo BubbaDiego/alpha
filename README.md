@@ -61,6 +61,15 @@ PYTHONPATH=.
 If you have an older copy with an absolute `PYTHONPATH`, update or remove that
 line before running `flask` commands.
 
+Windows users should set these variables using PowerShell syntax:
+
+```powershell
+$env:FLASK_APP = "sonic_app.py"
+$env:FLASK_ENV = "development"
+$env:FLASK_DEBUG = "1"
+$env:PYTHONPATH = "."
+```
+
 Or execute the full test suite using:
 
 ```bash
