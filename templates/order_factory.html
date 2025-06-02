@@ -29,8 +29,17 @@
 <div class="factory-container sonic-section-container sonic-section-middle">
   <div class="sonic-content-panel">
     <div class="section-title">Actions</div>
-    <div class="panel">[Atomic Actions]</div>
-    <div class="panel">[Full Order Flow]</div>
+    <div class="panel">
+      <button id="launchCoreBtn" class="btn btn-sm btn-secondary mb-2">Launch Core</button>
+      <div class="mb-2">
+        <button class="btn btn-sm btn-primary" data-engine-action="select_position_type" data-value="long">Long</button>
+        <button class="btn btn-sm btn-primary" data-engine-action="select_order_type" data-value="market">Market</button>
+        <button class="btn btn-sm btn-primary" data-engine-action="confirm_order">Confirm</button>
+      </div>
+    </div>
+    <div class="panel text-center">
+      <button id="runFullFlowBtn" class="btn btn-success">Run Full Demo Flow</button>
+    </div>
     <div class="panel">[Logs]</div>
   </div>
   <div class="sonic-content-panel">
@@ -46,4 +55,5 @@
 {{ super() }}
 <script src="{{ url_for('static', filename='js/layout_mode.js') }}"></script>
 <script src="{{ url_for('static', filename='js/sonic_theme_toggle.js') }}"></script>
+<script src="{{ url_for('static', filename='js/order_factory.js') }}"></script>
 {% endblock %}
