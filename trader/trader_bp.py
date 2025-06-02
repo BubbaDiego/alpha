@@ -25,6 +25,14 @@ def trader_page(name: str):
     return render_template("trader_dashboard.html", trader=trader)
 
 
+@trader_bp.route("/factory/<name>")
+def trader_factory(name: str):
+    """Render the trader factory page with loaded trader data."""
+    loader = _loader()
+    trader = loader.load_trader(name)
+    return render_template("trader_factory.html", trader=trader)
+
+
 @trader_bp.route("/api/<name>")
 def trader_api(name: str):
     loader = _loader()
