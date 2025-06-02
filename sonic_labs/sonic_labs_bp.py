@@ -350,3 +350,113 @@ def api_run_playwright_test():
 def order_factory_page():
     """Render the OrderCore layout demo."""
     return render_template("order_factory.html")
+
+
+def get_order_core():
+    """Return or create the shared OrderCore instance."""
+    core = getattr(current_app, "order_core", None)
+    if core is None:
+        from order_core.order_core import OrderCore
+        from config.config_loader import load_config
+
+        core = OrderCore(current_app.data_locker, load_config)
+        current_app.order_core = core
+    return core
+
+
+@sonic_labs_bp.route("/api/order_core_launch", methods=["POST"])
+def api_order_core_launch():
+    """Launch OrderCore with the configured wallet."""
+    data = request.get_json() or {}
+    extension_path = data.get("extension_path") or current_app.config.get("PHANTOM_PATH")
+    wallet_type = data.get("wallet_type", "phantom")
+    phantom_password = data.get("phantom_password")
+    solflare_password = data.get("solflare_password")
+    headless = data.get("headless", True)
+
+    core = get_order_core()
+    try:
+        import asyncio
+
+        asyncio.run(
+            core.launch(
+                extension_path=extension_path,
+                headless=headless,
+                phantom_password=phantom_password,
+                solflare_password=solflare_password,
+            )
+        )
+        return jsonify({"message": "OrderCore launched"})
+    except Exception as e:
+        current_app.logger.error(f"OrderCore launch failed: {e}", exc_info=True)
+        return jsonify({"error": str(e)}), 500
+
+
+@sonic_labs_bp.route("/api/order_engine_action", methods=["POST"])
+def api_order_engine_action():
+    """Execute a single OrderEngine action."""
+    data = request.get_json() or {}
+    action = data.get("action")
+    value = data.get("value")
+
+    if not action:
+        return jsonify({"error": "Missing action"}), 400
+
+    core = get_order_core()
+    engine = getattr(core, "engine", None)
+    if engine is None:
+        return jsonify({"error": "OrderCore not launched"}), 400
+
+    func = getattr(engine, action, None)
+    if func is None:
+        return jsonify({"error": f"Unknown action: {action}"}), 400
+
+    try:
+        import asyncio
+
+        if asyncio.iscoroutinefunction(func):
+            if value is not None:
+                asyncio.run(func(value))
+            else:
+                asyncio.run(func())
+        else:
+            if value is not None:
+                func(value)
+            else:
+                func()
+        return jsonify({"message": f"{action} executed"})
+    except Exception as e:
+        current_app.logger.error(f"OrderEngine action error: {e}", exc_info=True)
+        return jsonify({"error": str(e)}), 500
+
+
+@sonic_labs_bp.route("/api/order_sequence", methods=["POST"])
+def api_order_sequence():
+    """Run a composite OrderSequencer flow."""
+    data = request.get_json() or {}
+    flow = data.get("flow")
+    params = data.get("params") or {}
+
+    if not flow:
+        return jsonify({"error": "Missing flow"}), 400
+
+    core = get_order_core()
+    seq = getattr(core, "sequencer", None)
+    if seq is None:
+        return jsonify({"error": "OrderCore not launched"}), 400
+
+    func = getattr(seq, flow, None)
+    if func is None:
+        return jsonify({"error": f"Unknown flow: {flow}"}), 400
+
+    try:
+        import asyncio
+
+        if asyncio.iscoroutinefunction(func):
+            result = asyncio.run(func(**params))
+        else:
+            result = func(**params)
+        return jsonify({"message": "flow executed", "result": str(result)})
+    except Exception as e:
+        current_app.logger.error(f"OrderSequencer flow error: {e}", exc_info=True)
+        return jsonify({"error": str(e)}), 500
