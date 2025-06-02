@@ -44,6 +44,14 @@ def test_trader_api(client):
 
 
 def test_trader_factory_page(client):
+
+    resp = client.get("/trader/factory")
+    assert resp.status_code == 200
+    assert b"Angie" in resp.data
+
+
+def test_trader_factory_single(client):
+
     resp = client.get("/trader/factory/Angie")
     assert resp.status_code == 200
     assert b"Angie" in resp.data

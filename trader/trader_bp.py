@@ -25,6 +25,23 @@ def trader_page(name: str):
     return render_template("trader_dashboard.html", trader=trader)
 
 
+
+@trader_bp.route("/factory")
+def trader_factory_all():
+    """Show cards for all known traders."""
+    loader = _loader()
+    names = loader.persona_manager.list_personas()
+    traders = [loader.load_trader(n) for n in names]
+    return render_template("trader_factory.html", traders=traders)
+
+
+@trader_bp.route("/factory/<name>")
+def trader_factory_single(name: str):
+    """Render the trader factory page with a single trader."""
+    loader = _loader()
+    trader = loader.load_trader(name)
+    return render_template("trader_factory.html", traders=[trader])
+
 @trader_bp.route("/factory/<name>")
 def trader_factory(name: str):
     """Render the trader factory page with loaded trader data."""
