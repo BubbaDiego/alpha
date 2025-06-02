@@ -67,13 +67,15 @@ Or execute the full test suite using:
 pytest
 ```
 
-When running tests in a fresh Codex environment you may need to
-install the requirements first:
+The requirements now include `pytest`. If you see
+`ModuleNotFoundError: No module named 'pytest'`, install the
+dependencies using:
 
 ```bash
 python scripts/setup_test_env.py
 ```
-This step is optional and not part of the default test run.
+This script simply runs `pip install -r requirements.txt` and is
+optional for environments that already have the packages installed.
 
 ### Test Reports
 

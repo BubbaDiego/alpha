@@ -45,6 +45,17 @@ The [GPT Core specification](gpt/gpt_core_spec.md) describes the Python modules 
 ### Oracle Core
 The [Oracle Core specification](oracle_core/oracle_core_spec.md) explains the strategy and persona system used to build GPT prompts.
 
+### Environment Setup
+All modules require **Python 3.10** or later. Project dependencies, including
+`pytest` for the test suite, are listed in `requirements.txt`. Install them with:
+
+```bash
+python -m pip install -r requirements.txt
+```
+
+When running tests in a fresh Codex environment, execute
+`python scripts/setup_test_env.py` to ensure `pytest` is available.
+
 ---
 
 Each linked specification contains more detailed design notes, functional requirements, and example workflows.
