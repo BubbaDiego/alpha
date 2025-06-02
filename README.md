@@ -287,6 +287,19 @@ failure the "death spiral" tone is used instead. Invoke this at application
 launch to verify the environment is ready. The Launch Pad console exposes this
 check via a **Startup Service** option in its main menu.
 
+## New Tree Protocol
+
+`scripts/new_tree_protocol.py` automates the full setup for a new clone. It
+installs the required Python packages, seeds the database with default wallets
+and alert thresholds, copies `.env.example` to `.env` when necessary and finally
+runs `StartUpService.run_all()` to verify the configuration.
+
+Run this command after checking out the repository to stand up a working tree:
+
+```bash
+python scripts/new_tree_protocol.py
+```
+
 ## Database Recovery
 
 If the SQLite file becomes corrupted, you can rebuild it directly from the
