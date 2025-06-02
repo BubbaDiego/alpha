@@ -61,5 +61,39 @@
       "medium_notify": "",
       "high_notify": "SMS"
     }
-  ]
+  ],
+  "alert_ranges": {
+    "liquidation_distance_ranges": {},
+    "travel_percent_liquid_ranges": {},
+    "heat_index_ranges": {},
+    "profit_ranges": {},
+    "price_alerts": {}
+  },
+  "cooldowns": {
+    "alert_cooldown_seconds": 300,
+    "call_refractory_period": 900,
+    "snooze_countdown": 300
+  },
+  "notifications": {
+    "heat_index": {
+      "low": {},
+      "medium": {},
+      "high": {}
+    },
+    "travel_percent_liquid": {
+      "low": {},
+      "medium": {},
+      "high": {}
+    },
+    "profit": {
+      "low": {},
+      "medium": {},
+      "high": {}
+    },
+    "price_alerts": {
+      "low": {},
+      "medium": {},
+      "high": {}
+    }
+  }
 }
