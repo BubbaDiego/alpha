@@ -1,1 +1,0 @@
-"use strict";(self.webpackChunk_solflare_extension=self.webpackChunk_solflare_extension||[]).push([["libs_locales_package_json"],{"../../libs/locales/package.json":e=>{e.exports=JSON.parse('{"name":"@solflare/locales","version":"0.1.0","private":true}')}}]);

@@ -1,2 +1,0 @@
-import{a as u}from"./chunk-6MAAUKN7.js";import{f as s,h as r,n}from"./chunk-3KENBVE7.js";r();n();var e=s(u()),m=({delay:t=300,children:a,delayedChildren:d})=>{let[i,l]=e.default.useState(!1);return(0,e.useEffect)(()=>{let o;return t&&(o=setTimeout(()=>{l(!0)},t)),()=>{o&&clearTimeout(o)}},[t]),e.default.createElement(e.default.Fragment,null,i?d:a)};export{m as a};
-//# sourceMappingURL=chunk-N5FJSS7H.js.map

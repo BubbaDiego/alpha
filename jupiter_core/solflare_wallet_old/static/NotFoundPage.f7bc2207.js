@@ -1,1 +1,0 @@
-"use strict";(self.webpackChunk_solflare_extension=self.webpackChunk_solflare_extension||[]).push([["NotFoundPage"],{"../web/src/pages/404/index.tsx":(e,s,n)=>{n.r(s),n.d(s,{NotFound404:()=>d});var o=n("../../../node_modules/react/jsx-runtime.js");n("../../../node_modules/react/index.js");const d=()=>(0,o.jsx)("div",{children:"Page not found."})}}]);
