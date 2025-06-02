@@ -136,6 +136,12 @@ with app.app_context():
     app.data_locker.system.set_var("xcom_providers", providers)
     print("✅ Default email provider set in xcom_providers")
 
+
+@app.route("/traders")
+def show_trader_factory():
+    return render_template("trader_factory.html")
+
+
 # --- Heartbeat API Route for Countdown ---
 @app.route("/api/heartbeat")
 def api_heartbeat():
