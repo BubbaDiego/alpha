@@ -9,13 +9,16 @@ The requirements now support **Python 3.13** as well.
 
 ## Quick Start
 
-Create a virtual environment and install all dependencies:
+Create a virtual environment and install all dependencies. A helper
+script is available to set up `.venv` automatically:
 
 ```bash
-python -m venv .venv
+python scripts/create_virtual_env.py
 source .venv/bin/activate      # Windows: .venv\Scripts\activate
 pip install -r requirements.txt
 ```
+The helper script now also upgrades ``pip`` in the new environment. Run it
+whenever you need to create ``.venv`` or refresh ``pip``.
 You can also run `python scripts/create_virtual_env.py` to generate `.venv`
 automatically if it doesn't already exist.
 Python 3.10 or later is required because the codebase uses the `|` union syntax.
