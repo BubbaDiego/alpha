@@ -73,6 +73,18 @@ def launch_web_and_monitor():
     input("Press ENTER to return...")
 
 
+def launch_trader_cards():
+    """Open the Trader Cards page in the Sonic web UI."""
+    console.print("[bold green]Launching Trader Cards...[/bold green]")
+    subprocess.Popen([sys.executable, "sonic_app.py"])
+    time.sleep(2)
+    route = "/trader/cards"
+    log.print_dashboard_link(host="127.0.0.1", port=5000, route=route)
+    webbrowser.open(f"http://127.0.0.1:5000{route}")
+    console.print("[cyan]Sonic Web started in background.[/cyan]")
+    input("Press ENTER to return...")
+
+
 def operations_menu():
     """Operations utilities."""
     while True:
@@ -220,7 +232,8 @@ def main_menu():
         console.print("6) 🗄️ Database Utilities")
         console.print("7) 🧪 Test Core")
         console.print("8) 🔌 API Status")
-        console.print("9) 🚪 Exit")
+        console.print("9) 🃏 Trader Cards")
+        console.print("10) 🚪 Exit")
         choice = input("→ ").strip()
         if choice == "1":
             launch_web_and_monitor()
@@ -240,6 +253,8 @@ def main_menu():
         elif choice == "8":
             check_api_status()
         elif choice == "9":
+            launch_trader_cards()
+        elif choice == "10":
             console.print("Goodbye!", style="green")
             break
         else:

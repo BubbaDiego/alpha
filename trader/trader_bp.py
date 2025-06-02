@@ -38,3 +38,11 @@ def trader_api(name: str):
     loader = _loader()
     trader = loader.load_trader(name)
     return jsonify(trader.__dict__)
+
+
+@trader_bp.route("/cards")
+def trader_cards():
+    """Display cards for all traders."""
+    loader = _loader()
+    traders = loader.load_all_traders()
+    return render_template("trader_cards.html", traders=traders)

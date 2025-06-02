@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+{% block title %}Trader Cards{% endblock %}
+
+{% block extra_styles %}
+{{ super() }}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/title_bar.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/trader_dashboard.css') }}">
+{% endblock %}
+
+{% block content %}
+{% set title_text = 'Traders' %}
+{% include "title_bar.html" %}
+<div class="container my-4">
+  <div class="row">
+  {% for trader in traders %}
+    <div class="col-sm-6 col-md-4 col-lg-3">
+      <div class="trader-card mb-4">
+        <div class="trader-header">
+          <span class="avatar">{{ trader.avatar }}</span>
+          <h2>{{ trader.name }}</h2>
+          <span class="mood">{{ trader.mood }}</span>
+        </div>
+        <div class="trader-body">
+          <p>Risk: {{ trader.risk_profile }}</p>
+          <p>Heat Index: <span>{{ trader.heat_index }}</span></p>
+          <p>Performance Score: <span>{{ trader.performance_score }}</span></p>
+        </div>
+      </div>
+    </div>
+  {% endfor %}
+  </div>
+</div>
+{% endblock %}
+
+{% block extra_scripts %}
+{{ super() }}
+<script src="{{ url_for('static', filename='js/trader_dashboard.js') }}"></script>
+{% endblock %}

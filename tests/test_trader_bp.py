@@ -47,3 +47,10 @@ def test_trader_factory_page(client):
     resp = client.get("/trader/factory/Angie")
     assert resp.status_code == 200
     assert b"Angie" in resp.data
+
+
+def test_trader_cards_page(client):
+    resp = client.get("/trader/cards")
+    assert resp.status_code == 200
+    # Should include at least one persona name
+    assert b"Angie" in resp.data
