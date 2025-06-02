@@ -17,6 +17,8 @@ python scripts/create_virtual_env.py
 source .venv/bin/activate      # Windows: .venv\Scripts\activate
 pip install -r requirements.txt
 ```
+You can also run `python scripts/create_virtual_env.py` to generate `.venv`
+automatically if it doesn't already exist.
 Python 3.10 or later is required because the codebase uses the `|` union syntax.
 It is tested with Python 3.13 for compatibility.
 The requirements list includes the `solana` and `solders` packages used for

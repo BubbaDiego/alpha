@@ -137,9 +137,10 @@ with app.app_context():
     print("✅ Default email provider set in xcom_providers")
 
 
-@app.route("/traders")
+@app.route("/traders", endpoint="trader_cards")
 def show_trader_factory():
     return render_template("trader_factory.html")
+
 
 
 # --- Heartbeat API Route for Countdown ---
