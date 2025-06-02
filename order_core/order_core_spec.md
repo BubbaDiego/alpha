@@ -77,7 +77,7 @@ class OrderModel:
 Fields include `id`, `asset`, `position_type`, `collateral_asset`, `leverage`, `position_size`, `order_type`, `status`, plus optional `entry_price` and `fees`.【F:order_core/order_model.py†L7-L23】
 
 ### 🖼️ Order Factory Template
-`templates/order_factory.html` demonstrates potential UI layouts for controlling OrderCore. It includes multiple tabbed designs such as a horizontal layout with live data panels.【F:templates/order_factory.html†L58-L77】
+`templates/order_factory.html` provides a simplified two-panel layout for controlling OrderCore. It presents action controls alongside a live data sidebar and honors the global layout mode toggle.【F:templates/order_factory.html†L29-L41】
 
 ### 🧩 Integrations
 - Intended for use alongside `Cyclone` or standalone console apps.
