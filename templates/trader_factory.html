@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% block title %}Trader Factory{% endblock %}
+
+{% block extra_styles %}
+{{ super() }}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/title_bar.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/trader_dashboard.css') }}">
+{% endblock %}
+
+{% block content %}
+{% set title_text = 'Trader Factory' %}
+{% include "title_bar.html" %}
+<div class="factory-container sonic-section-container sonic-section-middle">
+  <div class="sonic-content-panel">
+    <div class="section-title">Trader Info</div>
+    <div class="trader-card" id="trader-card">
+      <div class="trader-header">
+        <span class="avatar">{{ trader.avatar }}</span>
+        <h2>{{ trader.name }}</h2>
+        <span class="mood" id="mood">{{ trader.mood }}</span>
+      </div>
+      <div class="trader-body">
+        <p>Risk: {{ trader.risk_profile }}</p>
+        <p>Heat Index: <span id="heat">{{ trader.heat_index }}</span></p>
+        <p>Performance Score: <span id="score">{{ trader.performance_score }}</span></p>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
+
+{% block extra_scripts %}
+{{ super() }}
+<script src="{{ url_for('static', filename='js/trader_dashboard.js') }}"></script>
+{% endblock %}
