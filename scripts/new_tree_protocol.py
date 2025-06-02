@@ -8,6 +8,7 @@ cloning the project on a new machine.
 """
 from __future__ import annotations
 
+import os
 import subprocess
 import sys
 from pathlib import Path
@@ -18,6 +19,13 @@ if str(REPO_ROOT) not in sys.path:
     sys.path.insert(0, str(REPO_ROOT))
 
 from utils.startup_service import StartUpService
+
+
+def ensure_virtualenv() -> None:
+    """Exit if no virtual environment is active."""
+    active = os.environ.get("VIRTUAL_ENV") or sys.prefix != getattr(sys, "base_prefix", sys.prefix)
+    if not active:
+        raise SystemExit("❌ Activate a virtual environment before running this script")
 
 
 def run(cmd: str) -> None:
@@ -66,6 +74,7 @@ def ensure_env_file() -> None:
 
 def new_tree_protocol() -> None:
     """Run all setup steps for a new installation."""
+    ensure_virtualenv()
     ensure_requirements()
     seed_database()
     ensure_env_file()
