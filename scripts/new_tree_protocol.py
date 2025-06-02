@@ -12,10 +12,12 @@ import subprocess
 import sys
 from pathlib import Path
 
-from utils.startup_service import StartUpService
-
 SCRIPT_DIR = Path(__file__).resolve().parent
 REPO_ROOT = SCRIPT_DIR.parent
+if str(REPO_ROOT) not in sys.path:
+    sys.path.insert(0, str(REPO_ROOT))
+
+from utils.startup_service import StartUpService
 
 
 def run(cmd: str) -> None:
