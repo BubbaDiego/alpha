@@ -52,3 +52,8 @@ class TraderLoader:
             performance_score=score,
             heat_index=avg_heat,
         )
+
+    def load_all_traders(self):
+        """Load Trader objects for all available personas."""
+        names = self.persona_manager.list_personas()
+        return [self.load_trader(n) for n in names]
