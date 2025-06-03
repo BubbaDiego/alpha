@@ -26,6 +26,7 @@ from data.models import AlertThreshold
 from wallets.wallet_schema import WalletIn
 from positions.position_core import PositionCore
 from positions.hedge_manager import HedgeManager
+from utils.template_filters import short_datetime
 
 UPLOAD_FOLDER = os.path.join("static", "uploads", "wallets")
 os.makedirs(UPLOAD_FOLDER, exist_ok=True)
@@ -36,6 +37,9 @@ system_bp = Blueprint(
     url_prefix="/system",
     template_folder="../templates",
 )
+
+# Register template filters when the blueprint is attached to an app.
+system_bp.add_app_template_filter(short_datetime, "short_datetime")
 
 # Allow this blueprint to find templates in the project's main templates
 # directory when used within standalone test applications.
