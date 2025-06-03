@@ -77,21 +77,13 @@ instance/
 
 # Scrapy stuff:
 .scrapy
-
-
 **/playwright-data/
-jupiter_core/playwright-data/
-
-jupiter_core/phantom_wallet/
-
 
 # Sphinx documentation
 docs/_build/
-
 # PyBuilder
 .pybuilder/
 target/
-
 # Jupyter Notebook
 .ipynb_checkpoints
 
