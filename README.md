@@ -308,9 +308,8 @@ installs the required Python packages, seeds the database with default wallets
 and alert thresholds, copies `.env.example` to `.env` when necessary and finally
 runs `StartUpService.run_all()` to verify the configuration.
 
-Activate the project's virtual environment **before** running the script. If you
-haven't created `.venv` yet, follow the [Quick Start](#quick-start) instructions
-above.
+Activate the project's virtual environment **before** running the script. To
+create and activate `.venv`, follow the [Quick Start](#quick-start) section.
 
 Run this command after checking out the repository to stand up a working tree:
 
