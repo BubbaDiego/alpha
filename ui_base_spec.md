@@ -297,6 +297,50 @@ Common assets such as `sonic.png`, token logos, wallpapers and themed
 backgrounds reside in `static/images/`. These are referenced by the CSS
 themes and page templates.
 
+#### Icon & Image Glossary
+
+| File | Description | Location |
+|------|-------------|----------|
+| `Wally.png` | Wallpaper featuring the Wally robot used by funky theme backgrounds. | `static/images/Wally.png` |
+| `aave.jpg` | Aave protocol logo. | `static/images/aave.jpg` |
+| `alert_wall.jpg` | Background image for alert pages. | `static/images/alert_wall.jpg` |
+| `btc_logo.png` | Bitcoin logo icon used in positions and hedge reports. | `static/images/btc_logo.png` |
+| `cityscape3.jpg` | Cityscape wallpaper used in dashboards. | `static/images/cityscape3.jpg` |
+| `container_wallpaper.jpg` | Container themed background. | `static/images/container_wallpaper.jpg` |
+| `corner_icon.jpg` | Small corner icon for page layouts. | `static/images/corner_icon.jpg` |
+| `corner_logo_owl.jpg` | Owl variant of the corner logo. | `static/images/corner_logo_owl.jpg` |
+| `corner_logos.jpg` | Composite image of corner logos. | `static/images/corner_logos.jpg` |
+| `crypto_icon.jpg` | Generic cryptocurrency icon. | `static/images/crypto_icon.jpg` |
+| `crypto_iconz.png` | Alternate crypto icon style. | `static/images/crypto_iconz.png` |
+| `database_wall.jpg` | Wallpaper for the database viewer. | `static/images/database_wall.jpg` |
+| `error.png` | Error status icon. | `static/images/error.png` |
+| `eth_logo.png` | Ethereum logo icon. | `static/images/eth_logo.png` |
+| `jupiter.jpg` | Jupiter aggregator logo. | `static/images/jupiter.jpg` |
+| `landovault.jpg` | Landovault wallet image. | `static/images/landovault.jpg` |
+| `monitor_wallpaper.jpg` | Background for monitor dashboard. | `static/images/monitor_wallpaper.jpg` |
+| `obivault.jpg` | ObiVault wallet image. | `static/images/obivault.jpg` |
+| `r2vault - Copy.jpg` | Alternate R2Vault wallet image. | `static/images/r2vault - Copy.jpg` |
+| `r2vault.jpg` | R2Vault wallet image. | `static/images/r2vault.jpg` |
+| `raydium.jpg` | Raydium DEX logo. | `static/images/raydium.jpg` |
+| `sol_logo.png` | Solana logo icon. | `static/images/sol_logo.png` |
+| `sonic.png` | Main Sonic mascot used across dashboards. | `static/images/sonic.png` |
+| `sonic_title.png` | Sonic styled title banner. | `static/images/sonic_title.png` |
+| `space_wall4.jpg` | Space themed wallpaper. | `static/images/space_wall4.jpg` |
+| `sys_config_wall.jpg` | System configuration wallpaper. | `static/images/sys_config_wall.jpg` |
+| `twilio.png` | Twilio API logo. | `static/images/twilio.png` |
+| `unknown.png` | Placeholder icon for unknown assets. | `static/images/unknown.png` |
+| `unknown_wallet.jpg` | Generic wallet placeholder. | `static/images/unknown_wallet.jpg` |
+| `vadervault.jpg` | VaderVault wallet image. | `static/images/vadervault.jpg` |
+| `wallpaper2.jpg` | Additional wallpaper option. | `static/images/wallpaper2.jpg` |
+| `wallpaper2.png` | PNG variant of wallpaper2. | `static/images/wallpaper2.png` |
+| `wallpaper4.jpg` | Background image option. | `static/images/wallpaper4.jpg` |
+| `wallpaper5.jpg` | Background image option. | `static/images/wallpaper5.jpg` |
+| `wallpaper6.jpg` | Background image option. | `static/images/wallpaper6.jpg` |
+| `wallpapersden.jpg` | Wallpaper from wallpapersden site. | `static/images/wallpapersden.jpg` |
+| `wally2.png` | Secondary Wally wallpaper used in funky theme. | `static/images/wally2.png` |
+| `landovault.jpg` (upload) | Sample uploaded wallet logo. | `static/uploads/wallets/landovault.jpg` |
+| `vadervault.jpg` (upload) | Sample uploaded wallet logo. | `static/uploads/wallets/vadervault.jpg` |
+
 ### Sounds
 ```
 death_spiral.mp3
