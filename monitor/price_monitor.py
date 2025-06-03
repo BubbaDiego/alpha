@@ -38,6 +38,6 @@ if __name__ == "__main__":
     log.banner("🚀 SELF-RUN: PriceMonitor")
 
     monitor = PriceMonitor()
-    result = monitor._do_work()
+    result = monitor.run_cycle()
 
     log.success("🧾 PriceMonitor Run Complete", source="SelfTest", payload=result)
