@@ -2,8 +2,8 @@
 
 from typing import Optional
 
-from trader.trader import Trader
-from .trader_core import TraderCore
+from trader_core import Trader
+from trader_core import TraderCore
 
 
 class TraderFactoryService:

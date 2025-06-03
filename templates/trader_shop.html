@@ -1,0 +1,127 @@
+{% extends "base.html" %}
+{% block title %}Trader Shop{% endblock %}
+
+{% block content %}
+{% include "title_bar.html" %}
+
+<div class="container py-4">
+  <h1 class="mb-4">🛒 Trader Shop</h1>
+
+  <div class="row mb-4">
+    <div class="col-12">
+      <div class="panel p-3 border rounded shadow-sm bg-light-subtle" id="traders-panel">
+        <h2>👤 Traders</h2>
+        <div class="d-flex flex-wrap gap-3">
+          <div class="trader-card">
+            <div class="card-inner">
+              <div class="card-front">
+                <h3>Trader A</h3>
+                <p>Mood: Neutral</p>
+              </div>
+              <div class="card-back">
+                <p>Heat Index: 23.7</p>
+                <p>Strategy: Balanced</p>
+                <p>Score: 78</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row g-4">
+    <div class="col-md-6">
+      <div class="panel p-3 border rounded shadow-sm bg-light-subtle" id="leaderboard-panel">
+        <h2>🏆 Leaderboard</h2>
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Score</th>
+              <th>Heat Index</th>
+              <th>Mood</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Trader A</td>
+              <td>78</td>
+              <td>23.7</td>
+              <td>Neutral</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="col-md-6">
+      <div class="panel p-3 border rounded shadow-sm bg-light-subtle" id="activity-panel">
+        <h2>📋 Activity Log</h2>
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th>Timestamp</th>
+              <th>Trader</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>2025-06-03 04:28</td>
+              <td>Trader A</td>
+              <td>Updated Portfolio</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
+
+{% block extra_styles %}
+<style>
+  .trader-card {
+    width: 200px;
+    height: 250px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    perspective: 1000px;
+    margin: 1rem;
+    display: inline-block;
+  }
+
+  .card-inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    transition: transform 0.6s;
+    transform-style: preserve-3d;
+  }
+
+  .trader-card:hover .card-inner {
+    transform: rotateY(180deg);
+  }
+
+  .card-front, .card-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    backface-visibility: hidden;
+    padding: 1rem;
+    box-sizing: border-box;
+    border-radius: 8px;
+  }
+
+  .card-front {
+    background: #f0f0f0;
+  }
+
+  .card-back {
+    background: #dfefff;
+    transform: rotateY(180deg);
+  }
+</style>
+{% endblock %}

@@ -1,13 +1,16 @@
 """Service layer for managing Trader creation and lifecycle."""
 
 from __future__ import annotations
+import sys
+import os
+sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 
 import importlib
 from typing import List, Optional
 
-from trader.trader import Trader
-from trader.mood_engine import evaluate_mood
-from .trader_store import TraderStore
+from trader_core.trader import Trader
+from trader_core.mood_engine import evaluate_mood
+from trader_core.trader_store import TraderStore
 
 StrategyManager = importlib.import_module("oracle_core.strategy_manager").StrategyManager
 PersonaManager = importlib.import_module("oracle_core.persona_manager").PersonaManager

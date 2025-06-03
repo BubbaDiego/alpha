@@ -1,20 +1,22 @@
 import json
 import os
+import sys
 from typing import Dict, List, Optional
+sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 
 try:
     from openai import OpenAI
 except Exception:  # pragma: no cover - optional dependency
     OpenAI = None
 
-from .strategy_manager import StrategyManager, Strategy
-from .persona_manager import PersonaManager
-from trader.trader_loader import TraderLoader
-from .portfolio_topic_handler import PortfolioTopicHandler
-from .alerts_topic_handler import AlertsTopicHandler
-from .prices_topic_handler import PricesTopicHandler
-from .system_topic_handler import SystemTopicHandler
-from .positions_topic_handler import PositionsTopicHandler
+from oracle_core.strategy_manager import StrategyManager, Strategy
+from oracle_core.persona_manager import PersonaManager
+from trader_core.trader_loader import TraderLoader
+from oracle_core.portfolio_topic_handler import PortfolioTopicHandler
+from oracle_core.alerts_topic_handler import AlertsTopicHandler
+from oracle_core.prices_topic_handler import PricesTopicHandler
+from oracle_core.system_topic_handler import SystemTopicHandler
+from oracle_core.positions_topic_handler import PositionsTopicHandler
 
 
 class OracleCore:
