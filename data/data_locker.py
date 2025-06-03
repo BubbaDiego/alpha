@@ -27,6 +27,7 @@ from data.dl_system_data import DLSystemDataManager
 from data.dl_monitor_ledger import DLMonitorLedgerManager
 from data.dl_modifiers import DLModifierManager
 from data.dl_hedges import DLHedgeManager
+from data.dl_traders import DLTraderManager
 
 from core.constants import (
     SONIC_SAUCE_PATH,
@@ -56,6 +57,7 @@ class DataLocker:
         self.wallets = DLWalletManager(self.db)
         self.brokers = DLBrokerManager(self.db)
         self.portfolio = DLPortfolioManager(self.db)
+        self.traders = DLTraderManager(self.db)
         self.system = DLSystemDataManager(self.db)
         self.ledger = DLMonitorLedgerManager(self.db)
         self.modifiers = DLModifierManager(self.db)
