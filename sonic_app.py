@@ -59,6 +59,7 @@ except Exception:  # pragma: no cover - optional dependency
             pass
 
 from core.core_imports import log, configure_console_log, DB_PATH, BASE_DIR, retry_on_locked
+from datetime import datetime
 from data.data_locker import DataLocker
 from system.system_core import SystemCore
 from dashboard.dashboard_service import get_profit_badge_value
@@ -83,6 +84,29 @@ app.config["SOLFLARE_PATH"] = os.getenv("SOLFLARE_PATH", "C:/alpha/wallets/solfl
 # Any other config values...
 
 socketio = SocketIO(app)
+
+# --- Template Filters ---
+
+@app.template_filter("short_datetime")
+def short_datetime(value):
+    """Format timestamps like '2025-06-03T13:06:03.968905' as '3:06PM 6/3/25'."""
+    if not value:
+        return ""
+    try:
+        if isinstance(value, (int, float)):
+            dt = datetime.fromtimestamp(float(value))
+        else:
+            try:
+                dt = datetime.fromisoformat(str(value))
+            except ValueError:
+                dt = datetime.strptime(str(value), "%Y-%m-%d %H:%M:%S")
+        formatted = dt.strftime("%I:%M%p %m/%d/%y")
+        if formatted.startswith("0"):
+            formatted = formatted[1:]
+        formatted = formatted.replace("/0", "/")
+        return formatted
+    except Exception:
+        return value
 
 # --- SINGLETON BACKEND ---
 app.data_locker = DataLocker(str(DB_PATH))
