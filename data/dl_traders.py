@@ -1,15 +1,6 @@
 # dl_traders.py
-"""
-Author: BubbaDiego
-Module: DLTraderManager
-Description:
-    Provides CRUD operations for managing Trader objects in the database.
-    Each trader is stored as a JSON blob for flexibility.
-"""
-
 import json
 from datetime import datetime
-from uuid import uuid4
 from core.core_imports import log
 
 
@@ -17,7 +8,6 @@ class DLTraderManager:
     def __init__(self, db):
         self.db = db
         log.debug("DLTraderManager initialized.", source="DLTraderManager")
-
         self._initialize_table()
 
     def _initialize_table(self):
@@ -25,6 +15,7 @@ class DLTraderManager:
         if not cursor:
             log.error("❌ DB unavailable for trader table init", source="DLTraderManager")
             return
+        log.route("Ensuring 'traders' table exists...", source="DLTraderManager")
         cursor.execute("""
             CREATE TABLE IF NOT EXISTS traders (
                 name TEXT PRIMARY KEY,
@@ -34,22 +25,26 @@ class DLTraderManager:
             )
         """)
         self.db.commit()
+        log.success("✅ Trader table ready", source="DLTraderManager")
 
     def create_trader(self, trader: dict):
         try:
             name = trader.get("name")
             if not name:
                 raise ValueError("Trader 'name' is required")
+            log.debug("Creating trader", source="DLTraderManager", payload=trader)
 
             trader_json = json.dumps(trader, indent=2)
             now = datetime.now().isoformat()
 
             cursor = self.db.get_cursor()
+            if not cursor:
+                raise RuntimeError("DB cursor unavailable")
+
             cursor.execute("""
                 INSERT INTO traders (name, trader_json, created_at, last_updated)
                 VALUES (?, ?, ?, ?)
             """, (name, trader_json, now, now))
-
             self.db.commit()
             log.success(f"✅ Trader created: {name}", source="DLTraderManager")
         except Exception as e:
@@ -57,26 +52,33 @@ class DLTraderManager:
 
     def get_trader_by_name(self, name: str) -> dict:
         try:
+            log.info(f"🔍 Fetching trader by name: {name}", source="DLTraderManager")
             cursor = self.db.get_cursor()
             cursor.execute("SELECT trader_json FROM traders WHERE name = ?", (name,))
             row = cursor.fetchone()
-            return json.loads(row["trader_json"]) if row else None
+            trader = json.loads(row["trader_json"]) if row else None
+            log.debug("Trader loaded", source="DLTraderManager", payload=trader or {})
+            return trader
         except Exception as e:
             log.error(f"❌ Failed to retrieve trader '{name}': {e}", source="DLTraderManager")
             return None
 
     def list_traders(self) -> list:
         try:
+            log.info("📜 Listing all traders", source="DLTraderManager")
             cursor = self.db.get_cursor()
             cursor.execute("SELECT trader_json FROM traders")
             rows = cursor.fetchall()
-            return [json.loads(row["trader_json"]) for row in rows]
+            traders = [json.loads(row["trader_json"]) for row in rows]
+            log.debug("Trader list loaded", source="DLTraderManager", payload={"count": len(traders)})
+            return traders
         except Exception as e:
             log.error(f"❌ Failed to list traders: {e}", source="DLTraderManager")
             return []
 
     def update_trader(self, name: str, fields: dict):
         try:
+            log.debug(f"Attempting update on trader: {name}", source="DLTraderManager", payload=fields)
             trader = self.get_trader_by_name(name)
             if not trader:
                 log.warning(f"⚠️ Trader not found for update: {name}", source="DLTraderManager")
@@ -92,14 +94,14 @@ class DLTraderManager:
                 SET trader_json = ?, last_updated = ?
                 WHERE name = ?
             """, (trader_json, now, name))
-
             self.db.commit()
-            log.info(f"🛠️ Trader updated: {name}", source="DLTraderManager")
+            log.success(f"🔄 Trader updated: {name}", source="DLTraderManager")
         except Exception as e:
             log.error(f"❌ Failed to update trader '{name}': {e}", source="DLTraderManager")
 
     def delete_trader(self, name: str):
         try:
+            log.route(f"Deleting trader: {name}", source="DLTraderManager")
             cursor = self.db.get_cursor()
             cursor.execute("DELETE FROM traders WHERE name = ?", (name,))
             self.db.commit()
