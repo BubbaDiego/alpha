@@ -1,67 +1,120 @@
-# 🔮 Oracle Core Specification
+# 🧠 Trader Core Specification
 
 > Version: `v1.0`
-> Author: `CoreOps 🥷`
-> Scope: Strategy-aware topic aggregator for GPT queries.
+> Author: `CoreOps 🧠`
+> Scope: Build, persist, and manage Trader personas tied to portfolio strategy and mood evaluation.
 
 ---
 
 ## 📂 Module Structure
 ```txt
-oracle_core/
-├── oracle_core.py           # Main orchestrator
-├── oracle_data_service.py   # Fetch context data from DataLocker
-├── strategy_manager.py      # Load strategy definitions
-├── persona_manager.py       # Load persona definitions
-├── alerts_topic_handler.py  # Build alerts context
-├── portfolio_topic_handler.py   # Build portfolio context
-├── positions_topic_handler.py   # Build positions context
-├── prices_topic_handler.py      # Build price context
-├── system_topic_handler.py      # Build system status context
-├── personas/                # Default persona JSON files
-└── strategies/              # Strategy modifier JSON files
+trader/
+├── trader_core.py             # Main service logic
+├── trader_store.py            # In-memory fallback store
+├── trader_factory_service.py  # UI/console wrapper
+├── trader_loader.py           # Legacy loader (read-only)
+├── trader.py                  # Trader dataclass
+├── mood_engine.py             # Heat-based mood selection
+├── templates/trader_factory.html # UI panel
 ```
 
-### 🔮 `OracleCore`
-Central entry point that builds prompts and invokes the OpenAI API.
+---
 
+## 🧠 Purpose
+The Trader module generates strategy-aware trader personas from live portfolio data, based on:
+- Persona configuration
+- Strategy weights
+- Risk & heat index metrics
+
+It serves:
+- Console workflows
+- GPT query context
+- UI previews + saving to DB
+
+---
+ 
+## ⚙️ `TraderCore`
+
+### Constructor
 ```python
-class OracleCore:
-    def __init__(self, data_locker):
-        self.data_locker = data_locker
-        if OpenAI:
-            api_key = os.getenv("OPENAI_API_KEY") or os.getenv("OPEN_AI_KEY") or ""
-            self.client = OpenAI(api_key=api_key) if api_key else None
-        else:
-            self.client = None
-        self.strategy_manager = StrategyManager()
-        self.persona_manager = PersonaManager()
-        self.handlers: Dict[str, object] = {}
-        self.register_topic_handler("portfolio", PortfolioTopicHandler(data_locker))
-        self.register_topic_handler("alerts", AlertsTopicHandler(data_locker))
-        self.register_topic_handler("prices", PricesTopicHandler(data_locker))
-        self.register_topic_handler("system", SystemTopicHandler(data_locker))
-        self.register_topic_handler("positions", PositionsTopicHandler(data_locker))
+TraderCore(data_locker, persona_manager=None, strategy_manager=None)
 ```
-【F:oracle_core/oracle_core.py†L16-L38】
 
-`ask()` obtains context from the selected handler and optionally applies a strategy or persona before sending the prompt to GPT.
+### Key Methods
+| Method                | Description |
+|-----------------------|-------------|
+| `create_trader(name)` | Generate Trader object with live metrics |
+| `save_trader(t)`      | Save to DB or fallback to memory |
+| `get_trader(name)`    | Load trader, fall back to create + cache |
+| `list_traders()`      | List all persisted or persona-based traders |
+| `delete_trader(name)` | Remove from DL or memory store |
 
-### 🎭 Personas and Strategies
-`PersonaManager` loads persona JSON files that provide instructions and strategy weights. `StrategyManager` loads strategy JSON files defining modifier dictionaries. Persona weights are merged so multiple strategies can influence the final prompt.
+---
 
-### 🗂️ Topic Handlers
-Each handler (`PortfolioTopicHandler`, `PositionsTopicHandler`, `AlertsTopicHandler`, `PricesTopicHandler`, `SystemTopicHandler`) returns a small context dictionary via `OracleDataService`.
-The positions context now returns both the list of positions and an `avg_heat_index` field used by the `heat_control` strategy.
+## 📋 Trader Dataclass
+```python
+@dataclass
+class Trader:
+    name: str
+    avatar: str = ""
+    persona: str = ""
+    origin_story: str = ""
+    risk_profile: str = ""
+    mood: str = "neutral"
+    moods: Dict[str, str] = field(default_factory=dict)
+    strategies: Dict[str, float] = field(default_factory=dict)
+    wallet: str = ""
+    portfolio: Dict = field(default_factory=dict)
+    positions: List[Dict] = field(default_factory=list)
+    hedges: List[Dict] = field(default_factory=list)
+    performance_score: int = 0
+    heat_index: float = 0.0
+    created_at: str = now()
+    last_updated: str = now()
+```
 
-### 🛰️ Data Service
-`OracleDataService` wraps `DataLocker` managers and exposes helpers:
-- `fetch_portfolio()` → latest portfolio snapshot
-- `fetch_alerts()` → recent alerts
-- `fetch_prices()` → recent prices
-- `fetch_positions()` → `{"positions": [...], "avg_heat_index": float}`
-- `fetch_system()` → `{"last_update_times": ..., "death_log": [...], "system_alerts": [...]}`
-- Positions queries automatically apply the `heat_control` strategy if no
-  strategy is provided, injecting heat thresholds and instructions into the
-  context. This strategy relies on the `avg_heat_index` metric returned with
-  the positions list.
+---
+
+## 🛢️ Persistence
+
+### 🔘 In-Memory Store
+Used for dev testing (`TraderStore`)
+
+### 💾 DL Trader Store (`DLTraderManager`)
+- Table: `traders`
+- Fields:
+  - `name TEXT PRIMARY KEY`
+  - `trader_json TEXT NOT NULL[trader_bp.py](trader_bp.py)`
+  - `created_at TEXT`
+  - `last_updated TEXT`
+- JSON-encodes entire object
+
+---
+
+
+## 🎨 UI (HTML)
+- Dropdown persona selector
+- Preview panel (`<pre>`)
+- Save + delete buttons
+- Real-time sync with backend
+- Optional Oracle button
+- Leaderboard and activity log
+
+---
+
+---
+
+## 🔮 GPT Integration
+`OracleCore.ask_trader()` uses Trader object to:
+- Merge persona strategy modifiers
+- Add context from trader.portfolio + positions
+- Inject mood
+
+---
+
+## ✅ Summary
+TraderCore makes GPT-guided trader personas actionable.
+It enables strategy tuning, UI simulation, logging, and full DB lifecycle management.
+Perfect for simulation dashboards, GPT context delivery, and user-driven portfolios.
+
+---
