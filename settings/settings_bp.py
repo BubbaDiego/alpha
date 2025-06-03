@@ -6,6 +6,7 @@ from flask import Blueprint, render_template, jsonify, request, current_app
 from core.constants import THEME_CONFIG_PATH
 from core.logging import log
 from utils.route_decorators import route_log_alert
+from utils.template_filters import short_datetime
 
 settings_bp = Blueprint(
     'settings_bp',
@@ -13,6 +14,9 @@ settings_bp = Blueprint(
     url_prefix='/settings',
     template_folder='../templates/settings'  # ✅ Corrected
 )
+
+# Register template filters for standalone test apps.
+settings_bp.add_app_template_filter(short_datetime, 'short_datetime')
 
 @settings_bp.route("/theme")
 @route_log_alert
