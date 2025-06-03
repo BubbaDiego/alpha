@@ -34,6 +34,9 @@ function callEndpoint(url, icon = "✅", label = "Action", postAction = null) {
     .then(data => {
       if (data.message) {
         showToast(`${icon} ${label} complete: ${data.message}`);
+        if (postAction) {
+          postAction(data);
+        }
       } else if (data.error) {
         showToast(`❌ ${label} failed: ${data.error}`, true);
       } else {
@@ -46,13 +49,42 @@ function callEndpoint(url, icon = "✅", label = "Action", postAction = null) {
     });
 }
 
+// --------------------------------------------------
+// Wait for Jupiter position update to finish then refresh
+function waitForJupiterUpdate() {
+  fetch('/dashboard/api/ledger_ages')
+    .then(res => res.json())
+    .then(initial => {
+      const startTime = initial.last_positions_time;
+      const poll = () => {
+        fetch('/dashboard/api/ledger_ages')
+          .then(res => res.json())
+          .then(data => {
+            if (data.last_positions_time && data.last_positions_time !== startTime) {
+              window.location.reload();
+            } else {
+              setTimeout(poll, 2000);
+            }
+          })
+          .catch(() => setTimeout(poll, 2000));
+      };
+      setTimeout(poll, 2000);
+    })
+    .catch(err => console.error('Jupiter update poll failed:', err));
+}
+
 // ======================
 // Title Bar Button Logic
 // ======================
 document.addEventListener('DOMContentLoaded', () => {
   // Right action buttons
   const actions = {
-    sync:   () => callEndpoint('/cyclone/run_position_updates', "🪐", "Jupiter Sync"),
+    sync:   () => callEndpoint(
+                '/cyclone/run_position_updates',
+                "🪐",
+                "Jupiter Sync",
+                waitForJupiterUpdate
+              ),
     market: () => callEndpoint('/cyclone/run_market_updates',   "💲", "Market Update"),
     full:   () => callEndpoint('/cyclone/run_full_cycle',       "🌪️", "Full Cycle"),
     wipe:   () => callEndpoint('/cyclone/clear_all_data',       "🗑️", "Cyclone Delete")
