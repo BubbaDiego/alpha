@@ -34,6 +34,6 @@ class PositionMonitor(BaseMonitor):
 if __name__ == "__main__":
     log.banner("🚀 SELF-RUN: PositionMonitor")
     monitor = PositionMonitor()
-    result = monitor._do_work()
+    result = monitor.run_cycle()
     log.success("🧾 PositionMonitor Run Complete", source="SelfTest", payload=result)
     log.banner("✅ Position Sync Finished")
