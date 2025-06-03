@@ -23,7 +23,7 @@ from utils.startup_service import StartUpService
 
 def ensure_virtualenv() -> None:
     """Exit if no virtual environment is active."""
-    active = os.environ.get("VIRTUAL_ENV") or sys.prefix != getattr(sys, "base_prefix", sys.prefix)
+    active = os.environ.get("VIRTUAL_ENV") or sys.prefix != sys.base_prefix
     if not active:
         raise SystemExit("❌ Activate a virtual environment before running this script")
 
