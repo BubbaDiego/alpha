@@ -1,3 +1,4 @@
+
 import sys
 import os
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
@@ -47,16 +48,15 @@ def create_trader():
         log.debug(traceback.format_exc(), source="API")
         return jsonify({"success": False, "error": str(e)}), 500
 
-
 @trader_bp.route("/api/traders/<name>", methods=["GET"])
 def get_trader(name):
     try:
         log.info(f"Fetching trader: {name}", source="API")
-        trader = current_app.data_locker.traders.get_trader(name)
+        trader = current_app.data_locker.traders.get_trader_by_name(name)
         if not trader:
             log.warning(f"Trader not found: {name}", source="API")
             return jsonify({"success": False, "error": "Trader not found"}), 404
-        return jsonify({"success": True, "trader": trader.__dict__})
+        return jsonify({"success": True, "trader": trader})
     except Exception as e:
         log.error(f"❌ Failed to fetch trader: {e}", source="API")
         return jsonify({"success": False, "error": str(e)}), 500
@@ -66,7 +66,7 @@ def list_traders():
     try:
         log.info("Listing all traders", source="API")
         traders = current_app.data_locker.traders.list_traders()
-        return jsonify({"success": True, "traders": [t.__dict__ for t in traders]})
+        return jsonify({"success": True, "traders": traders})
     except Exception as e:
         log.error(f"❌ Failed to list traders: {e}", source="API")
         return jsonify({"success": False, "error": str(e)}), 500

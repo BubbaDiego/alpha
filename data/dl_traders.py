@@ -65,12 +65,12 @@ class DLTraderManager:
 
     def list_traders(self) -> list:
         try:
-            log.info("📜 Listing all traders", source="DLTraderManager")
+            log.route("Fetching traders from DB...", source="DLTraderManager")
             cursor = self.db.get_cursor()
             cursor.execute("SELECT trader_json FROM traders")
             rows = cursor.fetchall()
             traders = [json.loads(row["trader_json"]) for row in rows]
-            log.debug("Trader list loaded", source="DLTraderManager", payload={"count": len(traders)})
+            log.debug(f"Loaded {len(traders)} traders from DB", source="DLTraderManager")
             return traders
         except Exception as e:
             log.error(f"❌ Failed to list traders: {e}", source="DLTraderManager")
