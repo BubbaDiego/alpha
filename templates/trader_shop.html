@@ -81,11 +81,16 @@
 {% endblock %}
 
 {% block extra_styles %}
+{{ super() }}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/title_bar.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/sonic_dashboard.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/sonic_themes.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/sonic_titles.css') }}">
 <style>
   .trader-card {
     width: 200px;
     height: 250px;
-    border: 1px solid #ccc;
+    border: 1px solid var(--panel-border);
     border-radius: 8px;
     perspective: 1000px;
     margin: 1rem;
@@ -116,12 +121,20 @@
   }
 
   .card-front {
-    background: #f0f0f0;
+    background: var(--card-bg);
+    color: var(--text);
   }
 
   .card-back {
-    background: #dfefff;
+    background: var(--accent);
+    color: var(--text);
     transform: rotateY(180deg);
   }
 </style>
+{% endblock %}
+
+{% block extra_scripts %}
+{{ super() }}
+<script src="{{ url_for('static', filename='js/layout_mode.js') }}"></script>
+<script src="{{ url_for('static', filename='js/sonic_theme_toggle.js') }}"></script>
 {% endblock %}
