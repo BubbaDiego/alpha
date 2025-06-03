@@ -33,8 +33,8 @@ The [Monitor module](monitor/monitor_module_spec.md) drives periodic tasks and h
 ### Wallets
 The [Wallet Core specification](wallets/wallet_core_spec.md) outlines wallet operations and blockchain helpers. The [Jupiter API spec](wallets/jupiter_api_spec.md) describes how wallets interact with Jupiter Perps for managing collateral.
 
-### Jupiter Core
-The [Jupiter Auto Engine specification](jupiter_core/jupiter_auto_engine_spec.md) covers Phantom wallet automation and Jupiter dApp workflows.
+### Order Core
+The [Order Core specification](order_core/order_core_spec.md) covers wallet automation and order sequencing for Jupiter trades.
 
 ### GPT Input Format
 The [GPT Input specification](gpt_input_spec.md) details the JSON bundle used to send portfolio and alert context to GPT for analysis.
