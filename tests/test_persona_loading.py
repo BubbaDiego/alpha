@@ -4,7 +4,7 @@ import importlib
 def test_persona_manager_loads_bundle():
     pm_mod = importlib.import_module("oracle_core.persona_manager")
     manager = pm_mod.PersonaManager()
-    for name in ("Selena", "Nina", "Angie", "Wizard"):
+    for name in ("Connie", "Nina", "Angie", "Wizard"):
         assert name in manager.list_personas()
 
 
