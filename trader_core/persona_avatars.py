@@ -54,5 +54,23 @@ AVATARS = {
             "chaotic": "☠️"
         },
         "heat": "💀"
+    },
+    "robot": {
+        "icon": "🤖",
+        "moods": {
+            "calm": "🔋",
+            "neutral": "📡",
+            "chaotic": "⚙️"
+        },
+        "heat": "💾"
+    },
+    "wizard": {
+        "icon": "🧙",
+        "moods": {
+            "calm": "🧘‍♂️",
+            "neutral": "🔮",
+            "chaotic": "🔥"
+        },
+        "heat": "✨"
     }
 }
