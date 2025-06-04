@@ -18,6 +18,18 @@
   .table td, .table th {
     color: var(--text-color, inherit);
   }
+  .wallet-actions {
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+  }
+  .wallet-actions form {
+    margin: 0;
+  }
+  .wallet-table td {
+    padding-top: 0.4em;
+    padding-bottom: 0.4em;
+  }
 </style>
 {% endblock %}
 
@@ -43,7 +55,7 @@
       </form>
     </div>
     <div class="mini-table-box mb-4">
-      <table class="table table-striped align-middle mb-0">
+      <table class="table table-striped align-middle mb-0 wallet-table">
       <thead>
         <tr>
           <th>🖼️</th>
@@ -70,21 +82,23 @@
           </td>
           <td>${{ '%.2f'|format(wallet.balance) }}</td>
           <td>
-            <form action="{{ url_for('system.delete_wallet', name=wallet.name) }}" method="post" class="d-inline">
-              <button type="submit" class="btn btn-sm btn-danger">🗑️</button>
-            </form>
-            <button class="btn btn-sm btn-primary edit-btn"
-                    data-update-url="{{ url_for('system.update_wallet', name=wallet.name) }}"
-                    data-name="{{ wallet.name }}"
-                    data-public="{{ wallet.public_address }}"
-                    data-private="{{ wallet.private_address }}"
-                    data-balance="{{ wallet.balance }}"
-                    data-tags="{{ wallet.tags|join(', ') }}"
-                    data-type="{{ wallet.type }}"
-                    data-active="{{ wallet.is_active }}"
-                    data-image="{{ wallet.image_path }}">
-              ✏️
-            </button>
+            <div class="wallet-actions">
+              <form action="{{ url_for('system.delete_wallet', name=wallet.name) }}" method="post">
+                <button type="submit" class="btn btn-sm btn-danger">🗑️</button>
+              </form>
+              <button class="btn btn-sm btn-primary edit-btn"
+                      data-update-url="{{ url_for('system.update_wallet', name=wallet.name) }}"
+                      data-name="{{ wallet.name }}"
+                      data-public="{{ wallet.public_address }}"
+                      data-private="{{ wallet.private_address }}"
+                      data-balance="{{ wallet.balance }}"
+                      data-tags="{{ wallet.tags|join(', ') }}"
+                      data-type="{{ wallet.type }}"
+                      data-active="{{ wallet.is_active }}"
+                      data-image="{{ wallet.image_path }}">
+                ✏️
+              </button>
+            </div>
           </td>
         </tr>
         {% endfor %}
