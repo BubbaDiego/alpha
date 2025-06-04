@@ -5,6 +5,8 @@ Main Flask app for Sonic Dashboard.
 """
 
 import os
+from flask import render_template
+
 import sys
 try:
     from dotenv import load_dotenv
@@ -189,6 +191,12 @@ def index():
 
 # --- Optional: System Config (if needed by admin panel) ---
 # ... (Keep any routes you actually want for config/admin or special actions)
+
+
+@app.route("/theme_picker")
+def theme_picker():
+    return render_template("theme_picker.html")
+
 
 # --- Context: Theme Profile (optional, for templates) ---
 @app.context_processor

@@ -72,7 +72,7 @@
   --primary-hover: #4e87f0;
   --accent: #f4eef4;
   --container-bg: #ffffff;
-  --body-bg-image: url('/static/images/Wally.png');
+  --body-bg-image: url('/static/images/wallpaper_green.jpg'); /*# Wally.png');*/
   --section-bg-image: url('/static/images/wally2.png');
 }
 
@@ -160,7 +160,7 @@ body {
   --panel-border-width: 2px;
   --navbar: #8db5e1;
   --title-bar-bg: #0c0c0c;
-  --panel-title: #edece6;
+  --panel-title: #252c32;
   --primary: #e4e7f1;
   --primary-hover: #4e87f0;
   --accent: #f4eef4;
