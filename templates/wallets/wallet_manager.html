@@ -69,7 +69,7 @@
             <span title="{{ wallet.public_address }}">{{ wallet.public_address[:9] }}</span>
             <i class="fas fa-ellipsis-h ms-1" title="{{ wallet.public_address }}"></i>
           </td>
-          <td>${{ wallet.balance }}</td>
+          <td>${{ '%.2f'|format(wallet.balance) }}</td>
           <td>{{ "✔️" if wallet.is_active else "❌" }}</td>
           <td>
             <form action="{{ url_for('system.delete_wallet', name=wallet.name) }}" method="post" class="d-inline">

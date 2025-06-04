@@ -36,6 +36,7 @@ except ImportError as e:  # pragma: no cover - optional dependency
 from wallets.blockchain_balance_service import BlockchainBalanceService
 from wallets.jupiter_service import JupiterService
 from wallets.jupiter_trigger_service import JupiterTriggerService
+from data.data_locker import DataLocker
 
 from wallets.wallet_service import WalletService
 from wallets.wallet import Wallet
@@ -68,10 +69,9 @@ class WalletCore:
         wallets_out = self.service.list_wallets()
         wallets = [Wallet(**w.dict()) for w in wallets_out]
         for w in wallets:
-            if self.balance_service:
-                bal = self.balance_service.get_balance(w.public_address)
-                if bal is not None:
-                    w.balance = bal
+            bal = self.fetch_positions_balance(w.name)
+            if bal is not None:
+                w.balance = bal
         return wallets
 
     def set_rpc_endpoint(self, endpoint: str) -> None:
@@ -99,6 +99,23 @@ class WalletCore:
         except Exception as e:
             log.error(f"Failed to fetch balance for {wallet.name}: {e}", source="WalletCore")
         return None
+
+    def fetch_positions_balance(self, wallet_id: str) -> Optional[float]:
+        """Return the total value of active positions for ``wallet_id``."""
+        try:
+            dl = DataLocker.get_instance()
+            positions = dl.positions.get_active_positions()
+            total = 0.0
+            for pos in positions:
+                if str(pos.get("wallet_name")) == str(wallet_id):
+                    try:
+                        total += float(pos.get("value") or 0.0)
+                    except Exception:
+                        continue
+            return round(total, 2)
+        except Exception as e:
+            log.error(f"Failed to fetch positions balance for {wallet_id}: {e}", source="WalletCore")
+            return None
 
     def _keypair_from_wallet(self, wallet: Wallet) -> Keypair:
         if not Client or not wallet.private_address:
