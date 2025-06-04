@@ -65,7 +65,7 @@
           </td>
           <td>{{ wallet.name }}</td>
           <td>
-            <span title="{{ wallet.public_address }}">{{ wallet.public_address[:9] }}</span>
+            <span title="{{ wallet.public_address }}">{{ wallet.public_address[:4] }}</span>
             <i class="fas fa-ellipsis-h ms-1" title="{{ wallet.public_address }}"></i>
           </td>
           <td>${{ '%.2f'|format(wallet.balance) }}</td>
