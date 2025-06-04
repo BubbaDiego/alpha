@@ -75,6 +75,16 @@ AVATARS = {
         "heat": "🚀"
     },
 
+    "leiavault": {
+        "icon": "/static/images/leiavault.jpg",
+        "moods": {
+            "calm": "🌸",
+            "neutral": "👑",
+            "chaotic": "⚡"
+        },
+        "heat": "💫"
+    },
+
     "robot": {
         "icon": "🤖",
         "moods": {

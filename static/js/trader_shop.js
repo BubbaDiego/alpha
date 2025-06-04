@@ -39,6 +39,12 @@ const AVATARS = {
     moods: { calm: "🎯", neutral: "🤠", chaotic: "💣" },
     heat: "🚀"
 
+  },
+  "leiavault": {
+    icon: "/static/images/leiavault.jpg",
+    moods: { calm: "🌸", neutral: "👑", chaotic: "⚡" },
+    heat: "💫"
+
   }
 };
 
