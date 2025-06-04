@@ -89,11 +89,10 @@ class DLTraderManager:
             now = datetime.now().isoformat()
 
             cursor = self.db.get_cursor()
-            cursor.execute("""
-                UPDATE traders
-                SET trader_json = ?, last_updated = ?
-                WHERE name = ?
-            """, (trader_json, now, name))
+            cursor.execute(
+                "UPDATE traders SET trader_json = ?, last_updated = ? WHERE name = ?",
+                (trader_json, now, name),
+            )
             self.db.commit()
             log.success(f"🔄 Trader updated: {name}", source="DLTraderManager")
         except Exception as e:
