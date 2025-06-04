@@ -50,7 +50,6 @@
           <th>🧠 Name</th>
           <th>📬 Address</th>
           <th>💰 Balance</th>
-          <th>✅ Active</th>
           <th>🛠️ Actions</th>
         </tr>
       </thead>
@@ -66,11 +65,10 @@
           </td>
           <td>{{ wallet.name }}</td>
           <td>
-            <span title="{{ wallet.public_address }}">{{ wallet.public_address[:9] }}</span>
+            <span title="{{ wallet.public_address }}">{{ wallet.public_address[:4] }}</span>
             <i class="fas fa-ellipsis-h ms-1" title="{{ wallet.public_address }}"></i>
           </td>
           <td>${{ '%.2f'|format(wallet.balance) }}</td>
-          <td>{{ "✔️" if wallet.is_active else "❌" }}</td>
           <td>
             <form action="{{ url_for('system.delete_wallet', name=wallet.name) }}" method="post" class="d-inline">
               <button type="submit" class="btn btn-sm btn-danger">🗑️</button>
