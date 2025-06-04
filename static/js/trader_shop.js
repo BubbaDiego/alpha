@@ -116,6 +116,7 @@ function loadTraders() {
           row.innerHTML = `
             <td>${trader.name}</td>
             <td>${trader.performance_score ?? '?'}</td>
+            <td>$${trader.wallet_balance?.toFixed(2) ?? '0.00'}</td>
             <td>${trader.heat_index?.toFixed(1) ?? 'N/A'}</td>
             <td>${trader.mood}</td>
           `;
