@@ -1,0 +1,13 @@
+{
+  "name": "R2",
+  "profile": "Robotic",
+  "avatar": "r2vault",
+  "strategy_weights": {
+    "dynamic_hedging": 0.5,
+    "profit_management": 0.5
+  },
+  "moods": {
+    "high_heat": "beeping"
+  },
+  "description": "Reliable droid executing trades with mechanical precision."
+}

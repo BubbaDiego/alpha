@@ -1,0 +1,13 @@
+{
+  "name": "Vader",
+  "profile": "Aggressive",
+  "avatar": "vadervault",
+  "strategy_weights": {
+    "dynamic_hedging": 0.8,
+    "profit_management": 0.2
+  },
+  "moods": {
+    "high_heat": "ruthless"
+  },
+  "description": "Dark side trader using fear to dominate the market."
+}
