@@ -12,8 +12,14 @@ from trader.trader_bp import trader_bp
 
 
 class DummyWallets:
+    def get_wallets(self):
+        return [{"name": "TestWallet", "balance": 5.0}]
+
     def get_wallet_by_name(self, name):
-        return {"name": name}
+        return {"name": name, "balance": 1.23}
+
+    def read_wallets(self):
+        return self.get_wallets()
 
 
 class DummyLocker:
@@ -24,6 +30,9 @@ class DummyLocker:
 
     def get_last_update_times(self):
         return {}
+
+    def read_wallets(self):
+        return self.wallets.get_wallets()
 
 
 @pytest.fixture
@@ -54,3 +63,11 @@ def test_trader_cards_page(client):
     assert resp.status_code == 200
     # Should include at least one persona name
     assert b"Angie" in resp.data
+
+
+def test_wallet_list_api(client):
+    resp = client.get("/trader/api/wallets")
+    assert resp.status_code == 200
+    data = resp.get_json()
+    assert data["success"] is True
+    assert isinstance(data["wallets"], list)

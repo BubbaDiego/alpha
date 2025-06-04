@@ -29,6 +29,23 @@ function loadAvatars() {
   });
 }
 
+function loadWallets() {
+  const select = document.getElementById("walletSelect");
+  if (!select) return;
+  fetch('/trader/api/wallets')
+    .then(res => res.json())
+    .then(data => {
+      if (!data.success) return;
+      data.wallets.forEach(w => {
+        const opt = document.createElement('option');
+        opt.value = w.name;
+        opt.textContent = `${w.name} ($${w.balance})`;
+        select.appendChild(opt);
+      });
+    })
+    .catch(err => console.error('wallet load failed', err));
+}
+
 function loadTraders() {
   fetch('/trader/api/traders')
     .then(res => res.json())
@@ -62,6 +79,7 @@ function loadTraders() {
               ${avatarHTML}
               <p>Mood: ${trader.mood}</p>
               <p>Heat: ${trader.heat_index?.toFixed(1) ?? "N/A"}</p>
+              <p>Balance: $${trader.wallet_balance?.toFixed(2) ?? '0.00'}</p>
             </div>
             <div class="card-back">
               <p>Score: ${trader.performance_score ?? "?"}</p>
@@ -153,5 +171,6 @@ function deleteTrader(name) {
 
 document.addEventListener('DOMContentLoaded', () => {
   loadAvatars();
+  loadWallets();
   loadTraders();
 });

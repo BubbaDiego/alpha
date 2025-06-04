@@ -56,6 +56,7 @@ class TraderCore:
             moods=getattr(persona, "moods", {}),
             strategies=persona.strategy_weights,
             wallet=wallet_data.get("name") if isinstance(wallet_data, dict) else wallet_name,
+            wallet_balance=wallet_data.get("balance", 0.0) if isinstance(wallet_data, dict) else 0.0,
             portfolio=portfolio,
             positions=positions,
             hedges=[],
