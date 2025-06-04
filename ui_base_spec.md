@@ -232,7 +232,7 @@ trader_cards.html
 trader_dashboard.html
 trader_factory.html
 wallets/wallet_form.html
-wallets/wallet_list.html
+wallets/wallet_manager.html
 ```
 
 These extend `base.html` and most include `title_bar.html` for

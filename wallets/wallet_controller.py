@@ -27,7 +27,7 @@ os.makedirs(UPLOAD_FOLDER, exist_ok=True)
 def list_wallets():
     try:
         wallets = core.load_wallets()
-        return render_template("wallets/wallet_list.html", wallets=wallets)
+        return render_template("wallets/wallet_manager.html", wallets=wallets)
     except Exception as e:
         import traceback
         return f"<pre>{traceback.format_exc()}</pre>", 500

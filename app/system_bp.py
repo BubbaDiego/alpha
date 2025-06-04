@@ -106,7 +106,7 @@ def system_metadata():
 def list_wallets():
     core = get_core()
     wallets = core.wallet_core.load_wallets()
-    return render_template("wallets/wallet_list.html", wallets=wallets)
+    return render_template("wallets/wallet_manager.html", wallets=wallets)
 
 
 # ➕ Add a wallet
