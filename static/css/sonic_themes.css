@@ -6,102 +6,138 @@
    =========================================================== */
 
 :root {
-  /* Light theme defaults */
-  --bg: #e7ecfa;
-  --text: #222;
-  --card-bg: #f8fafc;
-  --card-border: #b7c5e0;
-  --panel-border: #b7c5e0;
-  --panel-border-width: 1.5px;
-  --navbar: #8fbbef;
-  --title-bar-bg: #8fbbef;
-  --panel-title: #fff;
-  --primary: #4678d8;
-  --primary-hover: #3659a5;
-  --accent: #ecf0fc;
-  --container-bg: #fff;
-  --body-bg-image: none;
+  /*
+    Global fallback values.
+    These variables are used whenever no explicit theme data attribute is
+    present on the <html> element. They provide the baseline "light" look and
+    act as a starting point for additional themes.
+  */
+
+  --bg: #e7ecfa;            /* overall page background color         */
+  --text: #222;             /* default text color                     */
+  --card-bg: #f8fafc;       /* background for cards/panels            */
+  --card-border: #b7c5e0;   /* default card border color              */
+  --panel-border: #b7c5e0;  /* border color for main panels           */
+  --panel-border-width: 1.5px; /* thickness of panel borders          */
+  --navbar: #8fbbef;        /* navbar and header background           */
+  --title-bar-bg: #8fbbef;  /* background for title bars              */
+  --panel-title: #fff;      /* color of titles inside panels          */
+  --primary: #4678d8;       /* primary accent used for buttons etc.   */
+  --primary-hover: #3659a5; /* shade used when hovering primary items */
+  --accent: #ecf0fc;        /* secondary accent/background highlight  */
+  --container-bg: #fff;     /* base background of content containers  */
+  --body-bg-image: none;    /* optional page background image         */
 }
 
 /* === Theme Variables === */
+
+/*
+  Light theme overrides.
+  These values are similar to the defaults above but tuned for a brighter
+  appearance. Adjust them if you want a slightly different light look.
+*/
 :root[data-theme="light"] {
-  --bg: #e7ecfa;
-  --text: #222;
-  --card-bg: #9ebcdc;
-  --card-border: #b7c5e0;
-  --panel-border: #b7c5e0;
-  --panel-border-width: 1.5px;
-  --navbar: #8fbbef;
-  --title-bar-bg: #8fbbef;
-  --panel-title: #2e4372;
-  --primary: #4678d8;
-  --primary-hover: #3659a5;
-  --accent: #ecf0fc;
-  --container-bg: #fff;
-  --body-bg-image: none;
+  --bg: #e7ecfa;            /* page background for light theme        */
+  --text: #222;             /* default text color                     */
+  --card-bg: #9ebcdc;       /* card/panel background                  */
+  --card-border: #b7c5e0;   /* border color for cards                 */
+  --panel-border: #b7c5e0;  /* panel border color                     */
+  --panel-border-width: 1.5px; /* panel border thickness               */
+  --navbar: #8fbbef;        /* navbar background                      */
+  --title-bar-bg: #8fbbef;  /* header/title bar background            */
+  --panel-title: #2e4372;   /* color of text within panel headers     */
+  --primary: #4678d8;       /* main accent color                      */
+  --primary-hover: #3659a5; /* accent color on hover                  */
+  --accent: #ecf0fc;        /* general highlight color                */
+  --container-bg: #fff;     /* container backgrounds                  */
+  --body-bg-image: none;    /* set to url('...') for wallpaper        */
 }
 
+
+/*
+  Dark theme overrides.
+  Provides a high-contrast look suitable for low-light conditions.
+  Use these colors as a base to tweak the dark experience.
+*/
 :root[data-theme="dark"] {
-  --bg: #3a3a3c;
-  --text: #eee;
-  --card-bg: #23272f;
-  --card-border: #39404e;
-  --panel-border: #39404e;
-  --panel-border-width: 1.5px;
-  --navbar: #191c22;
-  --title-bar-bg: #191c22;
-  --panel-title: #fff;
-  --primary: #4678d8;
-  --primary-hover: #27408b;
-  --accent: #1a2639;
-  --container-bg: #14161c;
-  --body-bg-image: none;
+  --bg: #3a3a3c;            /* overall page background in dark mode   */
+  --text: #eee;             /* default text color in dark mode        */
+  --card-bg: #23272f;       /* card/panel background                  */
+  --card-border: #39404e;   /* border color for cards                 */
+  --panel-border: #39404e;  /* panel border color                     */
+  --panel-border-width: 1.5px; /* panel border thickness               */
+  --navbar: #191c22;        /* navbar background                      */
+  --title-bar-bg: #191c22;  /* header/title bar background            */
+  --panel-title: #fff;      /* panel title text                       */
+  --primary: #4678d8;       /* main accent color                      */
+  --primary-hover: #27408b; /* hover accent                           */
+  --accent: #1a2639;        /* secondary accent color                 */
+  --container-bg: #14161c;  /* container backgrounds                  */
+  --body-bg-image: none;    /* wallpaper image if desired             */
 }
 
+
+/*
+  "Funky" theme overrides.
+  This theme introduces a playful wallpaper and bold colors. Switch image
+  URLs or colors here to completely change the vibe.
+*/
 :root[data-theme="funky"] {
-  --bg: #1e1e40;
-  --text: #f3f2ed;
-  --card-bg: #101010;
-  --card-border: #e5eff3;
-  --panel-border: #e5eff3;
-  --panel-border-width: 2px;
-  --navbar: #8db5e1;
-  --title-bar-bg: #0e141b;
-  --panel-title: #b3b2b0;
-  --primary: #e4e7f1;
-  --primary-hover: #4e87f0;
-  --accent: #f4eef4;
-  --container-bg: #ffffff;
-  --body-bg-image: url('/static/images/wallpaper_green.jpg'); /*# Wally.png');*/
-  --section-bg-image: url('/static/images/wally2.png');
+  --bg: #1e1e40;            /* dark purple/blue background             */
+  --text: #f3f2ed;          /* lighter text color                      */
+  --card-bg: #101010;       /* cards use near-black background         */
+  --card-border: #e5eff3;   /* light border around cards               */
+  --panel-border: #e5eff3;  /* border color for panels                 */
+  --panel-border-width: 2px;/* thicker borders for extra emphasis      */
+  --navbar: #8db5e1;        /* navbar background                       */
+  --title-bar-bg: #0e141b;  /* header/title bar background             */
+  --panel-title: #b3b2b0;   /* panel title text color                  */
+  --primary: #e4e7f1;       /* primary accent                          */
+  --primary-hover: #4e87f0; /* accent on hover                         */
+  --accent: #f4eef4;        /* secondary accent                        */
+  --container-bg: #ffffff;  /* base container backgrounds              */
+  --body-bg-image: url('/static/images/wallpaper_green.jpg'); /* page wallpaper */
+  --section-bg-image: url('/static/images/wally2.png');        /* overlay within cards */
 }
 
 /* === Main Background Styling === */
+/*
+  The <body> element pulls from the theme variables above. Changing any of the
+  variables will automatically update these values. Use the background-image
+  variable to add a full page wallpaper.
+*/
 body {
-  background-color: var(--bg);
-  background-image: var(--body-bg-image);
+  background-color: var(--bg);              /* base page color */
+  background-image: var(--body-bg-image);   /* optional wallpaper */
   background-repeat: no-repeat;
   background-position: center center;
   background-size: cover;
   background-attachment: fixed;
-  color: var(--text);
-  transition: background-color 0.6s ease, background-image 0.6s ease, color 0.4s ease;
+  color: var(--text);                       /* default text color */
+  transition: background-color 0.6s ease,
+              background-image 0.6s ease,
+              color 0.4s ease;
 }
 
 /* === Card Container Styling === */
+/*
+  These shared styles ensure that cards and panels respond to theme changes.
+  Adjust --card-bg or --card-border to modify the look of all dashboard
+  components in one place.
+*/
 .dashboard-section,
 .common-box,
 .status-card,
 .theme-preview-card,
 .mini-table-box,
 .ledger-box {
-  background: var(--card-bg);
-  border: 1.5px solid var(--card-border);
-  color: var(--text);
-  transition: background 0.4s ease, color 0.4s ease;
+  background: var(--card-bg);                        /* card background */
+  border: 1.5px solid var(--card-border);           /* card border */
+  color: var(--text);                               /* text color */
+  transition: background 0.4s ease, color 0.4s ease;/* animate theme changes */
 }
 
-/* Force a consistent text color for status cards */
+/* Force a consistent text color for status cards regardless of theme */
 .status-card {
   color: #222 !important;
 }
@@ -112,12 +148,17 @@ body {
   color: var(--text);
 }
 
-/* Accent utility */
+/* Accent utility - apply the accent color with class="accent-bg" */
 .accent-bg {
   background: var(--accent) !important;
 }
 
 /* === Card Background Image Overlay (Funky Only) === */
+/*
+  The "funky" theme can display a decorative image behind dashboard cards. The
+  image is placed using a pseudo-element so it doesn't interfere with content.
+  Toggle or replace --section-bg-image to customize.
+*/
 .dashboard-section {
   position: relative;
   z-index: 1;
@@ -129,28 +170,36 @@ body {
   content: '';
   position: absolute;
   top: 0; left: 0; right: 0; bottom: 0;
-  background-image: var(--section-bg-image);
+  background-image: var(--section-bg-image);  /* image defined in theme vars */
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;
   background-attachment: fixed;
-  opacity: 0;
+  opacity: 0;                              /* hidden by default */
   transition: opacity 0.4s ease-in-out;
   z-index: 0;
   border-radius: inherit;
 }
 
 :root[data-theme="funky"] .dashboard-section::before {
+  /* Only reveal the background image when the funky theme is active */
   opacity: 1;
 }
 
 /* === Sonic Dashboard Elements === */
 .sonic-content-panel {
+  /* generic container used throughout the dashboard */
   background: var(--card-bg) !important;
   color: var(--text) !important;
   border: var(--panel-border-width) solid var(--panel-border);
   transition: background 0.25s, color 0.25s;
 }
+
+/*
+  Re-declare the funky theme again for later layout overrides. This duplication
+  keeps the lower section of the file self contained. Feel free to modify either
+  copy — the browser will simply use the last definition.
+*/
 :root[data-theme="funky"] {
   --bg: #1e1e40;
   --text: #292827;
@@ -170,6 +219,7 @@ body {
 }
 
 /* === Main Background Styling === */
+/* Duplicate of the earlier block so later themes can override if needed. */
 body {
   background-color: var(--bg);
   background-image: var(--body-bg-image);
@@ -182,6 +232,7 @@ body {
 }
 
 /* === Card Container Styling === */
+/* Same shared rules repeated so theme tweaks later still apply */
 .dashboard-section,
 .common-box,
 .status-card,
@@ -229,6 +280,7 @@ body {
 }
 
 :root[data-theme="funky"] .dashboard-section::before {
+  /* show overlay image when funky theme active */
   opacity: 1;
 }
 
@@ -240,12 +292,14 @@ body {
   transition: background 0.25s, color 0.25s;
 }
 .sonic-section-container {
-  background: transparent; /* show body background behind each section */
+  /* allow body background or wallpaper to be visible between cards */
+  background: transparent;
   border-radius: 1rem;
 }
 
 .layout-btn,
 .theme-btn.active {
+  /* highlight the active selection */
   border-color: var(--primary) !important;
   background: var(--primary) !important;
   color: #fff !important;
@@ -257,6 +311,7 @@ body {
 
 .theme-btn:hover,
 .layout-btn:hover {
+  /* subtle hover effect using accent color */
   background: var(--accent) !important;
   color: var(--text) !important;
 }
@@ -269,7 +324,7 @@ body {
 }
 
 
-/* Debug outlines - add 'debug-outlines' class to <body> to visualize layout boxes */
+/* Debug outlines - useful when developing layouts */
 body.debug-outlines .sonic-section-container,
 body.debug-outlines .sonic-content-panel {
   outline: 2px dashed rgba(255, 0, 0, 0.5);
