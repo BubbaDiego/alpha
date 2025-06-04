@@ -22,12 +22,6 @@ def _enrich_trader(trader: dict, dl, pm: PersonaManager, calc: CalcServices) -> 
         (persona.name + "Vault") if persona else f"{name}Vault"
     )
 
-    trader["wallet_balance"] = 0.0
-    if wallet_name and hasattr(dl, "get_wallet_by_name"):
-        w = dl.get_wallet_by_name(wallet_name)
-        if w:
-            trader["wallet_balance"] = w.get("balance", 0.0)
-
     positions = []
     if hasattr(dl, "positions"):
         pos_mgr = dl.positions
@@ -35,6 +29,13 @@ def _enrich_trader(trader: dict, dl, pm: PersonaManager, calc: CalcServices) -> 
             positions = pos_mgr.get_active_positions_by_wallet(wallet_name) or []
         else:
             positions = pos_mgr.get_all_positions() or []
+
+    try:
+        balance = sum(float(p.get("value") or 0.0) for p in positions)
+        trader["wallet_balance"] = round(balance, 2)
+    except Exception as exc:
+        trader["wallet_balance"] = 0.0
+        log.debug(f"Balance calculation failed: {exc}", source="TraderBP")
 
     avg_heat = calc.calculate_weighted_heat_index(positions)
     trader["heat_index"] = avg_heat
