@@ -109,3 +109,4 @@ def test_list_traders_handles_missing_persona(client):
     data = resp.get_json()
     assert data["success"] is True
     assert data["traders"][0]["name"] == "Ghost"
+    assert "wallet_balance" in data["traders"][0]
