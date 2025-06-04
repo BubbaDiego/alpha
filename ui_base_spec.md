@@ -345,6 +345,7 @@ themes and page templates.
 | `yodavault.jpg` (upload) | Sample uploaded wallet logo. | `static/uploads/wallets/yodavault.jpg` |
 | `bobavault.jpg` (upload) | Sample uploaded wallet logo. | `static/uploads/wallets/bobavault.jpg` |
 
+
 ### Sounds
 ```
 death_spiral.mp3
