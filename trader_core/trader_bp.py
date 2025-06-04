@@ -12,10 +12,16 @@ from oracle_core.persona_manager import PersonaManager
 def _enrich_trader(trader: dict, dl, pm: PersonaManager, calc: CalcServices) -> dict:
     """Add wallet balance, heat index, performance and mood."""
     name = trader.get("name")
-    persona = pm.get(name)
-    wallet_name = trader.get("wallet") or persona.name + "Vault"
+    try:
+        persona = pm.get(name)
+    except KeyError:
+        log.warning(f"Persona not found for trader: {name}", source="TraderBP")
+        persona = None
+    wallet_name = trader.get("wallet") or (
+        (persona.name + "Vault") if persona else f"{name}Vault"
+    )
 
-    if wallet_name:
+    if wallet_name and hasattr(dl, "get_wallet_by_name"):
         w = dl.get_wallet_by_name(wallet_name)
         if w:
             trader["wallet_balance"] = w.get("balance", 0.0)
