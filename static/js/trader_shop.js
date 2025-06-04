@@ -54,9 +54,9 @@ function loadAvatars() {
   select.addEventListener("change", () => {
     const val = select.value;
     if (val.startsWith("/static/")) {
-      preview.innerHTML = `<img src="\${val}" style="height: 60px; border-radius: 50%;">`;
+      preview.innerHTML = `<img src="${val}" style="height: 60px; border-radius: 50%;">`;
     } else {
-      preview.innerHTML = `<span style="font-size: 1.5rem;">\${val}</span>`;
+      preview.innerHTML = `<span style="font-size: 1.5rem;">${val}</span>`;
     }
   });
 }
@@ -103,9 +103,9 @@ function loadTraders() {
 
         let avatarHTML = "";
         if (trader.avatar?.startsWith("/static/")) {
-          avatarHTML = `<img src="\${trader.avatar}">`;
+          avatarHTML = `<img src="${trader.avatar}">`;
         } else if (trader.avatar) {
-          avatarHTML = `<div style="font-size: 1.5rem;">\${trader.avatar}</div>`;
+          avatarHTML = `<div style="font-size: 1.5rem;">${trader.avatar}</div>`;
         }
 
         card.innerHTML = `
