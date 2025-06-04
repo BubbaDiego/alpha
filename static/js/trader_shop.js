@@ -1,20 +1,52 @@
 const AVATARS = {
-  "fox": "🦊",
-  "rocket": "🚀",
-  "panther": "🐆",
-  "r2vault": "/static/images/r2vault.jpg",
-  "landovault": "/static/images/landovault.jpg",
-  "vadervault": "/static/images/vadervault.jpg"
+  "fox": {
+    icon: "🦊",
+    moods: { calm: "🌿", neutral: "😐", chaotic: "💥" },
+    heat: "🔥"
+  },
+  "rocket": {
+    icon: "🚀",
+    moods: { calm: "🧊", neutral: "🛰️", chaotic: "🚨" },
+    heat: "🌡️"
+  },
+  "panther": {
+    icon: "🐆",
+    moods: { calm: "🍃", neutral: "🕶️", chaotic: "⚡" },
+    heat: "🌋"
+  },
+  "r2vault": {
+    icon: "/static/images/r2vault.jpg",
+    moods: { calm: "🎵", neutral: "🤖", chaotic: "🔊" },
+    heat: "📟"
+  },
+  "landovault": {
+    icon: "/static/images/landovault.jpg",
+    moods: { calm: "🧘", neutral: "🎯", chaotic: "🎲" },
+    heat: "🔥"
+  },
+  "vadervault": {
+    icon: "/static/images/vadervault.jpg",
+    moods: { calm: "🕳️", neutral: "🛡️", chaotic: "☠️" },
+    heat: "💀"
+  }
 };
+
+function getAvatarKey(avatarPath) {
+  return Object.entries(AVATARS).find(([_, value]) =>
+    typeof value.icon === "string" && avatarPath === value.icon
+  )?.[0] || Object.entries(AVATARS).find(([_, value]) =>
+    typeof value.icon === "string" && avatarPath.includes(value.icon)
+  )?.[0];
+}
 
 function loadAvatars() {
   const select = document.getElementById("avatarSelect");
   const preview = document.getElementById("avatarPreview");
   if (!select) return;
 
-  Object.entries(AVATARS).forEach(([key, value]) => {
+  Object.entries(AVATARS).forEach(([key, val]) => {
     const opt = document.createElement("option");
-    opt.value = value;
+    opt.value = typeof val.icon === "string" ? val.icon : "";
     opt.textContent = key;
     select.appendChild(opt);
   });
@@ -22,9 +54,9 @@ function loadAvatars() {
   select.addEventListener("change", () => {
     const val = select.value;
     if (val.startsWith("/static/")) {
-      preview.innerHTML = `<img src="${val}" style="height: 40px; border-radius: 50%;">`;
+      preview.innerHTML = `<img src="\${val}" style="height: 60px; border-radius: 50%;">`;
     } else {
-      preview.innerHTML = `<span style="font-size: 1.5rem;">${val}</span>`;
+      preview.innerHTML = `<span style="font-size: 1.5rem;">\${val}</span>`;
     }
   });
 }
@@ -65,11 +97,15 @@ function loadTraders() {
         const card = document.createElement("div");
         card.className = "trader-card" + ((trader.performance_score ?? 0) === topScore ? " top-score" : "");
 
+        const avatarKey = getAvatarKey(trader.avatar);
+        const moodIcon = AVATARS[avatarKey]?.moods?.[trader.mood] ?? "";
+        const heatIcon = AVATARS[avatarKey]?.heat ?? "";
+
         let avatarHTML = "";
         if (trader.avatar?.startsWith("/static/")) {
-          avatarHTML = `<img src="${trader.avatar}" style="height: 40px; border-radius: 50%;">`;
+          avatarHTML = `<img src="\${trader.avatar}">`;
         } else if (trader.avatar) {
-          avatarHTML = `<div style="font-size: 1.5rem;">${trader.avatar}</div>`;
+          avatarHTML = `<div style="font-size: 1.5rem;">\${trader.avatar}</div>`;
         }
 
         card.innerHTML = `
@@ -77,8 +113,8 @@ function loadTraders() {
             <div class="card-front">
               <h3>${trader.name}</h3>
               ${avatarHTML}
-              <p>Mood: ${trader.mood}</p>
-              <p>Heat: ${trader.heat_index?.toFixed(1) ?? "N/A"}</p>
+              <p>Mood: ${moodIcon} ${trader.mood}</p>
+              <p>Heat: ${heatIcon} ${trader.heat_index?.toFixed(1) ?? "N/A"}</p>
               <p>Balance: $${trader.wallet_balance?.toFixed(2) ?? '0.00'}</p>
             </div>
             <div class="card-back">
@@ -88,7 +124,7 @@ function loadTraders() {
             </div>
           </div>
         `;
-        container.appendChild(card);
+container.appendChild(card);
       });
     })
     .catch(err => {
@@ -151,7 +187,7 @@ document.getElementById("createTraderForm")?.addEventListener("submit", function
 function deleteTrader(name) {
   if (!confirm("Delete " + name + "?")) return;
 
-  fetch(`/trader/api/traders/${encodeURIComponent(name)}/delete`, {
+  fetch(`/trader/api/traders/\${encodeURIComponent(name)}/delete`, {
     method: 'DELETE'
   })
   .then(res => res.json())

@@ -8,6 +8,17 @@
 <link rel="stylesheet" href="{{ url_for('static', filename='css/sonic_dashboard.css') }}">
 <link rel="stylesheet" href="{{ url_for('static', filename='css/sonic_themes.css') }}">
 <link rel="stylesheet" href="{{ url_for('static', filename='css/sonic_titles.css') }}">
+<style>
+  .mini-table-box {
+    overflow-x: auto;
+  }
+  .mini-table-box table {
+    color: inherit;
+  }
+  .table td, .table th {
+    color: var(--text-color, inherit);
+  }
+</style>
 {% endblock %}
 
 {% block content %}

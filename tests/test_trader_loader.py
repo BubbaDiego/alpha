@@ -1,8 +1,8 @@
 import importlib
 import types
 
-from trader.trader_loader import TraderLoader
-from trader.trader import Trader
+from trader_core.trader_loader import TraderLoader
+from trader_core.trader import Trader
 
 
 class DummyWallets:

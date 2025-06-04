@@ -8,7 +8,7 @@ if not getattr(flask, "Flask", None):
     pytest.skip("Flask not available", allow_module_level=True)
 from flask import Flask
 
-from trader.trader_bp import trader_bp
+from trader_core.trader_bp import trader_bp
 
 
 class DummyWallets:
