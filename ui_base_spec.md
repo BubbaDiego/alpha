@@ -331,6 +331,7 @@ themes and page templates.
 | `unknown.png` | Placeholder icon for unknown assets. | `static/images/unknown.png` |
 | `unknown_wallet.jpg` | Generic wallet placeholder. | `static/images/unknown_wallet.jpg` |
 | `vadervault.jpg` | VaderVault wallet image. | `static/images/vadervault.jpg` |
+| `yodavault.jpg` | YodaVault wallet image. | `static/images/yodavault.jpg` |
 | `wallpaper2.jpg` | Additional wallpaper option. | `static/images/wallpaper2.jpg` |
 | `wallpaper2.png` | PNG variant of wallpaper2. | `static/images/wallpaper2.png` |
 | `wallpaper4.jpg` | Background image option. | `static/images/wallpaper4.jpg` |
@@ -340,6 +341,7 @@ themes and page templates.
 | `wally2.png` | Secondary Wally wallpaper used in funky theme. | `static/images/wally2.png` |
 | `landovault.jpg` (upload) | Sample uploaded wallet logo. | `static/uploads/wallets/landovault.jpg` |
 | `vadervault.jpg` (upload) | Sample uploaded wallet logo. | `static/uploads/wallets/vadervault.jpg` |
+| `yodavault.jpg` (upload) | Sample uploaded wallet logo. | `static/uploads/wallets/yodavault.jpg` |
 
 ### Sounds
 ```
