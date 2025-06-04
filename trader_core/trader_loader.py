@@ -30,10 +30,16 @@ class TraderLoader:
         wallet_data = None
         if self.data_locker and getattr(self.data_locker, "wallets", None):
             wallet_data = self.data_locker.wallets.get_wallet_by_name(wallet_name)
-        positions = self.data_service.fetch_positions() or []
+        positions = []
+        if self.data_locker and getattr(self.data_locker, "positions", None):
+            pm = self.data_locker.positions
+            if hasattr(pm, "get_active_positions_by_wallet"):
+                positions = pm.get_active_positions_by_wallet(wallet_name) or []
+            else:
+                positions = pm.get_all_positions() or []
         portfolio = self.data_service.fetch_portfolio() or {}
-        totals = CalcServices().calculate_totals(positions)
-        avg_heat = totals.get("avg_heat_index", 0.0)
+        calc = CalcServices()
+        avg_heat = calc.calculate_weighted_heat_index(positions)
         mood = evaluate_mood(avg_heat, getattr(persona, "moods", {}))
         score = max(0, int(100 - avg_heat))
         return Trader(
