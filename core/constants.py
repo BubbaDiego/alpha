@@ -55,6 +55,7 @@ OBIVAULT_IMAGE = IMAGE_DIR / "obivault.jpg"
 LANDOVAULT_IMAGE = IMAGE_DIR / "landovault.jpg"
 VADERVAULT_IMAGE = IMAGE_DIR / "vadervault.jpg"
 YODAVAULT_IMAGE = IMAGE_DIR / "yodavault.jpg"
+BOBAVAULT_IMAGE = IMAGE_DIR / "bobavault.jpg"
 
 # -----------------------------
 # 🧠 Blockchain & RPC

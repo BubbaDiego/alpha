@@ -64,6 +64,17 @@ AVATARS = {
         },
         "heat": "✨"
     },
+
+    "bobavault": {
+        "icon": "/static/images/bobavault.jpg",
+        "moods": {
+            "calm": "🎯",
+            "neutral": "🤠",
+            "chaotic": "💣"
+        },
+        "heat": "🚀"
+    },
+
     "robot": {
         "icon": "🤖",
         "moods": {
