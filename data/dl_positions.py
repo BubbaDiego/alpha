@@ -272,6 +272,27 @@ class DLPositionManager:
             log.error(f"❌ Failed to fetch active positions: {e}", source="DLPositionManager")
             return []
 
+    def get_active_positions_by_wallet(self, wallet_name: str) -> list:
+        """Return active positions for a specific wallet."""
+        try:
+            cursor = self.db.get_cursor()
+            cursor.execute(
+                "SELECT * FROM positions WHERE status = 'ACTIVE' AND wallet_name = ?",
+                (wallet_name,),
+            )
+            rows = cursor.fetchall()
+            log.debug(
+                f"🔎 Found {len(rows)} active positions for {wallet_name}",
+                source="DLPositionManager",
+            )
+            return [dict(row) for row in rows]
+        except Exception as e:
+            log.error(
+                f"❌ Failed to fetch active positions for {wallet_name}: {e}",
+                source="DLPositionManager",
+            )
+            return []
+
     def get_position_by_id(self, pos_id: str):
         try:
             cursor = self.db.get_cursor()
