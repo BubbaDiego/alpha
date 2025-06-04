@@ -310,6 +310,7 @@ body.mobile-mode .sonic-section-container {
 
 .mini-table-box {
   border-radius: 0.75rem;
+  width: 100%;
 }
 
 .mini-table-box table {
