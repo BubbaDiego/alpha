@@ -28,6 +28,16 @@ const AVATARS = {
     icon: "/static/images/vadervault.jpg",
     moods: { calm: "🕳️", neutral: "🛡️", chaotic: "☠️" },
     heat: "💀"
+  },
+  "yodavault": {
+    icon: "/static/images/yodavault.jpg",
+    moods: { calm: "🌱", neutral: "🧘", chaotic: "⚔️" },
+    heat: "✨"
+  },
+  "bobavault": {
+    icon: "/static/images/bobavault.jpg",
+    moods: { calm: "🎯", neutral: "🤠", chaotic: "💣" },
+    heat: "🚀"
   }
 };
 
