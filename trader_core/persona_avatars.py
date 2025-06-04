@@ -55,6 +55,15 @@ AVATARS = {
         },
         "heat": "💀"
     },
+    "yodavault": {
+        "icon": "/static/images/yodavault.jpg",
+        "moods": {
+            "calm": "🌱",
+            "neutral": "🧘",
+            "chaotic": "⚔️"
+        },
+        "heat": "✨"
+    },
     "robot": {
         "icon": "🤖",
         "moods": {
