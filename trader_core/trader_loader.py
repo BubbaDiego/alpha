@@ -35,7 +35,7 @@ class TraderLoader:
         totals = CalcServices().calculate_totals(positions)
         avg_heat = totals.get("avg_heat_index", 0.0)
         mood = evaluate_mood(avg_heat, getattr(persona, "moods", {}))
-        score = int(100 - abs(avg_heat - 30))
+        score = max(0, int(100 - avg_heat))
         return Trader(
             name=persona.name,
             avatar=getattr(persona, "avatar", ""),

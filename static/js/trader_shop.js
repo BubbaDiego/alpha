@@ -83,15 +83,34 @@ function loadTraders() {
     .then(res => res.json())
     .then(data => {
       const container = document.getElementById('trader-cards');
+      const leaderboard = document.getElementById('leaderboard-body');
       if (!container) return;
       container.innerHTML = "";
+      if (leaderboard) leaderboard.innerHTML = "";
 
       if (!data.success || !Array.isArray(data.traders)) {
         container.innerHTML = "<p>No traders available.</p>";
         return;
       }
 
+
       let topScore = Math.max(...data.traders.map(t => t.performance_score ?? 0));
+
+      // sort traders by score descending for leaderboard
+      const sorted = [...data.traders].sort((a, b) => (b.performance_score ?? 0) - (a.performance_score ?? 0));
+
+      sorted.forEach(trader => {
+        if (leaderboard) {
+          const row = document.createElement('tr');
+          row.innerHTML = `
+            <td>${trader.name}</td>
+            <td>${trader.performance_score ?? '?'}</td>
+            <td>${trader.heat_index?.toFixed(1) ?? 'N/A'}</td>
+            <td>${trader.mood}</td>
+          `;
+          leaderboard.appendChild(row);
+        }
+      });
 
       data.traders.forEach(trader => {
         const card = document.createElement("div");
