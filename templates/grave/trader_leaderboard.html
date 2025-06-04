@@ -1,0 +1,33 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Trader Leaderboard</title>
+    <style>
+        body { font-family: sans-serif; background: #0a0a0a; color: #eee; padding: 2em; }
+        table { width: 100%; border-collapse: collapse; background: #1a1a1a; }
+        th, td { padding: 0.8em; border-bottom: 1px solid #333; text-align: left; }
+        th { background: #222; }
+    </style>
+</head>
+<body>
+    <h1>Trader Leaderboard</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>Name</th><th>Mood</th><th>Score</th><th>Heat Index</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for trader in traders %}
+            <tr>
+                <td>{{ trader.name }}</td>
+                <td>{{ trader.mood }}</td>
+                <td>{{ trader.performance_score }}</td>
+                <td>{{ trader.heat_index }}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>

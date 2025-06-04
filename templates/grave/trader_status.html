@@ -1,0 +1,29 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{{ trader.name }} - Status</title>
+    <style>
+        body { font-family: sans-serif; background: #0a0a0a; color: #eee; padding: 2em; }
+        .panel { background: #1a1a1a; padding: 1em; margin-bottom: 2em; border-radius: 8px; }
+        .bar { height: 20px; background: #444; margin: 4px 0; position: relative; }
+        .bar span { position: absolute; left: 5px; top: 0; color: white; }
+    </style>
+</head>
+<body>
+    <h1>Status: {{ trader.name }}</h1>
+    <div class="panel">
+        <p><strong>Performance Score:</strong> {{ trader.performance_score }}</p>
+        <p><strong>Heat Index:</strong> {{ trader.heat_index }}</p>
+        <p><strong>Mood:</strong> {{ trader.mood }}</p>
+    </div>
+    <div class="panel">
+        <h3>Strategy Weights</h3>
+        {% for strat, weight in trader.strategies.items() %}
+        <div class="bar" style="width: {{ weight * 100 }}%; background: #2979ff;">
+            <span>{{ strat }} ({{ weight }})</span>
+        </div>
+        {% endfor %}
+    </div>
+</body>
+</html>

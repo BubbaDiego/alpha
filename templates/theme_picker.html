@@ -1,0 +1,314 @@
+{% extends "base.html" %}
+
+{% block page_title %}
+  Theme Configurator
+{% endblock %}
+
+{% block content %}
+<div class="container-fluid">
+  <div class="row">
+    <!-- Visualization Preview Column -->
+    <div class="col-md-6">
+      <div class="card">
+        <div class="card-header bg-primary">
+          <h3 class="card-title" id="previewTitle">Page Title</h3>
+        </div>
+        <div class="card-body" id="previewWallpaper" style="min-height: 250px;">
+          <!-- Added id "previewCard" here for JavaScript reference -->
+          <div class="card" id="previewCard">
+            <div class="card-header">
+              <h5 class="card-title" id="previewCardTitle">Card Title</h5>
+            </div>
+            <div class="card-body">
+              <p id="previewText">Sample text content...</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Settings Controls Column -->
+    <div class="col-md-6">
+      <div class="card card-outline card-info">
+        <div class="card-header">
+          <h3 class="card-title">Theme Settings</h3>
+        </div>
+        <div class="card-body">
+          <form id="themeForm">
+            <!-- Dropdown remains for potential selection, but its value will be updated by the text input -->
+            <div class="form-group">
+              <label for="profileSelect">Select Theme Profile:</label>
+              <select class="form-control" id="profileSelect">
+                <option value="blueTheme">Blue Ocean</option>
+                <option value="redTheme">Crimson Night</option>
+                <option value="greenTheme">Emerald Forest</option>
+                <option value="purpleTheme">Royal Purple</option>
+                <option value="orangeTheme">Sunset Orange</option>
+                <option value="yellowTheme">Golden Hour</option>
+                <option value="tealTheme">Teal Breeze</option>
+                <option value="pinkTheme">Rose Garden</option>
+                <option value="brownTheme">Earthy Brown</option>
+                <option value="cyanTheme">Cool Cyan</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="themeName">Theme Name:</label>
+              <input type="text" class="form-control" id="themeName" placeholder="Enter theme name">
+            </div>
+            <div class="form-group">
+              <label for="titleColor">Title Bar Color:</label>
+              <input type="color" class="form-control" id="titleColor" style="height: 45px;">
+            </div>
+            <div class="form-group">
+              <label for="sideBarColor">Side Bar Color:</label>
+              <input type="color" class="form-control" id="sideBarColor" style="height: 45px;">
+            </div>
+            <div class="form-group">
+              <label for="wallpaperColor">Wallpaper Color:</label>
+              <input type="color" class="form-control" id="wallpaperColor" style="height: 45px;">
+            </div>
+            <div class="form-group">
+              <label for="cardTitleColor">Card Title Color:</label>
+              <input type="color" class="form-control" id="cardTitleColor" style="height: 45px;">
+            </div>
+            <div class="form-group">
+              <label for="cardBackgroundColor">Card Background Color:</label>
+              <input type="color" class="form-control" id="cardBackgroundColor" style="height: 45px;">
+            </div>
+            <div class="form-group">
+              <label for="textColor">Text Color:</label>
+              <input type="color" class="form-control" id="textColor" style="height: 45px;">
+            </div>
+            <button type="button" id="saveButton" class="btn btn-primary mt-3">Save Changes</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
+
+{% block extra_scripts %}
+<script>
+  document.addEventListener("DOMContentLoaded", function() {
+    // Define theme profiles as a JavaScript object
+    var themes = {
+      blueTheme: {
+        name: "Blue Ocean",
+        "title bar": { color: "#007BFF" },
+        "side bar": { color: "#0056b3" },
+        wallpaper: { color: "#E7F1FF" },
+        "card title": { color: "#FFFFFF" },
+        "card background": { color: "#D0E7FF" },
+        text: { color: "#FFFFFF" }
+      },
+      redTheme: {
+        name: "Crimson Night",
+        "title bar": { color: "#DC3545" },
+        "side bar": { color: "#C82333" },
+        wallpaper: { color: "#F8D7DA" },
+        "card title": { color: "#FFFFFF" },
+        "card background": { color: "#F5C6CB" },
+        text: { color: "#FFFFFF" }
+      },
+      greenTheme: {
+        name: "Emerald Forest",
+        "title bar": { color: "#28A745" },
+        "side bar": { color: "#218838" },
+        wallpaper: { color: "#D4EDDA" },
+        "card title": { color: "#FFFFFF" },
+        "card background": { color: "#C3E6CB" },
+        text: { color: "#FFFFFF" }
+      },
+      purpleTheme: {
+        name: "Royal Purple",
+        "title bar": { color: "#6F42C1" },
+        "side bar": { color: "#5A32A3" },
+        wallpaper: { color: "#E2D4F0" },
+        "card title": { color: "#FFFFFF" },
+        "card background": { color: "#D1B3E1" },
+        text: { color: "#FFFFFF" }
+      },
+      orangeTheme: {
+        name: "Sunset Orange",
+        "title bar": { color: "#FF8C00" },
+        "side bar": { color: "#CC7000" },
+        wallpaper: { color: "#FFF5E6" },
+        "card title": { color: "#FFFFFF" },
+        "card background": { color: "#FFDAB9" },
+        text: { color: "#FFFFFF" }
+      },
+      yellowTheme: {
+        name: "Golden Hour",
+        "title bar": { color: "#B8860B" },
+        "side bar": { color: "#A47508" },
+        wallpaper: { color: "#FFF8DC" },
+        "card title": { color: "#FFFFFF" },
+        "card background": { color: "#FFEBCD" },
+        text: { color: "#FFFFFF" }
+      },
+      tealTheme: {
+        name: "Teal Breeze",
+        "title bar": { color: "#008080" },
+        "side bar": { color: "#006666" },
+        wallpaper: { color: "#E0F2F1" },
+        "card title": { color: "#FFFFFF" },
+        "card background": { color: "#B2DFDB" },
+        text: { color: "#FFFFFF" }
+      },
+      pinkTheme: {
+        name: "Rose Garden",
+        "title bar": { color: "#FF1493" },
+        "side bar": { color: "#C71585" },
+        wallpaper: { color: "#FFE6F2" },
+        "card title": { color: "#FFFFFF" },
+        "card background": { color: "#FFB6C1" },
+        text: { color: "#FFFFFF" }
+      },
+      brownTheme: {
+        name: "Earthy Brown",
+        "title bar": { color: "#8B4513" },
+        "side bar": { color: "#7A3A0E" },
+        wallpaper: { color: "#F5F5DC" },
+        "card title": { color: "#FFFFFF" },
+        "card background": { color: "#DEB887" },
+        text: { color: "#FFFFFF" }
+      },
+      cyanTheme: {
+        name: "Cool Cyan",
+        "title bar": { color: "#00CED1" },
+        "side bar": { color: "#008B8B" },
+        wallpaper: { color: "#E0FFFF" },
+        "card title": { color: "#FFFFFF" },
+        "card background": { color: "#AFEEEE" },
+        text: { color: "#FFFFFF" }
+      }
+    };
+
+    // DOM element references
+    var profileSelect = document.getElementById("profileSelect");
+    var themeNameInput = document.getElementById("themeName");
+    var titleColorInput = document.getElementById("titleColor");
+    var sideBarColorInput = document.getElementById("sideBarColor");
+    var wallpaperColorInput = document.getElementById("wallpaperColor");
+    var cardTitleColorInput = document.getElementById("cardTitleColor");
+    var cardBackgroundColorInput = document.getElementById("cardBackgroundColor");
+    var textColorInput = document.getElementById("textColor");
+
+    // Preview elements
+    var previewTitle = document.getElementById("previewTitle");
+    var previewWallpaper = document.getElementById("previewWallpaper");
+    var previewCard = document.getElementById("previewCard");
+    var previewCardTitle = document.getElementById("previewCardTitle");
+    var previewText = document.getElementById("previewText");
+
+    // Function to update form inputs based on the selected theme object
+    function updateInputs(theme) {
+      themeNameInput.value = theme.name;
+      titleColorInput.value = theme["title bar"].color;
+      sideBarColorInput.value = theme["side bar"].color;
+      wallpaperColorInput.value = theme.wallpaper.color;
+      cardTitleColorInput.value = theme["card title"].color;
+      cardBackgroundColorInput.value = theme["card background"].color;
+      textColorInput.value = theme.text.color;
+
+      updatePreview(theme);
+    }
+
+    // Update the preview display
+    function updatePreview(theme) {
+      previewTitle.style.backgroundColor = theme["title bar"].color;
+      previewTitle.textContent = theme.name;
+      previewWallpaper.style.backgroundColor = theme.wallpaper.color;
+      previewCard.style.backgroundColor = theme["card background"].color;
+      previewCardTitle.style.color = theme["card title"].color;
+      previewText.style.color = theme.text.color;
+    }
+
+    // Event listener for profile selection change (to load preset values)
+    profileSelect.addEventListener("change", function() {
+      var selected = profileSelect.value;
+      updateInputs(themes[selected]);
+    });
+
+    // Event listener on themeName input to update the dropdown label dynamically.
+    themeNameInput.addEventListener("input", function() {
+      var customName = themeNameInput.value.trim();
+      if (customName !== "") {
+        // Look for an option that exactly matches the custom name
+        var found = false;
+        for (var i = 0; i < profileSelect.options.length; i++) {
+          if (profileSelect.options[i].value === customName) {
+            profileSelect.selectedIndex = i;
+            found = true;
+            break;
+          }
+        }
+        // If not found, create a new option and select it
+        if (!found) {
+          var newOption = document.createElement("option");
+          newOption.value = customName;
+          newOption.text = customName;
+          profileSelect.appendChild(newOption);
+          profileSelect.value = customName;
+        }
+      }
+    });
+
+    // Save changes and update the theme object, preview, and send JSON to the server
+    var saveButton = document.getElementById("saveButton");
+    if (!saveButton) {
+      console.error("Save button not found!");
+    } else {
+      saveButton.addEventListener("click", function() {
+        console.log("Save button clicked");
+        var selected = profileSelect.value;
+        // Update the theme object for the selected profile with the current inputs
+        themes[selected] = {
+          name: themeNameInput.value,
+          "title bar": { color: titleColorInput.value },
+          "side bar": { color: sideBarColorInput.value },
+          wallpaper: { color: wallpaperColorInput.value },
+          "card title": { color: cardTitleColorInput.value },
+          "card background": { color: cardBackgroundColorInput.value },
+          text: { color: textColorInput.value }
+        };
+
+        updatePreview(themes[selected]);
+
+        // Build the payload to send the complete theme configuration
+        var payload = {
+          profiles: themes,
+          selected_profile: selected
+        };
+
+        console.log("Payload to be sent:", payload);
+
+        fetch('{{ url_for("dashboard.save_theme_route") }}', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload)
+        })
+        .then(r => {
+          console.log("Response received:", r);
+          return r.json();
+        })
+        .then(data => {
+          console.log("Data received:", data);
+          if (data.success) {
+            alert("Theme saved successfully, honey!");
+          } else {
+            alert("Error saving theme: " + data.error);
+          }
+        })
+        .catch(err => {
+          console.error("Error saving theme configuration:", err);
+          alert("Error saving theme configuration: " + err);
+        });
+      });
+    }
+
+    // Initialize the form with the default selected profile
+    updateInputs(themes[profileSelect.value]);
+  });
+</script>
+{% endblock %}
