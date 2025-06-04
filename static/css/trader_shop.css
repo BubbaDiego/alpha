@@ -44,11 +44,16 @@
   border: 2px solid gold;
 }
 
-/* Avatar image size enhanced */
-.card-front img {
-  height: 60px;
-  width: 60px;
+/* Avatar circle styling */
+.avatar-circle {
+  height: 80px;
+  width: 80px;
   border-radius: 50%;
   object-fit: cover;
-  margin: 0.5rem 0;
+  margin: 0.5rem auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--accent, #e0e0e0);
+  font-size: 2rem;
 }
