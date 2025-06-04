@@ -103,7 +103,13 @@ class DLTraderManager:
             log.route(f"Deleting trader: {name}", source="DLTraderManager")
             cursor = self.db.get_cursor()
             cursor.execute("DELETE FROM traders WHERE name = ?", (name,))
+            deleted = cursor.rowcount > 0
             self.db.commit()
-            log.info(f"🗑️ Trader deleted: {name}", source="DLTraderManager")
+            if deleted:
+                log.info(f"🗑️ Trader deleted: {name}", source="DLTraderManager")
+            else:
+                log.warning(f"Trader not found for deletion: {name}", source="DLTraderManager")
+            return deleted
         except Exception as e:
             log.error(f"❌ Failed to delete trader '{name}': {e}", source="DLTraderManager")
+            raise
