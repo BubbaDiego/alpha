@@ -7,6 +7,7 @@ from utils.console_logger import ConsoleLogger as log
 from trader_core.mood_engine import evaluate_mood
 from calc_core.calc_services import CalcServices
 from oracle_core.persona_manager import PersonaManager
+from wallets.wallet_core import WalletCore
 
 
 def _enrich_trader(trader: dict, dl, pm: PersonaManager, calc: CalcServices) -> dict:
@@ -52,6 +53,12 @@ def trader_shop():
 def trader_wallets():
     """Return wallets for dropdown selections."""
     try:
+        wc = getattr(getattr(current_app, "system_core", None), "wallet_core", None) or WalletCore()
+        try:
+            wc.refresh_wallet_balances()
+        except Exception as exc:
+            log.debug(f"Wallet refresh failed: {exc}", source="TraderBP")
+
         wallets = current_app.data_locker.read_wallets()
         simple = [
             {"name": w.get("name"), "balance": w.get("balance", 0.0)} for w in wallets
@@ -120,6 +127,12 @@ def get_trader(name):
 def list_traders():
     try:
         log.info("Listing all traders", source="API")
+        wc = getattr(getattr(current_app, "system_core", None), "wallet_core", None) or WalletCore()
+        try:
+            wc.refresh_wallet_balances()
+        except Exception as exc:
+            log.debug(f"Wallet refresh failed: {exc}", source="TraderBP")
+
         traders = current_app.data_locker.traders.list_traders()
         pm = PersonaManager()
         calc = CalcServices()
