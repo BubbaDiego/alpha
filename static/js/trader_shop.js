@@ -39,6 +39,12 @@ const AVATARS = {
     moods: { calm: "🎯", neutral: "🤠", chaotic: "💣" },
     heat: "🚀"
 
+  },
+  "leiavault": {
+    icon: "/static/images/leiavault.jpg",
+    moods: { calm: "🌸", neutral: "👑", chaotic: "⚡" },
+    heat: "💫"
+
   }
 };
 
@@ -116,6 +122,7 @@ function loadTraders() {
           row.innerHTML = `
             <td>${trader.name}</td>
             <td>${trader.performance_score ?? '?'}</td>
+            <td>$${trader.wallet_balance?.toFixed(2) ?? '0.00'}</td>
             <td>${trader.heat_index?.toFixed(1) ?? 'N/A'}</td>
             <td>${trader.mood}</td>
           `;

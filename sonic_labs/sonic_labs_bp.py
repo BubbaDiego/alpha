@@ -26,6 +26,8 @@ WALLET_IMAGE_MAP = {
     "VaderVault": "vadervault.jpg",
     "YodaVault": "yodavault.jpg",
     "BobaVault": "bobavault.jpg",
+    "LeiaVault": "leiavault.jpg",
+
     "LandoVaultz": "landovault.jpg",
 }
 DEFAULT_WALLET_IMAGE = "unknown_wallet.jpg"
