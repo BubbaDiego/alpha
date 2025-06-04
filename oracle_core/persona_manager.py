@@ -23,18 +23,25 @@ class PersonaManager:
     """Load and manage personas."""
 
     def __init__(self, base_dir: Optional[str] = None):
-        self.base_dir = base_dir or os.path.join(
-            os.path.dirname(__file__), "..", "trader_core", "personas"
-        )
+        if base_dir:
+            self.base_dir = base_dir
+            self.extra_dirs: Iterable[str] = []
+        else:
+            self.base_dir = os.path.join(os.path.dirname(__file__), "personas")
+            self.extra_dirs = [
+                os.path.join(os.path.dirname(__file__), "..", "trader_core", "personas")
+            ]
         self._personas: Dict[str, Persona] = {}
         self._load_all()
 
     def _load_all(self):
-        if not os.path.isdir(self.base_dir):
-            return
-        for fname in os.listdir(self.base_dir):
-            if fname.endswith(".json"):
-                self.load_from_file(os.path.join(self.base_dir, fname))
+        dirs = [self.base_dir] + list(getattr(self, "extra_dirs", []))
+        for d in dirs:
+            if not os.path.isdir(d):
+                continue
+            for fname in os.listdir(d):
+                if fname.endswith(".json"):
+                    self.load_from_file(os.path.join(d, fname))
 
     def load(self, personas: Iterable[Dict]):
         for data in personas:
