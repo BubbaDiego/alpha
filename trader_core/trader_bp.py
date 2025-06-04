@@ -11,6 +11,20 @@ trader_bp = Blueprint("trader_bp", __name__, url_prefix="/trader")
 def trader_shop():
     return render_template("trader_shop.html")
 
+
+@trader_bp.route("/api/wallets", methods=["GET"])
+def trader_wallets():
+    """Return wallets for dropdown selections."""
+    try:
+        wallets = current_app.data_locker.read_wallets()
+        simple = [
+            {"name": w.get("name"), "balance": w.get("balance", 0.0)} for w in wallets
+        ]
+        return jsonify({"success": True, "wallets": simple})
+    except Exception as e:
+        log.error(f"❌ Failed to list wallets: {e}", source="API")
+        return jsonify({"success": False, "error": str(e)}), 500
+
 @trader_bp.route("/api/traders/create", methods=["POST"])
 def create_trader():
     try:
@@ -66,6 +80,12 @@ def list_traders():
     try:
         log.info("Listing all traders", source="API")
         traders = current_app.data_locker.traders.list_traders()
+        for t in traders:
+            wallet_name = t.get("wallet")
+            if wallet_name:
+                w = current_app.data_locker.get_wallet_by_name(wallet_name)
+                if w:
+                    t["wallet_balance"] = w.get("balance", 0.0)
         return jsonify({"success": True, "traders": traders})
     except Exception as e:
         log.error(f"❌ Failed to list traders: {e}", source="API")
