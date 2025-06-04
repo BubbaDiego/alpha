@@ -149,10 +149,22 @@ class CalcServices:
             log.error(f"Failed to calculate heat index: {e}", "calculate_heat_index", position)
             return None
 
+    def calculate_weighted_heat_index(self, positions: List[dict]) -> float:
+        """Return size-weighted average heat index for ``positions``."""
+        total_weighted = 0.0
+        total_size = 0.0
+        for pos in positions:
+            hi = float(pos.get("heat_index") or 0.0)
+            size = float(pos.get("size") or 1.0)
+            if size == 0:
+                size = 1.0
+            total_weighted += hi * size
+            total_size += size
+        return total_weighted / total_size if total_size > 0 else 0.0
+
     def calculate_totals(self, positions: List[dict]) -> dict:
         log.info("Calculating totals from positions", "calculate_totals")
-        total_size = total_value = total_collateral = total_heat_index = 0.0
-        heat_index_count = 0
+        total_size = total_value = total_collateral = 0.0
         weighted_leverage_sum = weighted_travel_percent_sum = 0.0
 
         for pos in positions:
@@ -161,20 +173,16 @@ class CalcServices:
             collateral = float(pos.get("collateral") or 0.0)
             leverage = float(pos.get("leverage") or 0.0)
             travel_percent = float(pos.get("travel_percent") or 0.0)
-            heat_index = float(pos.get("heat_index") or 0.0)
 
             total_size += size
             total_value += value
             total_collateral += collateral
             weighted_leverage_sum += leverage * size
             weighted_travel_percent_sum += travel_percent * size
-            if heat_index:
-                total_heat_index += heat_index
-                heat_index_count += 1
 
         avg_leverage = weighted_leverage_sum / total_size if total_size > 0 else 0.0
         avg_travel_percent = weighted_travel_percent_sum / total_size if total_size > 0 else 0.0
-        avg_heat_index = total_heat_index / heat_index_count if heat_index_count > 0 else 0.0
+        avg_heat_index = self.calculate_weighted_heat_index(positions)
 
         totals = {
             "total_size": total_size,

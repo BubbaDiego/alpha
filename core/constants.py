@@ -58,6 +58,7 @@ YODAVAULT_IMAGE = IMAGE_DIR / "yodavault.jpg"
 BOBAVAULT_IMAGE = IMAGE_DIR / "bobavault.jpg"
 LEIAVAULT_IMAGE = IMAGE_DIR / "leiavault.jpg"
 
+
 # -----------------------------
 # 🧠 Blockchain & RPC
 # -----------------------------

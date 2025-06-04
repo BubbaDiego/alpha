@@ -24,6 +24,17 @@ class DummyWallets:
 
 class DummyTraders:
     """Minimal traders manager stub."""
+    def __init__(self):
+        self._traders = []
+
+    def list_traders(self):
+        return list(self._traders)
+
+    def get_trader_by_name(self, name):
+        for t in self._traders:
+            if t.get("name") == name:
+                return t
+        return None
 
     def delete_trader(self, name):
         return False
@@ -41,6 +52,9 @@ class DummyLocker:
 
     def read_wallets(self):
         return self.wallets.get_wallets()
+
+    def get_wallet_by_name(self, name):
+        return self.wallets.get_wallet_by_name(name)
 
 
 @pytest.fixture
@@ -86,3 +100,13 @@ def test_delete_missing_trader_returns_error(client):
     assert resp.status_code == 404
     data = resp.get_json()
     assert data["success"] is False
+
+
+def test_list_traders_handles_missing_persona(client):
+    client.application.data_locker.traders._traders = [{"name": "Ghost"}]
+    resp = client.get("/trader/api/traders")
+    assert resp.status_code == 200
+    data = resp.get_json()
+    assert data["success"] is True
+    assert data["traders"][0]["name"] == "Ghost"
+    assert "wallet_balance" in data["traders"][0]

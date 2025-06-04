@@ -334,6 +334,7 @@ themes and page templates.
 | `yodavault.jpg` | YodaVault wallet image. | `static/images/yodavault.jpg` |
 | `bobavault.jpg` | BobaVault wallet image. | `static/images/bobavault.jpg` |
 | `leiavault.jpg` | LeiaVault wallet image. | `static/images/leiavault.jpg` |
+
 | `wallpaper2.jpg` | Additional wallpaper option. | `static/images/wallpaper2.jpg` |
 | `wallpaper2.png` | PNG variant of wallpaper2. | `static/images/wallpaper2.png` |
 | `wallpaper4.jpg` | Background image option. | `static/images/wallpaper4.jpg` |
@@ -345,6 +346,7 @@ themes and page templates.
 | `vadervault.jpg` (upload) | Sample uploaded wallet logo. | `static/uploads/wallets/vadervault.jpg` |
 | `yodavault.jpg` (upload) | Sample uploaded wallet logo. | `static/uploads/wallets/yodavault.jpg` |
 | `bobavault.jpg` (upload) | Sample uploaded wallet logo. | `static/uploads/wallets/bobavault.jpg` |
+
 | `leiavault.jpg` (upload) | Sample uploaded wallet logo. | `static/uploads/wallets/leiavault.jpg` |
 
 ### Sounds

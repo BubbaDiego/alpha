@@ -40,10 +40,16 @@ class TraderCore:
         wallet_data = None
         if self.data_locker and getattr(self.data_locker, "wallets", None):
             wallet_data = self.data_locker.wallets.get_wallet_by_name(wallet_name)
-        positions = self.data_service.fetch_positions() or []
+        positions = []
+        if self.data_locker and getattr(self.data_locker, "positions", None):
+            pm = self.data_locker.positions
+            if hasattr(pm, "get_active_positions_by_wallet"):
+                positions = pm.get_active_positions_by_wallet(wallet_name) or []
+            else:
+                positions = pm.get_all_positions() or []
         portfolio = self.data_service.fetch_portfolio() or {}
-        totals = CalcServices().calculate_totals(positions)
-        avg_heat = totals.get("avg_heat_index", 0.0)
+        calc = CalcServices()
+        avg_heat = calc.calculate_weighted_heat_index(positions)
         mood = evaluate_mood(avg_heat, getattr(persona, "moods", {}))
         score = max(0, int(100 - avg_heat))
         trader = Trader(
@@ -85,3 +91,36 @@ class TraderCore:
     def delete_trader(self, name: str) -> bool:
         """Remove Trader metadata from the store."""
         return self.store.delete(name)
+
+    def refresh_trader(self, name: str) -> Optional[Trader]:
+        """Recompute wallet metrics for an existing Trader and persist them."""
+        trader = self.store.get(name)
+        if trader is None:
+            return None
+
+        wallet_name = trader.wallet
+        positions = []
+        if self.data_locker and getattr(self.data_locker, "positions", None):
+            pm = self.data_locker.positions
+            if hasattr(pm, "get_active_positions_by_wallet"):
+                positions = pm.get_active_positions_by_wallet(wallet_name) or []
+            else:
+                positions = pm.get_all_positions() or []
+
+        calc = CalcServices()
+        avg_heat = calc.calculate_weighted_heat_index(positions)
+        trader.positions = positions
+        trader.heat_index = avg_heat
+        trader.performance_score = max(0, int(100 - avg_heat))
+
+        if hasattr(self.data_locker, "traders"):
+            self.data_locker.traders.update_trader(
+                trader.name,
+                {
+                    "heat_index": trader.heat_index,
+                    "performance_score": trader.performance_score,
+                },
+            )
+
+        self.store.save(trader)
+        return trader

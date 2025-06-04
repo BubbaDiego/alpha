@@ -4,6 +4,42 @@ import os
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 from flask import Blueprint, current_app, jsonify, render_template, redirect, request
 from utils.console_logger import ConsoleLogger as log
+from trader_core.mood_engine import evaluate_mood
+from calc_core.calc_services import CalcServices
+from oracle_core.persona_manager import PersonaManager
+
+
+def _enrich_trader(trader: dict, dl, pm: PersonaManager, calc: CalcServices) -> dict:
+    """Add wallet balance, heat index, performance and mood."""
+    name = trader.get("name")
+    try:
+        persona = pm.get(name)
+    except KeyError:
+        log.warning(f"Persona not found for trader: {name}", source="TraderBP")
+        persona = None
+    wallet_name = trader.get("wallet") or (
+        (persona.name + "Vault") if persona else f"{name}Vault"
+    )
+
+    trader["wallet_balance"] = 0.0
+    if wallet_name and hasattr(dl, "get_wallet_by_name"):
+        w = dl.get_wallet_by_name(wallet_name)
+        if w:
+            trader["wallet_balance"] = w.get("balance", 0.0)
+
+    positions = []
+    if hasattr(dl, "positions"):
+        pos_mgr = dl.positions
+        if hasattr(pos_mgr, "get_active_positions_by_wallet"):
+            positions = pos_mgr.get_active_positions_by_wallet(wallet_name) or []
+        else:
+            positions = pos_mgr.get_all_positions() or []
+
+    avg_heat = calc.calculate_weighted_heat_index(positions)
+    trader["heat_index"] = avg_heat
+    trader["performance_score"] = max(0, int(100 - avg_heat))
+    trader["mood"] = evaluate_mood(avg_heat, getattr(persona, "moods", {}))
+    return trader
 
 trader_bp = Blueprint("trader_bp", __name__, url_prefix="/trader")
 
@@ -70,6 +106,11 @@ def get_trader(name):
         if not trader:
             log.warning(f"Trader not found: {name}", source="API")
             return jsonify({"success": False, "error": "Trader not found"}), 404
+
+        pm = PersonaManager()
+        calc = CalcServices()
+        trader = _enrich_trader(trader, current_app.data_locker, pm, calc)
+
         return jsonify({"success": True, "trader": trader})
     except Exception as e:
         log.error(f"❌ Failed to fetch trader: {e}", source="API")
@@ -80,13 +121,10 @@ def list_traders():
     try:
         log.info("Listing all traders", source="API")
         traders = current_app.data_locker.traders.list_traders()
-        for t in traders:
-            wallet_name = t.get("wallet")
-            if wallet_name:
-                w = current_app.data_locker.get_wallet_by_name(wallet_name)
-                if w:
-                    t["wallet_balance"] = w.get("balance", 0.0)
-        return jsonify({"success": True, "traders": traders})
+        pm = PersonaManager()
+        calc = CalcServices()
+        enriched = [_enrich_trader(t, current_app.data_locker, pm, calc) for t in traders]
+        return jsonify({"success": True, "traders": enriched})
     except Exception as e:
         log.error(f"❌ Failed to list traders: {e}", source="API")
         return jsonify({"success": False, "error": str(e)}), 500
