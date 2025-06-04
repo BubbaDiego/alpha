@@ -21,6 +21,7 @@ def _enrich_trader(trader: dict, dl, pm: PersonaManager, calc: CalcServices) -> 
         (persona.name + "Vault") if persona else f"{name}Vault"
     )
 
+    trader["wallet_balance"] = 0.0
     if wallet_name and hasattr(dl, "get_wallet_by_name"):
         w = dl.get_wallet_by_name(wallet_name)
         if w:
