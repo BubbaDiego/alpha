@@ -22,9 +22,17 @@ class DummyWallets:
         return self.get_wallets()
 
 
+class DummyTraders:
+    """Minimal traders manager stub."""
+
+    def delete_trader(self, name):
+        return False
+
+
 class DummyLocker:
     def __init__(self):
         self.wallets = DummyWallets()
+        self.traders = DummyTraders()
         self.positions = types.SimpleNamespace(get_all_positions=lambda: [])
         self.portfolio = types.SimpleNamespace(get_latest_snapshot=lambda: {})
 
@@ -71,3 +79,10 @@ def test_wallet_list_api(client):
     data = resp.get_json()
     assert data["success"] is True
     assert isinstance(data["wallets"], list)
+
+
+def test_delete_missing_trader_returns_error(client):
+    resp = client.delete("/trader/api/traders/Ghost/delete")
+    assert resp.status_code == 404
+    data = resp.get_json()
+    assert data["success"] is False

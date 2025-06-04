@@ -33,3 +33,9 @@ def test_crud_flow(dl):
     m.delete_trader("Alice")
     names = [t["name"] for t in m.list_traders()]
     assert "Alice" not in names and "Bob" in names
+
+
+def test_delete_nonexistent_trader_returns_false(dl):
+    m = dl.traders
+    result = m.delete_trader("Ghost")
+    assert result is False

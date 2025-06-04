@@ -106,7 +106,10 @@ def update_trader(name):
 def delete_trader(name):
     try:
         log.info(f"Deleting trader: {name}", source="API")
-        current_app.data_locker.traders.delete_trader(name)
+        deleted = current_app.data_locker.traders.delete_trader(name)
+        if not deleted:
+            log.warning(f"Trader not found for deletion: {name}", source="API")
+            return jsonify({"success": False, "error": "Trader not found"}), 404
         return jsonify({"success": True})
     except Exception as e:
         log.error(f"❌ Failed to delete trader: {e}", source="API")
