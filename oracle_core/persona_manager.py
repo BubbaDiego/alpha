@@ -23,7 +23,9 @@ class PersonaManager:
     """Load and manage personas."""
 
     def __init__(self, base_dir: Optional[str] = None):
-        self.base_dir = base_dir or os.path.join(os.path.dirname(__file__), "personas")
+        self.base_dir = base_dir or os.path.join(
+            os.path.dirname(__file__), "..", "trader_core", "personas"
+        )
         self._personas: Dict[str, Persona] = {}
         self._load_all()
 
