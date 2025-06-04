@@ -25,3 +25,10 @@ def test_persona_attributes_loaded():
     assert persona.strategy_weights == {"safe": 0.7, "cautious": 0.3}
     assert persona.instructions == "Adopt a conservative trading approach."
     assert hasattr(persona, "system_message")
+
+
+def test_trader_personas_load():
+    pm_mod = importlib.import_module("oracle_core.persona_manager")
+    manager = pm_mod.PersonaManager(base_dir="trader_core/personas")
+    for name in ("Vader", "R2", "Yoda", "Lando", "Leia"):
+        assert name in manager.list_personas()

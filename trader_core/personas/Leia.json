@@ -1,0 +1,13 @@
+{
+  "name": "Leia",
+  "profile": "Strategic",
+  "avatar": "leiavault",
+  "strategy_weights": {
+    "dynamic_hedging": 0.4,
+    "profit_management": 0.6
+  },
+  "moods": {
+    "high_heat": "resolute"
+  },
+  "description": "Fearless leader balancing caution with decisive action."
+}
