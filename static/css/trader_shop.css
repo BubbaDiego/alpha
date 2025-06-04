@@ -1,7 +1,9 @@
 .trader-card {
+  --border-width: 1px;
+  --border-color: #d0d0d0;
   width: 200px;
   height: 250px;
-  border: 1px solid #ccc;
+  border: var(--border-width) solid var(--border-color);
   border-radius: 8px;
   perspective: 1000px;
   margin: 1rem;
@@ -41,14 +43,21 @@
 }
 
 .trader-card.top-score {
-  border: 2px solid gold;
+  --border-width: 2px;
+  --border-color: gold;
 }
 
-/* Avatar image size enhanced */
-.card-front img {
-  height: 60px;
-  width: 60px;
+/* Avatar circle styling */
+.avatar-circle {
+  height: 80px;
+  width: 80px;
   border-radius: 50%;
+  border: var(--border-width) solid var(--border-color);
   object-fit: cover;
-  margin: 0.5rem 0;
+  margin: 0.5rem auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--accent, #e0e0e0);
+  font-size: 2rem;
 }
