@@ -117,6 +117,33 @@ class WalletCore:
             log.error(f"Failed to fetch positions balance for {wallet_id}: {e}", source="WalletCore")
             return None
 
+    def refresh_wallet_balances(self) -> int:
+        """Recalculate wallet balances from active positions and persist to the DB.
+
+        Returns the number of wallets updated.
+        """
+        try:
+            dl = DataLocker.get_instance()
+        except Exception as exc:  # pragma: no cover - best effort
+            log.error(f"Failed to obtain DataLocker: {exc}", source="WalletCore")
+            return 0
+
+        wallets = dl.read_wallets() if hasattr(dl, "read_wallets") else []
+        updated = 0
+        for w in wallets:
+            bal = self.fetch_positions_balance(w.get("name"))
+            if bal is None:
+                continue
+            try:
+                w["balance"] = bal
+                dl.update_wallet(w["name"], w)
+                updated += 1
+            except Exception as exc:  # pragma: no cover - database errors
+                log.error(f"Failed to refresh balance for {w.get('name')}: {exc}", source="WalletCore")
+
+        log.info(f"Refreshed balances for {updated} wallets", source="WalletCore")
+        return updated
+
     def _keypair_from_wallet(self, wallet: Wallet) -> Keypair:
         if not Client or not wallet.private_address:
             raise ValueError("Wallet has no private key")

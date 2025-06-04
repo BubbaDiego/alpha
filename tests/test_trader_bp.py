@@ -110,3 +110,18 @@ def test_list_traders_handles_missing_persona(client):
     assert data["success"] is True
     assert data["traders"][0]["name"] == "Ghost"
     assert "wallet_balance" in data["traders"][0]
+
+
+def test_list_traders_triggers_wallet_refresh(client):
+    called = {}
+
+    def refresh():
+        called["r"] = True
+
+    client.application.system_core = types.SimpleNamespace(
+        wallet_core=types.SimpleNamespace(refresh_wallet_balances=refresh)
+    )
+    resp = client.get("/trader/api/traders")
+    assert resp.status_code == 200
+    assert called.get("r") is True
+

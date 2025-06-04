@@ -90,3 +90,20 @@ def test_load_wallets_uses_positions_balance(tmp_path, monkeypatch):
     wallets = wc.load_wallets()
     assert wallets[0].balance == 10
 
+
+def test_refresh_wallet_balances_updates_db(tmp_path, monkeypatch):
+    db = setup_db(tmp_path, monkeypatch)
+    dl = init_locker(db)
+    dl.create_wallet({"name": "w1", "public_address": "x", "private_address": ""})
+    dl.create_wallet({"name": "w2", "public_address": "y", "private_address": ""})
+    dl.positions.create_position({"wallet_name": "w1", "value": 3, "status": "ACTIVE"})
+    dl.positions.create_position({"wallet_name": "w2", "value": 7, "status": "ACTIVE"})
+
+    monkeypatch.setattr(DataLocker, "get_instance", classmethod(lambda cls, db_path=str(db): dl))
+
+    wc = WalletCore()
+    count = wc.refresh_wallet_balances()
+    assert count == 2
+    assert dl.get_wallet_by_name("w1")["balance"] == 3
+    assert dl.get_wallet_by_name("w2")["balance"] == 7
+
