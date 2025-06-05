@@ -24,8 +24,6 @@ sys.modules.setdefault("cyclone_app", types.ModuleType("cyclone_app"))
 sys.modules["cyclone_app"].main = lambda: None
 sys.modules.setdefault("monitor.operations_monitor", types.SimpleNamespace(OperationsMonitor=object))
 
-sys.modules.setdefault("test_core", types.ModuleType("test_core"))
-sys.modules["test_core"].TestCore = object
 sys.modules.setdefault("data.data_locker", types.ModuleType("data.data_locker"))
 sys.modules["data.data_locker"].DataLocker = object
 

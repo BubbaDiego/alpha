@@ -1,9 +1,5 @@
 import pytest
-import importlib
 
-flask = importlib.import_module("flask")
-if not getattr(flask, "Flask", None):
-    pytest.skip("Flask not available", allow_module_level=True)
 from flask import Flask
 from app.dashboard_bp import dashboard_bp
 
