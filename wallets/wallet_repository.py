@@ -39,7 +39,9 @@ class WalletRepository:
 
     # ➕ Insert new wallet into DB
     def add_wallet(self, wallet: WalletIn) -> None:
-        self.dl.create_wallet(wallet.dict())
+        from dataclasses import asdict
+
+        self.dl.create_wallet(asdict(wallet))
 
     # 🗑️ Delete wallet by name
     def delete_wallet(self, name: str) -> bool:
