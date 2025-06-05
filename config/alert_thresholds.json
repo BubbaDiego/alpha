@@ -2,7 +2,7 @@
   "source": "db",
   "thresholds": [
     {
-      "id": "9ed5e5c8-9de5-466d-a1e1-c28fe17ddbbd",
+      "id": "651a9749-a8ef-427c-9910-faea602b3fa7",
       "alert_type": "AvgLeverage",
       "alert_class": "Portfolio",
       "metric_key": "avg_leverage",
@@ -11,13 +11,13 @@
       "medium": 5.0,
       "high": 10.0,
       "enabled": 1,
-      "last_modified": "2025-06-02T00:06:24.689247+00:00",
-      "low_notify": null,
-      "medium_notify": null,
-      "high_notify": null
+      "last_modified": "2025-06-05T00:24:10.143109+00:00",
+      "low_notify": "",
+      "medium_notify": "",
+      "high_notify": ""
     },
     {
-      "id": "41a93156-3659-450f-9f4a-eb65d67dee7e",
+      "id": "f8f0643a-936f-4dfb-91f9-edd1a201530c",
       "alert_type": "AvgTravelPercent",
       "alert_class": "Portfolio",
       "metric_key": "avg_travel_percent",
@@ -26,13 +26,13 @@
       "medium": -5.0,
       "high": 0.0,
       "enabled": 1,
-      "last_modified": "2025-06-02T00:06:24.691257+00:00",
-      "low_notify": null,
-      "medium_notify": null,
-      "high_notify": null
+      "last_modified": "2025-06-05T00:24:10.148518+00:00",
+      "low_notify": "",
+      "medium_notify": "",
+      "high_notify": ""
     },
     {
-      "id": "bcb9c538-a469-4f21-a116-eb1fdfaecd1d",
+      "id": "fbf2ea17-4f74-469e-ba1b-685f64c36fef",
       "alert_type": "DeathNail",
       "alert_class": "System",
       "metric_key": "death_nail",
@@ -41,13 +41,13 @@
       "medium": 0.0,
       "high": 1.0,
       "enabled": 1,
-      "last_modified": "2025-06-02T00:06:24.706232+00:00",
-      "low_notify": null,
-      "medium_notify": null,
-      "high_notify": null
+      "last_modified": "2025-06-05T00:24:10.159003+00:00",
+      "low_notify": "",
+      "medium_notify": "",
+      "high_notify": ""
     },
     {
-      "id": "b84116a5-2abe-4f37-84b4-8b9c0892f76d",
+      "id": "87833193-fdcc-44f2-8077-882c7cd796c9",
       "alert_type": "HeatIndex",
       "alert_class": "Position",
       "metric_key": "heat_index",
@@ -56,13 +56,13 @@
       "medium": 60.0,
       "high": 90.0,
       "enabled": 1,
-      "last_modified": "2025-06-02T00:06:24.698774+00:00",
-      "low_notify": null,
-      "medium_notify": null,
-      "high_notify": null
+      "last_modified": "2025-06-05T00:24:10.161003+00:00",
+      "low_notify": "",
+      "medium_notify": "",
+      "high_notify": ""
     },
     {
-      "id": "8761081e-feb3-4ff8-9d78-b8d244ad2876",
+      "id": "470df044-07d4-4302-93b0-6287d3e94a64",
       "alert_type": "LiquidationDistance",
       "alert_class": "Position",
       "metric_key": "liquidation_distance",
@@ -71,13 +71,13 @@
       "medium": 5.0,
       "high": 2.0,
       "enabled": 1,
-      "last_modified": "2025-06-02T00:06:24.702781+00:00",
-      "low_notify": null,
-      "medium_notify": null,
-      "high_notify": null
+      "last_modified": "2025-06-05T00:24:10.163513+00:00",
+      "low_notify": "",
+      "medium_notify": "",
+      "high_notify": ""
     },
     {
-      "id": "df6ecdf2-dc74-46ca-b372-dc04a2107cf5",
+      "id": "e91a75e5-8f92-48ba-b0a8-1fb977b27346",
       "alert_type": "PriceThreshold",
       "alert_class": "Market",
       "metric_key": "current_price",
@@ -86,28 +86,28 @@
       "medium": 30000.0,
       "high": 40000.0,
       "enabled": 1,
-      "last_modified": "2025-06-02T00:06:24.704775+00:00",
-      "low_notify": null,
-      "medium_notify": null,
-      "high_notify": null
+      "last_modified": "2025-06-05T00:24:10.170521+00:00",
+      "low_notify": "",
+      "medium_notify": "",
+      "high_notify": ""
     },
     {
-      "id": "01c3a95f-cec9-487b-9e62-ed70ebaa69ca",
+      "id": "04115b07-1709-4790-91ae-3406c928ef92",
       "alert_type": "Profit",
       "alert_class": "Position",
       "metric_key": "profit",
       "condition": "ABOVE",
-      "low": 10.0,
+      "low": 2.0,
       "medium": 25.0,
       "high": 50.0,
       "enabled": 1,
-      "last_modified": "2025-06-02T00:06:24.696775+00:00",
-      "low_notify": null,
-      "medium_notify": null,
-      "high_notify": null
+      "last_modified": "2025-06-05T00:24:10.165521+00:00",
+      "low_notify": "",
+      "medium_notify": "",
+      "high_notify": ""
     },
     {
-      "id": "db8eb15c-20f6-4797-9825-d79f6eb617cc",
+      "id": "19e47854-03a6-4f2a-ae3e-cbbf8022fae0",
       "alert_type": "TotalHeat",
       "alert_class": "Portfolio",
       "metric_key": "total_heat_index",
@@ -116,13 +116,13 @@
       "medium": 60.0,
       "high": 90.0,
       "enabled": 1,
-      "last_modified": "2025-06-02T00:06:24.694765+00:00",
-      "low_notify": null,
-      "medium_notify": null,
-      "high_notify": null
+      "last_modified": "2025-06-05T00:24:10.150495+00:00",
+      "low_notify": "",
+      "medium_notify": "",
+      "high_notify": ""
     },
     {
-      "id": "cab1ba4b-4c91-4847-b7c2-8693e50d0921",
+      "id": "12403cca-60c8-4796-a9d5-a4577d98c310",
       "alert_type": "TotalSize",
       "alert_class": "Portfolio",
       "metric_key": "total_size",
@@ -131,13 +131,13 @@
       "medium": 50000.0,
       "high": 100000.0,
       "enabled": 1,
-      "last_modified": "2025-06-02T00:06:24.687254+00:00",
-      "low_notify": null,
-      "medium_notify": null,
-      "high_notify": null
+      "last_modified": "2025-06-05T00:24:10.153003+00:00",
+      "low_notify": "",
+      "medium_notify": "",
+      "high_notify": ""
     },
     {
-      "id": "a79b126b-97c6-4fdb-92cd-9f26d80126f5",
+      "id": "308391cd-9cd8-4e19-97c2-7ec5d90a11b2",
       "alert_type": "TotalValue",
       "alert_class": "Portfolio",
       "metric_key": "total_value",
@@ -146,13 +146,13 @@
       "medium": 25000.0,
       "high": 50000.0,
       "enabled": 1,
-      "last_modified": "2025-06-02T00:06:24.685002+00:00",
-      "low_notify": null,
-      "medium_notify": null,
-      "high_notify": null
+      "last_modified": "2025-06-05T00:24:10.155010+00:00",
+      "low_notify": "",
+      "medium_notify": "",
+      "high_notify": ""
     },
     {
-      "id": "c34bd201-c520-481b-9595-01bad5ac0bba",
+      "id": "1e7f0aa7-1f04-461f-b96b-911e2884b9d8",
       "alert_type": "TravelPercentLiquid",
       "alert_class": "Position",
       "metric_key": "travel_percent_liquid",
@@ -161,13 +161,13 @@
       "medium": -10.0,
       "high": 0.0,
       "enabled": 1,
-      "last_modified": "2025-06-02T00:06:24.700776+00:00",
-      "low_notify": null,
-      "medium_notify": null,
-      "high_notify": null
+      "last_modified": "2025-06-05T00:24:10.168513+00:00",
+      "low_notify": "",
+      "medium_notify": "",
+      "high_notify": ""
     },
     {
-      "id": "737c0cf3-1856-4bc3-b642-4a86cabf7391",
+      "id": "6af0389e-f16d-4d3e-ae6a-82db62964e22",
       "alert_type": "ValueToCollateralRatio",
       "alert_class": "Portfolio",
       "metric_key": "value_to_collateral_ratio",
@@ -176,44 +176,10 @@
       "medium": 1.5,
       "high": 2.0,
       "enabled": 1,
-      "last_modified": "2025-06-02T00:06:24.693246+00:00",
-      "low_notify": null,
-      "medium_notify": null,
-      "high_notify": null
+      "last_modified": "2025-06-05T00:24:10.157012+00:00",
+      "low_notify": "",
+      "medium_notify": "",
+      "high_notify": ""
     }
-  ],
-  "alert_ranges": {
-    "liquidation_distance_ranges": {},
-    "travel_percent_liquid_ranges": {},
-    "heat_index_ranges": {},
-    "profit_ranges": {},
-    "price_alerts": {}
-  },
-  "cooldowns": {
-    "alert_cooldown_seconds": 300,
-    "call_refractory_period": 900,
-    "snooze_countdown": 300
-  },
-  "notifications": {
-    "heat_index": {
-      "low": {},
-      "medium": {},
-      "high": {}
-    },
-    "travel_percent_liquid": {
-      "low": {},
-      "medium": {},
-      "high": {}
-    },
-    "profit": {
-      "low": {},
-      "medium": {},
-      "high": {}
-    },
-    "price_alerts": {
-      "low": {},
-      "medium": {},
-      "high": {}
-    }
-  }
+  ]
 }

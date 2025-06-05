@@ -5,8 +5,6 @@ Main Flask app for Sonic Dashboard.
 """
 
 import os
-from flask import render_template
-
 import sys
 try:
     from dotenv import load_dotenv
@@ -193,9 +191,30 @@ def index():
 # ... (Keep any routes you actually want for config/admin or special actions)
 
 
-@app.route("/theme_picker")
-def theme_picker():
-    return render_template("theme_picker.html")
+@app.route("/launch/<profile>/<asset>")
+def launch_jupiter_position(profile, asset):
+    import subprocess
+
+    JUPITER_TOKEN_MAP = {
+        "SOL": "So11111111111111111111111111111111111111112",
+        "BTC": "9n4nbM75f5Ui33ZbPYXn59EwSgE8CGsHtAeTH5YFeJ9E",
+        "ETH": "2jXy799YNy9Wi6kXZGk8Hg3H2wZbYGFh5xdtNBxgdCz6",
+        # Extend this map as needed
+    }
+
+    token = JUPITER_TOKEN_MAP.get(asset.upper())
+    if not token:
+        return f"⚠️ Unknown asset: {asset}", 400
+
+    url = f"https://jup.ag/perpetuals/{asset.upper()}"
+    chrome_path = "C:/Program Files/Google/Chrome/Application/chrome.exe"
+    profile_arg = f"--profile-directory={profile}"
+
+    try:
+        subprocess.Popen([chrome_path, profile_arg, url])
+        return f"Launching {asset.upper()} in {profile}"
+    except Exception as e:
+        return f"Failed to launch browser: {str(e)}", 500
 
 
 # --- Context: Theme Profile (optional, for templates) ---

@@ -29,6 +29,7 @@ class Wallet:
 
     name: str                              # 🔑 Unique wallet name (e.g. "VaderVault")
     public_address: str                    # 🌐 On-chain public address (used in queries)
+    chrome_profile: Optional[str] = None  # 🌐 Chrome profile for Jupiter links
     private_address: Optional[str] = None  # 🔒 Optional private key (DEV/TEST only)
     image_path: Optional[str] = None       # 🖼️ Avatar for UI representation
     balance: float = 0.0                   # 💰 Current USD balance (optional sync)

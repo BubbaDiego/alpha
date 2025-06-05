@@ -58,7 +58,8 @@ def add_wallet():
             balance=float(form.get("balance", 0.0)),
             tags=[t.strip() for t in form.get("tags", "").split(",") if t.strip()],
             is_active=form.get("is_active", "off") == "on",
-            type=form.get("type", "personal")
+            type=form.get("type", "personal"),
+            chrome_profile=form.get("chrome_profile", "Default")
         )
 
         service.create_wallet(data)
