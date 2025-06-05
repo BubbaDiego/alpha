@@ -1,0 +1,13 @@
+{
+  "name": "Jabba",
+  "profile": "Greedy",
+  "avatar": "jabbavault",
+  "strategy_weights": {
+    "dynamic_hedging": 0.1,
+    "profit_management": 0.9
+  },
+  "moods": {
+    "high_heat": "ruthless"
+  },
+  "description": "Crime lord obsessed with wealth."
+}
