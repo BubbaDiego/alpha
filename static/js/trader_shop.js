@@ -132,13 +132,16 @@ function loadTraders() {
             avatarHTML = `<span class="leader-avatar">${trader.avatar}</span>`;
           }
 
+          const avatarKey = getAvatarKey(trader.avatar);
+          const moodIcon = AVATARS[avatarKey]?.moods?.[trader.mood] ?? '';
+
           row.innerHTML = `
             <td>${avatarHTML}</td>
             <td>${trader.name}</td>
             <td>${trader.performance_score ?? '?'}</td>
             <td>$${trader.wallet_balance?.toFixed(2) ?? '0.00'}</td>
             <td>${trader.heat_index?.toFixed(1) ?? 'N/A'}</td>
-            <td>${trader.mood}</td>
+            <td>${moodIcon} ${trader.mood}</td>
           `;
           leaderboard.appendChild(row);
         }
@@ -157,13 +160,14 @@ function loadTraders() {
         const avgHeat = count ? (totalHeat / count) : 0;
 
         const row = document.createElement('tr');
+        row.classList.add('leader-total-row');
         row.innerHTML = `
           <td></td>
-          <td>Totals</td>
+          <td></td>
           <td>${avgScore.toFixed(2)}</td>
           <td>$${totalBalance.toFixed(2)}</td>
           <td>${avgHeat.toFixed(1)}</td>
-          <td>-</td>
+          <td></td>
         `;
         if (footer) footer.appendChild(row);
       }
