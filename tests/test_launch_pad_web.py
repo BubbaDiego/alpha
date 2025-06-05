@@ -4,51 +4,9 @@ import types
 
 import pytest
 
-# Provide minimal rich stubs to satisfy launch_pad import
-_dummy_rich = types.ModuleType("rich")
-_dummy_console = types.ModuleType("rich.console")
-_dummy_text = types.ModuleType("rich.text")
-_dummy_panel = types.ModuleType("rich.panel")
-_dummy_prompt = types.ModuleType("rich.prompt")
-_dummy_table = types.ModuleType("rich.table")
-
-class _Console:
-    def print(self, *a, **k):
-        pass
-
-_dummy_console.Console = _Console
-_dummy_text.Text = str
-
-class _Panel:
-    def __init__(self, *a, **k):
-        pass
-
-class _Prompt:
-    @staticmethod
-    def ask(*a, **k):
-        return ""
-
-class _Table:
-    def __init__(self, *a, **k):
-        pass
-    def add_row(self, *a, **k):
-        pass
-
-_dummy_panel.Panel = _Panel
-_dummy_prompt.Prompt = _Prompt
-_dummy_table.Table = _Table
-
-_dummy_rich.console = _dummy_console
-_dummy_rich.text = _dummy_text
-_dummy_rich.panel = _dummy_panel
-_dummy_rich.prompt = _dummy_prompt
-_dummy_rich.table = _dummy_table
-sys.modules.setdefault("rich", _dummy_rich)
-sys.modules.setdefault("rich.console", _dummy_console)
-sys.modules.setdefault("rich.text", _dummy_text)
-sys.modules.setdefault("rich.panel", _dummy_panel)
-sys.modules.setdefault("rich.prompt", _dummy_prompt)
-sys.modules.setdefault("rich.table", _dummy_table)
+# Import tests.conftest to ensure the global ``rich`` stub is available when the
+# real library isn't installed. The module itself isn't referenced directly.
+import tests.conftest  # noqa: F401
 
 # Stub heavy dependencies referenced by launch_pad at import time
 core_logging_stub = types.ModuleType("core.logging")
