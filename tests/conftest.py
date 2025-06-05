@@ -113,7 +113,7 @@ class DummyBlueprint:
         self.url_prefix = url_prefix
         self.routes = {}
 
-    def route(self, rule, methods=None):
+    def route(self, rule, methods=None, **_kwargs):
         methods = methods or ["GET"]
 
         def decorator(func):
@@ -255,10 +255,16 @@ def render_template(name, **kwargs):
     return load(name)
 
 
+def render_template_string(src, **kwargs):  # pragma: no cover - stub
+    return src
+
+
 flask_stub.Flask = DummyFlask
 flask_stub.Blueprint = DummyBlueprint
 flask_stub.jsonify = jsonify
 flask_stub.render_template = render_template
+flask_stub.render_template_string = render_template_string
+flask_stub.session = {}
 class _RequestProxy:
     def __getattr__(self, name):
         return getattr(flask_stub._request, name)

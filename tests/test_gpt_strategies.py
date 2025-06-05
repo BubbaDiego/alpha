@@ -117,9 +117,6 @@ def test_gptcore_positions_default_heat_strategy(monkeypatch):
 
 @pytest.fixture
 def client(monkeypatch):
-    flask = importlib.import_module("flask")
-    if not getattr(flask, "Flask", None):
-        pytest.skip("Flask not available", allow_module_level=True)
     GPTCore = setup_core(monkeypatch)
     bp_mod = importlib.import_module("gpt.gpt_bp")
     from flask import Flask

@@ -6,9 +6,6 @@ from pathlib import Path
 
 import pytest
 
-flask = importlib.import_module("flask")
-if not getattr(flask, "Flask", None):
-    pytest.skip("Flask not available", allow_module_level=True)
 from flask import Flask
 
 
