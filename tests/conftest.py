@@ -7,6 +7,50 @@ import asyncio
 # Automatically fix sys.path for tests
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
 
+# Stub rich if not installed so launch_pad and TestCore import cleanly
+if "rich" not in sys.modules:
+    rich_stub = types.ModuleType("rich")
+    rich_console = types.ModuleType("rich.console")
+    rich_text = types.ModuleType("rich.text")
+    rich_panel = types.ModuleType("rich.panel")
+    rich_prompt = types.ModuleType("rich.prompt")
+    rich_table = types.ModuleType("rich.table")
+
+    class DummyConsole:
+        def print(self, *a, **k):
+            pass
+
+    class DummyPanel:
+        def __init__(self, *a, **k):
+            pass
+
+    class DummyPrompt:
+        @staticmethod
+        def ask(*a, **k):
+            return ""
+
+    class DummyTable:
+        def __init__(self, *a, **k):
+            pass
+
+    rich_console.Console = DummyConsole
+    rich_text.Text = str
+    rich_panel.Panel = DummyPanel
+    rich_prompt.Prompt = DummyPrompt
+    rich_table.Table = DummyTable
+    rich_stub.console = rich_console
+    rich_stub.text = rich_text
+    rich_stub.panel = rich_panel
+    rich_stub.prompt = rich_prompt
+    rich_stub.table = rich_table
+
+    sys.modules.setdefault("rich", rich_stub)
+    sys.modules.setdefault("rich.console", rich_console)
+    sys.modules.setdefault("rich.text", rich_text)
+    sys.modules.setdefault("rich.panel", rich_panel)
+    sys.modules.setdefault("rich.prompt", rich_prompt)
+    sys.modules.setdefault("rich.table", rich_table)
+
 # Stub rich_logger and winsound to avoid optional deps during tests
 rich_logger_stub = types.ModuleType("utils.rich_logger")
 class RichLogger:
