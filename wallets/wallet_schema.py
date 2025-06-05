@@ -36,6 +36,7 @@ class WalletIn(BaseModel):
     name: str = Field(..., example="VaderVault", description="Unique wallet name")
     public_address: str = Field(..., example="0xABC123...", description="Public wallet address")
     private_address: Optional[str] = Field(None, description="Optional private key (only for dev)")
+    chrome_profile: Optional[str] = Field("Default", description="Chrome profile for Jupiter links")
     image_path: Optional[str] = Field(None, example="/static/img/vader.png")
     balance: float = Field(0.0, ge=0.0)
     tags: List[str] = Field(default_factory=list)
@@ -48,6 +49,7 @@ class WalletOut(BaseModel):
     public_address: str
     balance: float
     image_path: Optional[str]
+    chrome_profile: Optional[str] = "Default"
     tags: List[str]
     is_active: bool
     type: WalletType

@@ -38,14 +38,17 @@ class WalletService:
     # 📋 List all wallets in output-safe form
     def list_wallets(self) -> List[WalletOut]:
         wallets = self.repo.get_all_wallets()
-        return [WalletOut(**w.__dict__) for w in wallets]
+        return [
+            WalletOut(**{**w.__dict__, "chrome_profile": w.chrome_profile or "Default"})
+            for w in wallets
+        ]
 
     # 🧾 Get one wallet
     def get_wallet(self, name: str) -> WalletOut:
         wallet = self.repo.get_wallet_by_name(name)
         if not wallet:
             raise ValueError(f"❌ Wallet '{name}' not found.")
-        return WalletOut(**wallet.__dict__)
+        return WalletOut(**{**wallet.__dict__, "chrome_profile": wallet.chrome_profile or "Default"})
 
     # 💾 Backup all wallets to JSON
     def export_wallets_to_json(self):
@@ -57,6 +60,8 @@ class WalletService:
         imported_count = 0
         for w in wallets:
             if not self.repo.get_wallet_by_name(w.name):
-                self.repo.add_wallet(WalletIn(**w.__dict__))
+                self.repo.add_wallet(
+                    WalletIn(**{**w.__dict__, "chrome_profile": w.chrome_profile or "Default"})
+                )
                 imported_count += 1
         return imported_count
