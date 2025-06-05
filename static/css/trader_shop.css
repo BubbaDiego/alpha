@@ -73,3 +73,13 @@
   line-height: 32px;
   font-size: 1.2rem;
 }
+
+/* Leaderboard table adjustments */
+#leaderboard-panel th,
+#leaderboard-panel td {
+  text-align: center;
+}
+
+#leaderboard-panel tfoot .leader-total-row {
+  background-color: #e7f1ff;
+}
