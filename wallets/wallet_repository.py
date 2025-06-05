@@ -24,12 +24,18 @@ class WalletRepository:
     # 🧾 Get all wallets from DB
     def get_all_wallets(self) -> List[Wallet]:
         rows = self.dl.read_wallets()
-        return [Wallet(**row) for row in rows]
+        return [
+            Wallet(**{**row, "chrome_profile": row.get("chrome_profile", "Default")})
+            for row in rows
+        ]
 
     # 🔍 Get a wallet by its unique name
     def get_wallet_by_name(self, name: str) -> Optional[Wallet]:
         row = self.dl.get_wallet_by_name(name)
-        return Wallet(**row) if row else None
+        if row:
+            data = {**row, "chrome_profile": row.get("chrome_profile", "Default")}
+            return Wallet(**data)
+        return None
 
     # ➕ Insert new wallet into DB
     def add_wallet(self, wallet: WalletIn) -> None:
@@ -55,7 +61,14 @@ class WalletRepository:
     def export_to_json(self, path: str = WALLETS_JSON_PATH) -> None:
         wallets = self.get_all_wallets()
         with open(path, "w") as f:
-            json.dump([wallet.__dict__ for wallet in wallets], f, indent=2)
+            json.dump(
+                [
+                    {**w.__dict__, "chrome_profile": w.chrome_profile or "Default"}
+                    for w in wallets
+                ],
+                f,
+                indent=2,
+            )
 
     # ♻️ Restore from wallets.json
     def load_from_json(self, path: str = WALLETS_JSON_PATH) -> List[Wallet]:
@@ -63,4 +76,7 @@ class WalletRepository:
             return []
         with open(path, "r") as f:
             data = json.load(f)
-        return [Wallet(**item) for item in data]
+        return [
+            Wallet(**{**item, "chrome_profile": item.get("chrome_profile", "Default")})
+            for item in data
+        ]
