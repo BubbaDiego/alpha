@@ -65,10 +65,12 @@ sys.modules.setdefault("core.logging", core_logging_stub)
 sys.modules.setdefault("cyclone_app", types.ModuleType("cyclone_app"))
 sys.modules["cyclone_app"].main = lambda: None
 sys.modules.setdefault("monitor.operations_monitor", types.SimpleNamespace(OperationsMonitor=object))
+
 sys.modules.setdefault("test_core", types.ModuleType("test_core"))
 sys.modules["test_core"].TestCore = object
 sys.modules.setdefault("data.data_locker", types.ModuleType("data.data_locker"))
 sys.modules["data.data_locker"].DataLocker = object
+
 sys.modules.setdefault("utils.startup_service", types.ModuleType("utils.startup_service"))
 sys.modules["utils.startup_service"].StartUpService = types.SimpleNamespace(run_all=lambda: None)
 sys.modules.setdefault("scripts.verify_all_tables_exist", types.ModuleType("scripts.verify_all_tables_exist"))

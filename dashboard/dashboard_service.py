@@ -346,6 +346,12 @@ def get_dashboard_context(data_locker, system_core=None):
         if total_collat > 0 else {"series": [0, 0], "label": "No collateral data"}
     )
 
+    wallets = []
+    try:
+        wallets = data_locker.read_wallets() or []
+    except Exception as e:  # pragma: no cover - DB error extremely rare
+        log.error(f"Failed to read wallets: {e}", source="DashboardContext")
+
     return {
         "theme_mode": data_locker.system.get_theme_mode(),
         "positions": positions,
@@ -369,4 +375,5 @@ def get_dashboard_context(data_locker, system_core=None):
         "positions_monitor_status": monitor_statuses["positions"],
         "operations_monitor_status": monitor_statuses["operations"],
         "xcom_monitor_status": monitor_statuses["xcom"],
+        "wallets": wallets,
     }
