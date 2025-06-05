@@ -104,8 +104,190 @@ sys.modules.setdefault("positions.hedge_manager", hedge_stub)
 
 # Stub flask current_app to avoid optional dependency
 flask_stub = types.ModuleType("flask")
-flask_stub.current_app = types.SimpleNamespace()
+
+
+class DummyBlueprint:
+    def __init__(self, name, import_name, url_prefix="", **kwargs):
+        self.name = name
+        self.import_name = import_name
+        self.url_prefix = url_prefix
+        self.routes = {}
+
+    def route(self, rule, methods=None):
+        methods = methods or ["GET"]
+
+        def decorator(func):
+            self.routes.setdefault(rule, {})
+            for m in methods:
+                self.routes[rule][m] = func
+            return func
+
+        return decorator
+
+    def add_app_template_filter(self, func, name=None):  # pragma: no cover - stub
+        pass
+
+
+class DummyResponse:
+    def __init__(self, data=b"", json_data=None, status_code=200):
+        self.status_code = status_code
+        self.data = data if isinstance(data, bytes) else str(data).encode()
+        self._json = json_data
+
+    def get_json(self):
+        return self._json
+
+
+def _result_to_response(result):
+    status = 200
+    body = result
+    if isinstance(result, tuple):
+        body = result[0]
+        if len(result) > 1:
+            status = result[1]
+    if isinstance(body, DummyResponse):
+        if status != 200:
+            body.status_code = status
+        return body
+    if isinstance(body, dict):
+        return DummyResponse(json_data=body, status_code=status)
+    return DummyResponse(data=str(body), status_code=status)
+
+
+class DummyFlask:
+    def __init__(self, *a, **k):
+        self.config = {}
+        self.routes = {}
+        self.logger = types.SimpleNamespace(error=lambda *a, **k: None)
+
+    def register_blueprint(self, bp, url_prefix=""):
+        prefix = url_prefix or getattr(bp, "url_prefix", "")
+        for rule, views in getattr(bp, "routes", {}).items():
+            for method, func in views.items():
+                path = prefix + rule
+
+                def wrapper(*a, __func=func, **k):
+                    mod = sys.modules.get(bp.import_name)
+                    if mod is not None:
+                        globals_map = getattr(__func, "__globals__", {})
+                        for name, val in list(globals_map.items()):
+                            if hasattr(mod, name):
+                                globals_map[name] = getattr(mod, name)
+                            elif hasattr(val, "__module__"):
+                                m = sys.modules.get(val.__module__)
+                                if m and hasattr(m, name):
+                                    globals_map[name] = getattr(m, name)
+                        if __func.__closure__:
+                            for cell in __func.__closure__:
+                                inner = cell.cell_contents
+                                gmap = getattr(inner, "__globals__", None)
+                                if gmap is not None:
+                                    for name, val in list(gmap.items()):
+                                        if hasattr(mod, name):
+                                            gmap[name] = getattr(mod, name)
+                                        elif hasattr(val, "__module__"):
+                                            m = sys.modules.get(val.__module__)
+                                            if m and hasattr(m, name):
+                                                gmap[name] = getattr(m, name)
+                    return __func(*a, **k)
+
+                self.routes.setdefault(path, {})[method] = wrapper
+
+    def test_client(self):
+        app = self
+
+        class Client:
+            def __init__(self):
+                self.application = app
+
+            def __enter__(self):
+                return self
+
+            def __exit__(self, exc_type, exc, tb):
+                return False
+
+            def open(self, path, method="GET", json=None):
+                from urllib.parse import urlparse, parse_qs
+
+                parsed = urlparse(path)
+                route = parsed.path
+                args = {k: v[0] if len(v) == 1 else v for k, v in parse_qs(parsed.query).items()}
+                flask_stub._request = types.SimpleNamespace(
+                    args=args,
+                    form={},
+                    json=json,
+                    method=method,
+                    path=route,
+                    headers={},
+                    remote_addr="",
+                    get_json=lambda: json,
+                )
+                flask_stub._current_app = app
+                view = app.routes.get(route, {}).get(method)
+                if not view:
+                    return DummyResponse(status_code=404)
+                return _result_to_response(view())
+
+            def get(self, path, **kw):
+                return self.open(path, "GET", **kw)
+
+            def post(self, path, json=None, **kw):
+                return self.open(path, "POST", json=json)
+
+        return Client()
+
+
+def jsonify(obj=None, **kwargs):
+    return obj if obj is not None else kwargs
+
+
+def render_template(name, **kwargs):
+    import os
+    import re
+
+    base = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "templates"))
+
+    def load(fname):
+        path = os.path.join(base, fname)
+        text = open(path, "r", encoding="utf-8").read()
+        return re.sub(r"{% include \"(.*?)\" %}", lambda m: load(m.group(1)), text)
+
+    return load(name)
+
+
+flask_stub.Flask = DummyFlask
+flask_stub.Blueprint = DummyBlueprint
+flask_stub.jsonify = jsonify
+flask_stub.render_template = render_template
+class _RequestProxy:
+    def __getattr__(self, name):
+        return getattr(flask_stub._request, name)
+
+flask_stub._request = types.SimpleNamespace()
+flask_stub.request = _RequestProxy()
+
+class _CurrentAppProxy:
+    def __getattr__(self, name):
+        return getattr(flask_stub._current_app, name)
+
+flask_stub._current_app = types.SimpleNamespace()
+flask_stub.current_app = _CurrentAppProxy()
+flask_stub.redirect = lambda loc: loc
+flask_stub.url_for = lambda endpoint, **kwargs: endpoint
+flask_stub.flash = lambda *a, **k: None
 sys.modules.setdefault("flask", flask_stub)
+
+# Minimal jinja2 stubs for blueprint imports
+if "jinja2" not in sys.modules:
+    jinja2_stub = types.ModuleType("jinja2")
+    jinja2_stub.ChoiceLoader = lambda *a, **k: None
+    jinja2_stub.FileSystemLoader = lambda *a, **k: None
+    sys.modules["jinja2"] = jinja2_stub
+
+if "werkzeug.utils" not in sys.modules:
+    werkzeug_utils_stub = types.ModuleType("werkzeug.utils")
+    werkzeug_utils_stub.secure_filename = lambda name: name
+    sys.modules["werkzeug.utils"] = werkzeug_utils_stub
 
 # Minimal stubs for optional HTTP + Twilio dependencies
 requests_stub = types.ModuleType("requests")
