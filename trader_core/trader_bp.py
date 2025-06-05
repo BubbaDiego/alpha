@@ -32,10 +32,13 @@ def _enrich_trader(trader: dict, dl, pm: PersonaManager, calc: CalcServices) -> 
 
     try:
         balance = sum(float(p.get("value") or 0.0) for p in positions)
+        profit = sum(calc.calculate_profit(p) for p in positions)
         trader["wallet_balance"] = round(balance, 2)
+        trader["profit"] = round(profit, 2)
     except Exception as exc:
         trader["wallet_balance"] = 0.0
-        log.debug(f"Balance calculation failed: {exc}", source="TraderBP")
+        trader["profit"] = 0.0
+        log.debug(f"Balance/profit calculation failed: {exc}", source="TraderBP")
 
     avg_heat = calc.calculate_weighted_heat_index(positions)
     trader["heat_index"] = avg_heat

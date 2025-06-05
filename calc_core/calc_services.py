@@ -94,6 +94,18 @@ class CalcServices:
             log.error(f"Failed to calculate value: {e}", "calculate_value")
             return 0.0
 
+    def calculate_profit(self, position: dict) -> float:
+        """Return the current profit/loss in USD for ``position``."""
+        try:
+            value = self.calculate_value(position)
+            collateral = float(position.get("collateral") or 0.0)
+            profit = value - collateral
+            log.debug("Calculated profit", "calculate_profit", {"profit": profit})
+            return round(profit, 2)
+        except Exception as e:
+            log.error(f"Failed to calculate profit: {e}", "calculate_profit")
+            return 0.0
+
     def calculate_leverage(self, size: float, collateral: float) -> float:
         leverage = round(size / collateral, 2) if size > 0 and collateral > 0 else 0.0
         log.debug("Calculated leverage", "calculate_leverage", {"leverage": leverage})

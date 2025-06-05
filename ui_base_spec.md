@@ -352,10 +352,12 @@ themes and page templates.
 | `yodavault.jpg` (upload) | Sample uploaded wallet logo. | `static/uploads/wallets/yodavault.jpg` |
 | `bobavault.jpg` (upload) | Sample uploaded wallet logo. | `static/uploads/wallets/bobavault.jpg` |
 | `c3povault.jpg` (upload) | Sample uploaded wallet logo. | `static/uploads/wallets/c3povault.jpg` |
+
 | `jabbavault.jpg` (upload) | Sample uploaded wallet logo. | `static/uploads/wallets/jabbavault.jpg` |
 | `chewbaccavault.jpg` (upload) | Sample uploaded wallet logo. | `static/uploads/wallets/chewbaccavault.jpg` |
 | `jabbavault.jog` (upload) | Sample uploaded wallet logo. | `static/uploads/wallets/jabbavault.jog` |
 | `lukevault.jg` (upload) | Sample uploaded wallet logo. | `static/uploads/wallets/lukevault.jg` |
+
 
 | `leiavault.jpg` (upload) | Sample uploaded wallet logo. | `static/uploads/wallets/leiavault.jpg` |
 

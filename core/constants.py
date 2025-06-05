@@ -59,10 +59,12 @@ YODAVAULT_IMAGE = IMAGE_DIR / "yodavault.jpg"
 BOBAVAULT_IMAGE = IMAGE_DIR / "bobavault.jpg"
 LEIAVAULT_IMAGE = IMAGE_DIR / "leiavault.jpg"
 C3P0VAULT_IMAGE = IMAGE_DIR / "c3povault.jpg"
+
 JABBAVAULT_IMAGE = IMAGE_DIR / "jabbavault.jpg"
 CHEWBACCAVAULT_IMAGE = IMAGE_DIR / "chewbaccavault.jpg"
 PALPATINEVAULT_IMAGE = IMAGE_DIR / "jabbavault.jog"
 LUKEVAULT_IMAGE = IMAGE_DIR / "lukevault.jg"
+
 
 
 # -----------------------------

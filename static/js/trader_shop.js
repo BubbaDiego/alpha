@@ -24,6 +24,7 @@ const AVATARS = {
     moods: { calm: "🤖", neutral: "💬", chaotic: "😰" },
     heat: "⚙️"
   },
+
   "jabbavault": {
     icon: "/static/images/jabbavault.jpg",
     moods: { calm: "😋", neutral: "👑", chaotic: "🧨" },
@@ -44,6 +45,7 @@ const AVATARS = {
     moods: { calm: "🧘", neutral: "💫", chaotic: "⚔️" },
     heat: "✨"
   },
+
   "landovault": {
     icon: "/static/images/landovault.jpg",
     moods: { calm: "🧘", neutral: "🎯", chaotic: "🎲" },
@@ -152,13 +154,17 @@ function loadTraders() {
             avatarHTML = `<span class="leader-avatar">${trader.avatar}</span>`;
           }
 
+          const avatarKey = getAvatarKey(trader.avatar);
+          const moodIcon = AVATARS[avatarKey]?.moods?.[trader.mood] ?? '';
+
           row.innerHTML = `
             <td>${avatarHTML}</td>
             <td>${trader.name}</td>
             <td>${trader.performance_score ?? '?'}</td>
             <td>$${trader.wallet_balance?.toFixed(2) ?? '0.00'}</td>
+            <td>$${trader.profit?.toFixed(2) ?? '0.00'}</td>
             <td>${trader.heat_index?.toFixed(1) ?? 'N/A'}</td>
-            <td>${trader.mood}</td>
+            <td>${moodIcon} ${trader.mood}</td>
           `;
           leaderboard.appendChild(row);
         }
@@ -171,19 +177,22 @@ function loadTraders() {
         const count = sorted.length;
         const totalScore = sorted.reduce((sum, t) => sum + (t.performance_score ?? 0), 0);
         const totalBalance = sorted.reduce((sum, t) => sum + (t.wallet_balance ?? 0), 0);
+        const totalProfit = sorted.reduce((sum, t) => sum + (t.profit ?? 0), 0);
         const totalHeat = sorted.reduce((sum, t) => sum + (t.heat_index ?? 0), 0);
 
         const avgScore = count ? (totalScore / count) : 0;
         const avgHeat = count ? (totalHeat / count) : 0;
 
         const row = document.createElement('tr');
+        row.classList.add('leader-total-row');
         row.innerHTML = `
           <td></td>
-          <td>Totals</td>
+          <td></td>
           <td>${avgScore.toFixed(2)}</td>
           <td>$${totalBalance.toFixed(2)}</td>
+          <td>$${totalProfit.toFixed(2)}</td>
           <td>${avgHeat.toFixed(1)}</td>
-          <td>-</td>
+          <td></td>
         `;
         if (footer) footer.appendChild(row);
       }
@@ -211,6 +220,7 @@ function loadTraders() {
               <p>Mood: ${moodIcon} ${trader.mood}</p>
               <p>Heat: ${heatIcon} ${trader.heat_index?.toFixed(1) ?? "N/A"}</p>
               <p>Balance: $${trader.wallet_balance?.toFixed(2) ?? '0.00'}</p>
+              <p>Profit: $${trader.profit?.toFixed(2) ?? '0.00'}</p>
             </div>
             <div class="card-back">
               <p>Score: ${trader.performance_score ?? "?"}</p>
