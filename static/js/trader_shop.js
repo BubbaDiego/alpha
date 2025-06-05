@@ -119,7 +119,16 @@ function loadTraders() {
       sorted.forEach(trader => {
         if (leaderboard) {
           const row = document.createElement('tr');
+
+          let avatarHTML = '';
+          if (trader.avatar?.startsWith('/static/')) {
+            avatarHTML = `<img src="${trader.avatar}" class="leader-avatar">`;
+          } else if (trader.avatar) {
+            avatarHTML = `<span class="leader-avatar">${trader.avatar}</span>`;
+          }
+
           row.innerHTML = `
+            <td>${avatarHTML}</td>
             <td>${trader.name}</td>
             <td>${trader.performance_score ?? '?'}</td>
             <td>$${trader.wallet_balance?.toFixed(2) ?? '0.00'}</td>
@@ -144,6 +153,7 @@ function loadTraders() {
 
         const row = document.createElement('tr');
         row.innerHTML = `
+          <td></td>
           <td>Totals</td>
           <td>${avgScore.toFixed(2)}</td>
           <td>$${totalBalance.toFixed(2)}</td>

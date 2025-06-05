@@ -61,3 +61,15 @@
   background: var(--accent, #e0e0e0);
   font-size: 2rem;
 }
+
+/* Smaller avatar used in leaderboard */
+.leader-avatar {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  object-fit: cover;
+  display: inline-block;
+  text-align: center;
+  line-height: 32px;
+  font-size: 1.2rem;
+}
