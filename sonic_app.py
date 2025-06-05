@@ -59,6 +59,8 @@ except Exception:  # pragma: no cover - optional dependency
             pass
 
 from core.core_imports import log, configure_console_log, DB_PATH, BASE_DIR, retry_on_locked
+from core.constants import PERPETUAL_TOKENS_PATH
+import json
 from datetime import datetime
 from data.data_locker import DataLocker
 from system.system_core import SystemCore
@@ -72,6 +74,15 @@ from cyclone.cyclone_engine import Cyclone
 log.banner("SONIC DASHBOARD STARTUP")
 log.enable_all()
 configure_console_log(debug=True)
+
+# Load perpetual token mapping from config
+try:
+    with open(PERPETUAL_TOKENS_PATH, "r", encoding="utf-8") as f:
+        PERPETUAL_TOKENS = json.load(f)
+        log.info(f"Loaded {len(PERPETUAL_TOKENS)} perpetual tokens", source="Startup")
+except Exception as e:
+    log.error(f"Failed to load perpetual tokens: {e}", source="Startup")
+    PERPETUAL_TOKENS = {}
 
 # --- Flask Setup ---
 app = Flask(__name__)
@@ -195,14 +206,7 @@ def index():
 def launch_jupiter_position(profile, asset):
     import subprocess
 
-    JUPITER_TOKEN_MAP = {
-        "SOL": "So11111111111111111111111111111111111111112",
-        "BTC": "9n4nbM75f5Ui33ZbPYXn59EwSgE8CGsHtAeTH5YFeJ9E",
-        "ETH": "2jXy799YNy9Wi6kXZGk8Hg3H2wZbYGFh5xdtNBxgdCz6",
-        # Extend this map as needed
-    }
-
-    token = JUPITER_TOKEN_MAP.get(asset.upper())
+    token = PERPETUAL_TOKENS.get(asset.upper())
     if not token:
         return f"⚠️ Unknown asset: {asset}", 400
 

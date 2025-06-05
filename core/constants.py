@@ -38,6 +38,7 @@ ALERT_THRESHOLDS_PATH = CONFIG_DIR / os.getenv("ALERT_THRESHOLDS_FILENAME", "ale
 SONIC_SAUCE_PATH = CONFIG_DIR / os.getenv("SONIC_SAUCE_FILENAME", "sonic_sauce.json")
 COM_CONFIG_PATH = CONFIG_DIR / os.getenv("COM_CONFIG_FILENAME", "com_config.json")
 THEME_CONFIG_PATH = CONFIG_DIR / os.getenv("THEME_CONFIG_FILENAME", "theme_config.json")
+PERPETUAL_TOKENS_PATH = CONFIG_DIR / os.getenv("PERPETUAL_TOKENS_FILENAME", "perpetual_tokens.json")
 
 # Optional heartbeat file location
 HEARTBEAT_FILE = Path(os.getenv("HEARTBEAT_FILE", MONITOR_DIR / "sonic_ledger.json"))
