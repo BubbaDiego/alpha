@@ -281,6 +281,13 @@ class DataLocker:
         # --- Automatic schema migrations ---
         log.debug("Applying schema migrations", source="DataLocker")
         _ensure_column(cursor, "positions", "status TEXT DEFAULT 'ACTIVE'")
+        _ensure_column(cursor, "positions", "value REAL")
+        _ensure_column(cursor, "positions", "collateral REAL")
+        _ensure_column(cursor, "positions", "size REAL")
+        _ensure_column(cursor, "positions", "leverage REAL")
+        _ensure_column(cursor, "positions", "current_price REAL")
+        _ensure_column(cursor, "positions", "pnl_after_fees_usd REAL")
+        _ensure_column(cursor, "positions", "liquidation_distance REAL")
 
         # Ensure a default row exists for system vars so lookups don't fail
         log.debug("Ensuring system_vars default row", source="DataLocker")
