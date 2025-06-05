@@ -28,13 +28,14 @@ class DLWalletManager:
             cursor.execute(
                 """
                 INSERT INTO wallets (
-                    name, public_address, private_address, image_path,
+                    name, public_address, chrome_profile, private_address, image_path,
                     balance, tags, is_active, type
-                ) VALUES (?, ?, ?, ?, ?, ?, ?, ?)
+                ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
             """,
                 (
                     wallet["name"],
                     wallet["public_address"],
+                    wallet.get("chrome_profile", "Default"),
                     encrypt_key(wallet.get("private_address")),
                     wallet.get("image_path", ""),
                     wallet.get("balance", 0.0),
@@ -75,6 +76,7 @@ class DLWalletManager:
                 """
                 UPDATE wallets SET
                     public_address = ?,
+                    chrome_profile = ?,
                     private_address = ?,
                     image_path = ?,
                     balance = ?,
@@ -85,6 +87,7 @@ class DLWalletManager:
             """,
                 (
                     wallet["public_address"],
+                    wallet.get("chrome_profile", "Default"),
                     encrypt_key(wallet.get("private_address")),
                     wallet.get("image_path", ""),
                     wallet.get("balance", 0.0),

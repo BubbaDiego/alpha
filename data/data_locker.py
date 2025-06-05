@@ -107,6 +107,7 @@ class DataLocker:
                 CREATE TABLE IF NOT EXISTS wallets (
                     name TEXT PRIMARY KEY,
                     public_address TEXT,
+                    chrome_profile TEXT DEFAULT 'Default',
                     private_address TEXT,
                     image_path TEXT,
                     balance REAL DEFAULT 0.0,
@@ -281,6 +282,7 @@ class DataLocker:
         # --- Automatic schema migrations ---
         log.debug("Applying schema migrations", source="DataLocker")
         _ensure_column(cursor, "positions", "status TEXT DEFAULT 'ACTIVE'")
+        _ensure_column(cursor, "wallets", "chrome_profile TEXT DEFAULT 'Default'")
 
         # Ensure a default row exists for system vars so lookups don't fail
         log.debug("Ensuring system_vars default row", source="DataLocker")
