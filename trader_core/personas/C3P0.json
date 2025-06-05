@@ -1,0 +1,13 @@
+{
+  "name": "C3P0",
+  "profile": "Protocol Droid",
+  "avatar": "c3p0vault",
+  "strategy_weights": {
+    "dynamic_hedging": 0.2,
+    "profit_management": 0.8
+  },
+  "moods": {
+    "high_heat": "nervous"
+  },
+  "description": "Helpful droid fluent in millions of forms of communication."
+}

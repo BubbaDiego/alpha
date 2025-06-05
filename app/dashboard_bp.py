@@ -54,6 +54,7 @@ def dash_page():
 WALLET_IMAGE_MAP = {
     "ObiVault": "obivault.jpg",
     "R2Vault": "r2vault.jpg",
+    "C3P0Vault": "c3povault.jpg",
     "LandoVault": "landovault.jpg",
     "VaderVault": "vadervault.jpg",
     "YodaVault": "yodavault.jpg",
