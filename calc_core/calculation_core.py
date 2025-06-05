@@ -82,13 +82,14 @@ class CalculationCore:
                     cursor.execute(f"UPDATE positions SET {field} = ? WHERE id = ?", (val, pos_id))
 
                 pos["value"] = self.calc_services.calculate_value(pos)
+                pos["pnl_after_fees_usd"] = self.calc_services.calculate_profit(pos)
                 pos["leverage"] = round(size / collateral, 2) if collateral > 0 else 0.0
                 heat_index = self.calc_services.calculate_composite_risk_index(pos) or 0.0
                 pos["heat_index"] = pos["current_heat_index"] = heat_index
 
                 cursor.execute(
-                    "UPDATE positions SET value = ?, heat_index = ?, current_heat_index = ? WHERE id = ?",
-                    (pos["value"], heat_index, heat_index, pos_id),
+                    "UPDATE positions SET value = ?, pnl_after_fees_usd = ?, heat_index = ?, current_heat_index = ? WHERE id = ?",
+                    (pos["value"], pos["pnl_after_fees_usd"], heat_index, heat_index, pos_id),
                 )
                 log.success("Updated DB for position", "aggregate_positions_and_update", {"id": pos_id, "heat_index": heat_index})
 

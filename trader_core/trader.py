@@ -15,6 +15,7 @@ class Trader:
     strategies: Dict[str, float] = field(default_factory=dict)
     wallet: str = ""
     wallet_balance: float = 0.0
+    profit: float = 0.0
     portfolio: Dict = field(default_factory=dict)
     positions: List[Dict] = field(default_factory=list)
     hedges: List[Dict] = field(default_factory=list)
@@ -24,5 +25,5 @@ class Trader:
     def __repr__(self) -> str:
         return (
             f"Trader(name={self.name!r}, persona={self.persona!r}, mood={self.mood!r}, "
-            f"heat_index={self.heat_index}, wallet_balance={self.wallet_balance})"
+            f"heat_index={self.heat_index}, wallet_balance={self.wallet_balance}, profit={self.profit})"
         )
