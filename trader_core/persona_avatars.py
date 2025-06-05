@@ -46,6 +46,42 @@ AVATARS = {
         },
         "heat": "⚙️"
     },
+    "jabbavault": {
+        "icon": "/static/images/jabbavault.jpg",
+        "moods": {
+            "calm": "😋",
+            "neutral": "👑",
+            "chaotic": "🧨"
+        },
+        "heat": "🌋"
+    },
+    "chewbaccavault": {
+        "icon": "/static/images/chewbaccavault.jpg",
+        "moods": {
+            "calm": "🐻",
+            "neutral": "⚒️",
+            "chaotic": "🗯️"
+        },
+        "heat": "🔊"
+    },
+    "palpatinevault": {
+        "icon": "/static/images/jabbavault.jog",
+        "moods": {
+            "calm": "😈",
+            "neutral": "⚡",
+            "chaotic": "👿"
+        },
+        "heat": "🌩️"
+    },
+    "lukevault": {
+        "icon": "/static/images/lukevault.jg",
+        "moods": {
+            "calm": "🧘",
+            "neutral": "💫",
+            "chaotic": "⚔️"
+        },
+        "heat": "✨"
+    },
     "landovault": {
         "icon": "/static/images/landovault.jpg",
         "moods": {
