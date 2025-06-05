@@ -64,15 +64,19 @@ def list_positions():
             pos["heat_alert_class"] = get_alert_class(heat, hi_cfg.get("low"), hi_cfg.get("medium"), hi_cfg.get("high"))
 
         totals = CalcServices().calculate_totals(positions)
+        wallets = current_app.data_locker.read_wallets()
         times = current_app.data_locker.get_last_update_times() or {}
         pos_time = _convert_iso_to_pst(times.get("last_update_time_positions", "N/A"))
 
-        return render_template("positions.html",
-                               positions=positions,
-                               totals=totals,
-                               portfolio_value=totals.get("total_value", 0),
-                               last_update_positions=pos_time,
-                               last_update_positions_source=times.get("last_update_positions_source", "N/A"))
+        return render_template(
+            "positions.html",
+            positions=positions,
+            totals=totals,
+            portfolio_value=totals.get("total_value", 0),
+            last_update_positions=pos_time,
+            last_update_positions_source=times.get("last_update_positions_source", "N/A"),
+            wallets=wallets,
+        )
 
     except Exception as e:
         log.error(f"Error in listing positions: {e}")
@@ -86,7 +90,13 @@ def positions_table():
         core = PositionCore(current_app.data_locker)
         positions = core.get_active_positions()
         totals = CalcServices().calculate_totals(positions)
-        return render_template("positions_table.html", positions=positions, totals=totals)
+        wallets = current_app.data_locker.read_wallets()
+        return render_template(
+            "positions_table.html",
+            positions=positions,
+            totals=totals,
+            wallets=wallets,
+        )
     except Exception as e:
         log.error(f"Error in positions_table: {e}")
         return jsonify({"error": str(e)}), 500
