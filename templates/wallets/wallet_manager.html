@@ -95,7 +95,8 @@
                       data-tags="{{ wallet.tags|join(', ') }}"
                       data-type="{{ wallet.type }}"
                       data-active="{{ wallet.is_active }}"
-                      data-image="{{ wallet.image_path }}">
+                      data-image="{{ wallet.image_path }}"
+                      data-chrome="{{ wallet.chrome_profile }}">
                 ✏️
               </button>
             </div>
@@ -222,6 +223,10 @@
               <input type="text" name="public_address" id="edit_public" class="form-control">
             </div>
             <div class="col-md-6">
+              <label class="form-label">Chrome Profile:</label>
+              <input type="text" name="chrome_profile" id="edit_chrome" class="form-control" placeholder="Default">
+            </div>
+            <div class="col-md-6">
               <label class="form-label">Private Address:</label>
               <input type="text" name="private_address" id="edit_private" class="form-control">
             </div>
@@ -276,6 +281,7 @@
         form.action = btn.dataset.updateUrl;
         document.getElementById('edit_name').value = btn.dataset.name;
         document.getElementById('edit_public').value = btn.dataset.public;
+        document.getElementById('edit_chrome').value = btn.dataset.chrome || '';
         document.getElementById('edit_private').value = btn.dataset.private;
         document.getElementById('edit_balance').value = btn.dataset.balance;
         document.getElementById('edit_tags').value = btn.dataset.tags;
