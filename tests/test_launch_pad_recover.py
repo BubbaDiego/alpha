@@ -2,21 +2,26 @@ import builtins
 import sys
 import types
 
-dummy_rich = types.ModuleType("rich")
-dummy_console = types.ModuleType("rich.console")
-dummy_text = types.ModuleType("rich.text")
+# Importing tests.conftest ensures the global ``rich`` stub is loaded if
+# the actual library is unavailable. The variable itself isn't used here.
+import tests.conftest  # noqa: F401
 
-class _Console:
-    def print(self, *args, **kwargs):
-        pass
+# Stub core.logging so ``configure_console_log`` and ``log`` usage inside
+# :mod:`launch_pad` do not require the full implementation during import.
+core_logging_stub = types.ModuleType("core.logging")
 
-dummy_console.Console = _Console
-dummy_text.Text = str
-dummy_rich.console = dummy_console
-dummy_rich.text = dummy_text
-sys.modules.setdefault("rich", dummy_rich)
-sys.modules.setdefault("rich.console", dummy_console)
-sys.modules.setdefault("rich.text", dummy_text)
+class _DummyLog:
+    logger = types.SimpleNamespace(setLevel=lambda *a, **k: None)
+
+    def __getattr__(self, _):
+        def noop(*a, **k):
+            pass
+
+        return noop
+
+core_logging_stub.log = _DummyLog()
+core_logging_stub.configure_console_log = lambda *a, **k: None
+sys.modules.setdefault("core.logging", core_logging_stub)
 
 import pytest
 
