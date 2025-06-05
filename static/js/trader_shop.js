@@ -130,6 +130,29 @@ function loadTraders() {
         }
       });
 
+      if (leaderboard) {
+        const footer = document.getElementById('leaderboard-footer');
+        if (footer) footer.innerHTML = '';
+
+        const count = sorted.length;
+        const totalScore = sorted.reduce((sum, t) => sum + (t.performance_score ?? 0), 0);
+        const totalBalance = sorted.reduce((sum, t) => sum + (t.wallet_balance ?? 0), 0);
+        const totalHeat = sorted.reduce((sum, t) => sum + (t.heat_index ?? 0), 0);
+
+        const avgScore = count ? (totalScore / count) : 0;
+        const avgHeat = count ? (totalHeat / count) : 0;
+
+        const row = document.createElement('tr');
+        row.innerHTML = `
+          <td>Totals</td>
+          <td>${avgScore.toFixed(2)}</td>
+          <td>$${totalBalance.toFixed(2)}</td>
+          <td>${avgHeat.toFixed(1)}</td>
+          <td>-</td>
+        `;
+        if (footer) footer.appendChild(row);
+      }
+
       data.traders.forEach(trader => {
         const card = document.createElement("div");
         card.className = "trader-card" + ((trader.performance_score ?? 0) === topScore ? " top-score" : "");
