@@ -1,22 +1,5 @@
 import builtins
 import sys
-import types
-
-dummy_rich = types.ModuleType("rich")
-dummy_console = types.ModuleType("rich.console")
-dummy_text = types.ModuleType("rich.text")
-
-class _Console:
-    def print(self, *args, **kwargs):
-        pass
-
-dummy_console.Console = _Console
-dummy_text.Text = str
-dummy_rich.console = dummy_console
-dummy_rich.text = dummy_text
-sys.modules.setdefault("rich", dummy_rich)
-sys.modules.setdefault("rich.console", dummy_console)
-sys.modules.setdefault("rich.text", dummy_text)
 
 import pytest
 

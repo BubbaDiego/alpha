@@ -56,7 +56,7 @@ class AutoCore:
             slow_mo=self.slow_mo,
         )
         page = context.new_page()
-        page.goto("https://jup.ag/perpetuals")
+        page.goto("https://jup.ag/perps")
         if self.headless:
             pwf.open_extension_popup(context, self.extension_id)
         return pw, context, page

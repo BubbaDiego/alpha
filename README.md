@@ -382,7 +382,7 @@ with sync_playwright() as pw:
         ]
     )
     page = context.new_page()
-    page.goto("https://jup.ag/perpetuals")
+    page.goto("https://jup.ag/perps")
 ```
 The persistent profile keeps Phantom unlocked between runs. Adjust `headless` and add `--headless=new` for server environments.
 
@@ -408,5 +408,5 @@ application code. For example:
 ```
 
 To support a new token, append its symbol and address, then restart the Flask
-server. The `/launch/<profile>/<asset>` route will automatically recognize the
-new asset.
+server. The `/launch/<profile>/<asset>/<position>` route will automatically
+recognize the new asset.

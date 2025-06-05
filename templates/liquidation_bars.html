@@ -6,8 +6,9 @@
     {% for pos in liquidation_positions %}
       {% if pos.travel_percent is defined and pos.travel_percent is not none %}
         <div class="liq-row">
-          {% set wallet = wallets | selectattr('name', 'equalto', pos.wallet_name) | first %}
-          <a href="/launch/{{ wallet.chrome_profile }}/{{ pos.asset_type }}">
+        {% set wallet_matches = wallets | selectattr('name', 'equalto', pos.wallet_name) | list %}
+        {% set wallet = wallet_matches[0] if wallet_matches else None %}
+        <a href="/launch/{{ wallet.chrome_profile if wallet else 'Default' }}/{{ pos.asset_type }}/{{ pos.position_type|lower if pos.position_type is defined else 'long' }}">
             <img
               class="wallet-icon"
               src="{{ url_for('static', filename='images/' + pos.wallet_image) }}"

@@ -32,7 +32,7 @@ with sync_playwright() as pw:
         ]
     )
     page = context.new_page()
-    page.goto("https://jup.ag/perpetuals")
+    page.goto("https://jup.ag/perps")
 ```
 The persistent profile retains Phantom's state so the wallet stays installed and unlocked across runs.
 

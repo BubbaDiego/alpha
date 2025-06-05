@@ -14,6 +14,7 @@ from core.core_imports import DB_PATH
 from alert_core.threshold_service import ThresholdService
 from datetime import datetime
 from zoneinfo import ZoneInfo
+import json
 from system.system_core import SystemCore
 from utils.fuzzy_wuzzy import fuzzy_match_key
 from calc_core.calculation_core import CalculationCore
@@ -107,19 +108,7 @@ def apply_color(metric_name, value, limits):
         log.error(f"apply_color failed: {e}", source="DashboardContext")
         return "red"
 
-import json
-from datetime import datetime
-from zoneinfo import ZoneInfo
 
-def format_monitor_time(iso_str):
-    if not iso_str:
-        return "N/A"
-    try:
-        dt = datetime.fromisoformat(iso_str.replace("Z", "+00:00"))
-        pacific = dt.astimezone(ZoneInfo("America/Los_Angeles"))
-        return pacific.strftime("%I:%M %p\n%m/%d").lstrip("0")
-    except Exception as e:
-        return "N/A"
 
 def format_short_time(iso_str):
     if not iso_str:
@@ -346,6 +335,12 @@ def get_dashboard_context(data_locker, system_core=None):
         if total_collat > 0 else {"series": [0, 0], "label": "No collateral data"}
     )
 
+    wallets = []
+    try:
+        wallets = data_locker.read_wallets() or []
+    except Exception as e:  # pragma: no cover - DB error extremely rare
+        log.error(f"Failed to read wallets: {e}", source="DashboardContext")
+
     return {
         "theme_mode": data_locker.system.get_theme_mode(),
         "positions": positions,
@@ -369,4 +364,5 @@ def get_dashboard_context(data_locker, system_core=None):
         "positions_monitor_status": monitor_statuses["positions"],
         "operations_monitor_status": monitor_statuses["operations"],
         "xcom_monitor_status": monitor_statuses["xcom"],
+        "wallets": wallets,
     }

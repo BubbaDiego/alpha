@@ -203,14 +203,16 @@ def index():
 
 
 @app.route("/launch/<profile>/<asset>")
-def launch_jupiter_position(profile, asset):
+@app.route("/launch/<profile>/<asset>/<position_type>")
+def launch_jupiter_position(profile, asset, position_type="long"):
     import subprocess
 
     token = PERPETUAL_TOKENS.get(asset.upper())
     if not token:
         return f"⚠️ Unknown asset: {asset}", 400
 
-    url = f"https://jup.ag/perpetuals/{asset.upper()}"
+    ptype = str(position_type).lower() or "long"
+    url = f"https://jup.ag/perps/{ptype}/SOL-{asset.upper()}"
     chrome_path = "C:/Program Files/Google/Chrome/Application/chrome.exe"
     profile_arg = f"--profile-directory={profile}"
 
