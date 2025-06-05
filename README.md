@@ -391,3 +391,22 @@ The collateral management process is documented in
 `AutoCore` includes helpers for headless execution with optional user agent and
 slow motion settings. Provide the Phantom extension ID to open the popup page
 when running headless.
+
+## Configuring Perpetual Tokens
+
+`sonic_app.py` loads the list of supported Jupiter perpetual tokens from
+`config/perpetual_tokens.json`. Each entry maps the token symbol to its mint
+address on Solana. Update this file to add or remove tokens without touching the
+application code. For example:
+
+```json
+{
+  "SOL": "So11111111111111111111111111111111111111112",
+  "BTC": "9n4nbM75f5Ui33ZbPYXn59EwSgE8CGsHtAeTH5YFeJ9E",
+  "ETH": "2jXy799YNy9Wi6kXZGk8Hg3H2wZbYGFh5xdtNBxgdCz6"
+}
+```
+
+To support a new token, append its symbol and address, then restart the Flask
+server. The `/launch/<profile>/<asset>` route will automatically recognize the
+new asset.
