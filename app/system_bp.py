@@ -131,6 +131,7 @@ def add_wallet():
         data = WalletIn(
             name=form.get("name"),
             public_address=form.get("public_address"),
+            chrome_profile=form.get("chrome_profile", "Default"),
             private_address=form.get("private_address"),
             image_path=image_path,
             balance=float(form.get("balance", 0.0)),
@@ -207,6 +208,7 @@ def update_wallet(name):
         data = WalletIn(
             name=name,
             public_address=form.get("public_address"),
+            chrome_profile=form.get("chrome_profile", "Default"),
             private_address=form.get("private_address"),
             image_path=form.get("image_path"),
             balance=float(form.get("balance", 0.0)),
