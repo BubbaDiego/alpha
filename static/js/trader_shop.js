@@ -19,6 +19,11 @@ const AVATARS = {
     moods: { calm: "🎵", neutral: "🤖", chaotic: "🔊" },
     heat: "📟"
   },
+  "c3p0vault": {
+    icon: "/static/images/c3povault.jpg",
+    moods: { calm: "🤖", neutral: "💬", chaotic: "😰" },
+    heat: "⚙️"
+  },
   "landovault": {
     icon: "/static/images/landovault.jpg",
     moods: { calm: "🧘", neutral: "🎯", chaotic: "🎲" },

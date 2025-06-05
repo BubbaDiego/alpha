@@ -321,6 +321,7 @@ themes and page templates.
 | `obivault.jpg` | ObiVault wallet image. | `static/images/obivault.jpg` |
 | `r2vault - Copy.jpg` | Alternate R2Vault wallet image. | `static/images/r2vault - Copy.jpg` |
 | `r2vault.jpg` | R2Vault wallet image. | `static/images/r2vault.jpg` |
+| `c3povault.jpg` | C3P0Vault wallet image. | `static/images/c3povault.jpg` |
 | `raydium.jpg` | Raydium DEX logo. | `static/images/raydium.jpg` |
 | `sol_logo.png` | Solana logo icon. | `static/images/sol_logo.png` |
 | `sonic.png` | Main Sonic mascot used across dashboards. | `static/images/sonic.png` |
@@ -346,6 +347,7 @@ themes and page templates.
 | `vadervault.jpg` (upload) | Sample uploaded wallet logo. | `static/uploads/wallets/vadervault.jpg` |
 | `yodavault.jpg` (upload) | Sample uploaded wallet logo. | `static/uploads/wallets/yodavault.jpg` |
 | `bobavault.jpg` (upload) | Sample uploaded wallet logo. | `static/uploads/wallets/bobavault.jpg` |
+| `c3povault.jpg` (upload) | Sample uploaded wallet logo. | `static/uploads/wallets/c3povault.jpg` |
 
 | `leiavault.jpg` (upload) | Sample uploaded wallet logo. | `static/uploads/wallets/leiavault.jpg` |
 

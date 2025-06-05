@@ -22,6 +22,7 @@ DEFAULT_ASSET_IMAGE = "unknown.png"
 WALLET_IMAGE_MAP = {
     "ObiVault": "obivault.jpg",
     "R2Vault": "r2vault.jpg",
+    "C3P0Vault": "c3povault.jpg",
     "LandoVault": "landovault.jpg",
     "VaderVault": "vadervault.jpg",
     "YodaVault": "yodavault.jpg",
