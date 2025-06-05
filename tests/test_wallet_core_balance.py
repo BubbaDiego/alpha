@@ -1,4 +1,5 @@
 import os
+import sqlite3
 from data.data_locker import DataLocker
 import core.constants as const
 import core.core_imports as ci
@@ -106,4 +107,56 @@ def test_refresh_wallet_balances_updates_db(tmp_path, monkeypatch):
     assert count == 2
     assert dl.get_wallet_by_name("w1")["balance"] == 3
     assert dl.get_wallet_by_name("w2")["balance"] == 7
+
+
+def test_initialize_database_adds_value_column(tmp_path, monkeypatch):
+    db_path = tmp_path / "legacy.db"
+    conn = sqlite3.connect(db_path)
+    conn.execute(
+        """
+        CREATE TABLE positions (
+            id TEXT PRIMARY KEY,
+            wallet_name TEXT,
+            status TEXT DEFAULT 'ACTIVE'
+        )
+        """
+    )
+    conn.execute(
+        """
+        CREATE TABLE wallets (
+            name TEXT PRIMARY KEY,
+            public_address TEXT,
+            private_address TEXT,
+            image_path TEXT,
+            balance REAL DEFAULT 0.0,
+            tags TEXT DEFAULT '',
+            is_active BOOLEAN DEFAULT 1,
+            type TEXT DEFAULT 'personal'
+        )
+        """
+    )
+    conn.commit()
+    conn.close()
+
+    os.environ["DB_PATH"] = str(db_path)
+    const.DB_PATH = db_path
+    ci.DB_PATH = db_path
+    for name in SEED_PATCHES:
+        monkeypatch.setattr(DataLocker, name, lambda self: None)
+
+    dl = DataLocker.get_instance(str(db_path))
+    dl.initialize_database()
+
+    cursor = dl.db.get_cursor()
+    cols = [row[1] for row in cursor.execute("PRAGMA table_info(positions)")]
+    assert "value" in cols
+
+    dl.create_wallet({"name": "w1", "public_address": "x", "private_address": ""})
+    dl.positions.create_position({"wallet_name": "w1", "value": 2, "status": "ACTIVE"})
+    dl.positions.create_position({"wallet_name": "w1", "value": 3, "status": "ACTIVE"})
+
+    wc = WalletCore()
+    monkeypatch.setattr(DataLocker, "get_instance", classmethod(lambda cls, db_path=str(db_path): dl))
+
+    assert wc.fetch_positions_balance("w1") == 5
 

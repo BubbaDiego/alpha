@@ -6,11 +6,14 @@
     {% for pos in liquidation_positions %}
       {% if pos.travel_percent is defined and pos.travel_percent is not none %}
         <div class="liq-row">
-          <img
-            class="wallet-icon"
-            src="{{ url_for('static', filename='images/' + pos.wallet_image) }}"
-            alt="{{ pos.wallet }}"
-          />
+          {% set wallet = wallets | selectattr('name', 'equalto', pos.wallet_name) | first %}
+          <a href="/launch/{{ wallet.chrome_profile }}/{{ pos.asset_type }}">
+            <img
+              class="wallet-icon"
+              src="{{ url_for('static', filename='images/' + pos.wallet_image) }}"
+              alt="{{ pos.wallet }}"
+            />
+          </a>
 
           <div class="liq-progress-bar">
             <div class="liq-bar-container">
