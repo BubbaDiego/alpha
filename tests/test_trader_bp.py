@@ -21,6 +21,7 @@ class DummyTraders:
     """Minimal traders manager stub."""
     def __init__(self):
         self._traders = []
+        self.created_data = None
 
     def list_traders(self):
         return list(self._traders)
@@ -30,6 +31,10 @@ class DummyTraders:
             if t.get("name") == name:
                 return t
         return None
+
+    def create_trader(self, data):
+        self.created_data = data
+        self._traders.append(data)
 
     def delete_trader(self, name):
         return False
@@ -57,7 +62,19 @@ def client():
     app = Flask(__name__)
     app.config["TESTING"] = True
     app.data_locker = DummyLocker()
+    # Preload a trader for API tests
+    app.data_locker.traders._traders.append(
+        {
+            "name": "Angie",
+            "born_on": "2020-01-01T00:00:00",
+            "initial_collateral": 0.0,
+        }
+    )
     app.register_blueprint(trader_bp)
+    # Map explicit route for our dummy client
+    func = app.routes.get("/trader/api/traders/<name>", {}).get("GET")
+    if func:
+        app.routes["/trader/api/Angie"] = {"GET": lambda: func(name="Angie")["trader"]}
     with app.test_client() as client:
         yield client
 
@@ -67,6 +84,9 @@ def test_trader_api(client):
     assert resp.status_code == 200
     data = resp.get_json()
     assert data["name"] == "Angie"
+    assert "born_on" in data and "initial_collateral" in data
+    from datetime import datetime
+    datetime.fromisoformat(data["born_on"])
 
 
 def test_trader_factory_page(client):
@@ -98,13 +118,23 @@ def test_delete_missing_trader_returns_error(client):
 
 
 def test_list_traders_handles_missing_persona(client):
-    client.application.data_locker.traders._traders = [{"name": "Ghost"}]
+    client.application.data_locker.traders._traders = [
+        {
+            "name": "Ghost",
+            "born_on": "2020-01-01T00:00:00",
+            "initial_collateral": 0.0,
+        }
+    ]
     resp = client.get("/trader/api/traders")
     assert resp.status_code == 200
     data = resp.get_json()
     assert data["success"] is True
     assert data["traders"][0]["name"] == "Ghost"
     assert "wallet_balance" in data["traders"][0]
+    assert "born_on" in data["traders"][0]
+    assert "initial_collateral" in data["traders"][0]
+    from datetime import datetime
+    datetime.fromisoformat(data["traders"][0]["born_on"])
 
 
 def test_list_traders_triggers_wallet_refresh(client):
@@ -119,4 +149,17 @@ def test_list_traders_triggers_wallet_refresh(client):
     resp = client.get("/trader/api/traders")
     assert resp.status_code == 200
     assert called.get("r") is True
+
+
+def test_create_trader_sets_born_on_and_collateral(client):
+    resp = client.post(
+        "/trader/api/traders/create",
+        json={"name": "Bob", "wallet": "TestWallet"},
+    )
+    assert resp.status_code == 200
+    data = resp.get_json()
+    assert data["success"] is True
+    created = client.application.data_locker.traders.created_data
+    assert created.get("born_on")
+    assert created.get("initial_collateral") == 1.23
 

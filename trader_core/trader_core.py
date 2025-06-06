@@ -11,6 +11,7 @@ from typing import List, Optional
 from trader_core.trader import Trader
 from trader_core.mood_engine import evaluate_mood
 from trader_core.trader_store import TraderStore
+from datetime import datetime
 
 StrategyManager = importlib.import_module("oracle_core.strategy_manager").StrategyManager
 PersonaManager = importlib.import_module("oracle_core.persona_manager").PersonaManager
@@ -54,6 +55,10 @@ class TraderCore:
         score = max(0, int(100 - avg_heat))
         total_balance = sum(float(p.get("value") or 0.0) for p in positions)
         total_profit = sum(calc.calculate_profit(p) for p in positions)
+        born_on = datetime.now().isoformat()
+        initial_collateral = (
+            wallet_data.get("balance", 0.0) if isinstance(wallet_data, dict) else 0.0
+        )
         trader = Trader(
             name=persona.name,
             avatar=getattr(persona, "avatar", ""),
@@ -71,6 +76,8 @@ class TraderCore:
             hedges=[],
             performance_score=score,
             heat_index=avg_heat,
+            born_on=born_on,
+            initial_collateral=initial_collateral,
         )
         return trader
 

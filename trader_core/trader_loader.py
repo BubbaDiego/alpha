@@ -1,6 +1,7 @@
 """Utility to build Trader objects from live data."""
 
 from typing import Optional
+from datetime import datetime
 
 import importlib
 
@@ -42,6 +43,10 @@ class TraderLoader:
         avg_heat = calc.calculate_weighted_heat_index(positions)
         mood = evaluate_mood(avg_heat, getattr(persona, "moods", {}))
         score = max(0, int(100 - avg_heat))
+        born_on = datetime.now().isoformat()
+        initial_collateral = (
+            wallet_data.get("balance", 0.0) if isinstance(wallet_data, dict) else 0.0
+        )
         return Trader(
             name=persona.name,
             avatar=getattr(persona, "avatar", ""),
@@ -57,4 +62,6 @@ class TraderLoader:
             hedges=[],
             performance_score=score,
             heat_index=avg_heat,
+            born_on=born_on,
+            initial_collateral=initial_collateral,
         )

@@ -3,6 +3,7 @@ import sys
 import os
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 from flask import Blueprint, current_app, jsonify, render_template, redirect, request
+from datetime import datetime
 from utils.console_logger import ConsoleLogger as log
 from trader_core.mood_engine import evaluate_mood
 from calc_core.calc_services import CalcServices
@@ -95,6 +96,12 @@ def create_trader():
             except Exception as e:
                 log.warning(f"⚠️ Could not parse strategy_weights: {e}", source="API")
                 data["strategy_weights"] = {}
+
+        # Add creation timestamp and initial collateral
+        data["born_on"] = datetime.now().isoformat()
+        wallet_name = data.get("wallet")
+        wallet = current_app.data_locker.get_wallet_by_name(wallet_name) if wallet_name else None
+        data["initial_collateral"] = wallet.get("balance", 0.0) if wallet else 0.0
 
         # Call DLTraderManager directly
         manager = current_app.data_locker.traders

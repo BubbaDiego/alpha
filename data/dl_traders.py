@@ -44,8 +44,21 @@ class DLTraderManager:
                 raise ValueError("Trader 'name' is required")
             log.debug("Creating trader", source="DLTraderManager", payload=trader)
 
+            now = datetime.now().isoformat()
+            trader.setdefault("born_on", now)
+            if "initial_collateral" not in trader:
+                bal = trader.get("wallet_balance", 0.0)
+                try:
+                    bal = float(bal)
+                except Exception:
+                    bal = 0.0
+                trader["initial_collateral"] = bal
+
             trader_json = json.dumps(trader, indent=2)
             now = datetime.now().isoformat()
+            trader.setdefault("born_on", now)
+            trader.setdefault("initial_collateral", 0.0)
+            trader_json = json.dumps(trader, indent=2)
 
             cursor = self.db.get_cursor()
             if not cursor:
@@ -73,6 +86,7 @@ class DLTraderManager:
             )
             row = cursor.fetchone()
             trader = json.loads(row["trader_json"]) if row else None
+
             if trader is not None:
                 # Fill defaults from DB metadata when missing
                 if "born_on" not in trader:
@@ -80,7 +94,11 @@ class DLTraderManager:
                 trader.setdefault("initial_collateral", 0.0)
             log.debug(
                 "Trader loaded", source="DLTraderManager", payload=trader or {}
-            )
+
+            if trader is not None and "born_on" not in trader:
+                trader["born_on"] = row["created_at"]
+            log.debug("Trader loaded", source="DLTraderManager", payload=trader or {})
+
             return trader
         except Exception as e:
             log.error(f"❌ Failed to retrieve trader '{name}': {e}", source="DLTraderManager")
@@ -95,6 +113,7 @@ class DLTraderManager:
             rows = cursor.fetchall()
             traders = []
             for row in rows:
+
                 trader = json.loads(row["trader_json"])
                 if "born_on" not in trader:
                     trader["born_on"] = row["created_at"]
