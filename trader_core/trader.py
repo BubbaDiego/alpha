@@ -10,6 +10,8 @@ class Trader:
     persona: str = ""
     origin_story: str = ""
     risk_profile: str = ""
+    born_on: str = ""
+    initial_collateral: float = 0.0
     mood: str = "neutral"
     moods: Dict[str, str] = field(default_factory=dict)
     strategies: Dict[str, float] = field(default_factory=dict)
@@ -25,5 +27,6 @@ class Trader:
     def __repr__(self) -> str:
         return (
             f"Trader(name={self.name!r}, persona={self.persona!r}, mood={self.mood!r}, "
+            f"born_on={self.born_on!r}, initial_collateral={self.initial_collateral}, "
             f"heat_index={self.heat_index}, wallet_balance={self.wallet_balance}, profit={self.profit})"
         )
