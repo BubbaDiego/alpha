@@ -124,7 +124,20 @@ function loadWallets() {
 
 function loadTraders() {
   fetch('/trader/api/traders')
-    .then(res => res.json())
+    .then(res => {
+      if (!res.ok) {
+        return res.text().then(text => {
+          throw new Error(`HTTP ${res.status}: ${text.slice(0, 60)}`);
+        });
+      }
+      const ct = res.headers.get('content-type') || '';
+      if (!ct.includes('application/json')) {
+        return res.text().then(text => {
+          throw new Error(`Non-JSON response: ${text.slice(0, 60)}`);
+        });
+      }
+      return res.json();
+    })
     .then(data => {
       const container = document.getElementById('trader-cards');
       const leaderboard = document.getElementById('leaderboard-body');
@@ -237,6 +250,7 @@ container.appendChild(card);
     })
     .catch(err => {
       console.error("\u274c Failed to load traders:", err);
+      alert("\u274c Error loading traders.");
     });
 }
 

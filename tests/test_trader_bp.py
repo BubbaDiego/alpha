@@ -162,6 +162,15 @@ def test_list_traders_triggers_wallet_refresh(client):
     assert called.get("r") is True
 
 
+def test_list_traders_returns_json(client):
+    client.application.data_locker.traders._traders = []
+    resp = client.get("/trader/api/traders")
+    assert resp.status_code == 200
+    data = resp.get_json()
+    assert data["success"] is True
+    assert isinstance(data.get("traders"), list)
+
+
 def test_create_trader_sets_born_on_and_collateral(client):
     resp = client.post(
         "/trader/api/traders/create",
