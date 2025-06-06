@@ -4,6 +4,8 @@ import os
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 from flask import Blueprint, current_app, jsonify, render_template, redirect, request
 from datetime import datetime
+import random
+from trader_core.persona_avatars import AVATARS
 from utils.console_logger import ConsoleLogger as log
 from trader_core.mood_engine import evaluate_mood
 from calc_core.calc_services import CalcServices
@@ -125,6 +127,61 @@ def create_trader():
         log.debug(traceback.format_exc(), source="API")
         return jsonify({"success": False, "error": str(e)}), 500
 
+
+@trader_bp.route("/api/traders/create_star_wars", methods=["POST"])
+def create_star_wars_traders():
+    """Create traders for predefined Star Wars personas."""
+    try:
+        pm = PersonaManager()
+        names = [
+            "C3P0",
+            "Chewie",
+            "Jabba",
+            "Lando",
+            "Leia",
+            "Luke",
+            "Palpatine",
+            "R2",
+            "Vader",
+            "Yoda",
+        ]
+        mood_words = list({
+            "nervous",
+            "roaring",
+            "ruthless",
+            "charming",
+            "resolute",
+            "determined",
+            "power_hungry",
+            "beeping",
+            "calm",
+        })
+        created = []
+        for name in names:
+            persona = pm.get(name)
+            wallet_name = f"{name}Vault"
+            wallet = current_app.data_locker.get_wallet_by_name(wallet_name)
+            balance = wallet.get("balance", 0.0) if wallet else 0.0
+            avatar_key = getattr(persona, "avatar", name)
+            avatar = AVATARS.get(avatar_key, {}).get("icon", avatar_key)
+            mood1, mood2 = random.sample(mood_words, 2)
+            data = {
+                "name": persona.name,
+                "avatar": avatar,
+                "wallet": wallet_name,
+                "born_on": datetime.now().isoformat(),
+                "initial_collateral": balance,
+                "mood": mood1,
+                "moods": {"high_heat": mood1, "stable": mood2},
+            }
+            current_app.data_locker.traders.create_trader(data)
+            created.append(name)
+
+        return jsonify({"success": True, "created": created})
+    except Exception as e:
+        log.error(f"❌ Failed to create Star Wars traders: {e}", source="API")
+        return jsonify({"success": False, "error": str(e)}), 500
+
 @trader_bp.route("/api/traders/<name>", methods=["GET"])
 def get_trader(name):
     try:
@@ -185,3 +242,15 @@ def delete_trader(name):
     except Exception as e:
         log.error(f"❌ Failed to delete trader: {e}", source="API")
         return jsonify({"success": False, "error": str(e)}), 500
+
+
+@trader_bp.route("/api/traders/delete_all", methods=["POST"])
+def delete_all_traders():
+    """Delete every trader entry."""
+    try:
+        current_app.data_locker.traders.delete_all_traders()
+        return jsonify({"success": True})
+    except Exception as e:
+        log.error(f"❌ Failed to delete all traders: {e}", source="API")
+        return jsonify({"success": False, "error": str(e)}), 500
+

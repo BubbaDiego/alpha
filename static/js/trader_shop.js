@@ -313,8 +313,46 @@ function deleteTrader(name) {
   });
 }
 
+function createStarWarsTraders() {
+  if (!confirm("Create Star Wars traders?")) return;
+  fetch('/trader/api/traders/create_star_wars', { method: 'POST' })
+    .then(res => res.json())
+    .then(data => {
+      if (data.success) {
+        alert('✅ Star Wars traders created!');
+        location.reload();
+      } else {
+        alert('❌ Failed to create traders.');
+      }
+    })
+    .catch(err => {
+      console.error('create star wars traders failed', err);
+      alert('❌ Error creating traders.');
+    });
+}
+
+function deleteAllTraders() {
+  if (!confirm('Delete ALL traders?')) return;
+  fetch('/trader/api/traders/delete_all', { method: 'POST' })
+    .then(res => res.json())
+    .then(data => {
+      if (data.success) {
+        alert('🧹 All traders deleted.');
+        location.reload();
+      } else {
+        alert('❌ Failed to delete traders.');
+      }
+    })
+    .catch(err => {
+      console.error('delete all traders failed', err);
+      alert('❌ Error deleting traders.');
+    });
+}
+
 document.addEventListener('DOMContentLoaded', () => {
   loadAvatars();
   loadWallets();
   loadTraders();
+  document.getElementById('starWarsBtn')?.addEventListener('click', createStarWarsTraders);
+  document.getElementById('deleteAllTradersBtn')?.addEventListener('click', deleteAllTraders);
 });
