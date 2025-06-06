@@ -227,6 +227,7 @@ function loadTraders() {
               <p>Strategy Count: ${Object.keys(trader.strategies || {}).length}</p>
               <p>Born on: ${trader.born_on ? new Date(trader.born_on).toLocaleString() : 'N/A'}</p>
               <p>Initial Collateral: $${(trader.initial_collateral ?? 0).toFixed(2)}</p>
+              <p class="pub-address">${trader.public_address ?? 'N/A'}</p>
               <button class="btn btn-danger btn-sm mt-2" onclick="deleteTrader('${trader.name}')">Delete</button>
             </div>
           </div>
