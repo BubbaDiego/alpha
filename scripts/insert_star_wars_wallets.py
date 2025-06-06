@@ -15,7 +15,7 @@ with open(wallet_json_path, 'r') as file:
     data = json.load(file)
 
 wallet_core = WalletCore()
-
+1
 for wallet_info in data['wallets']:
     wallet = Wallet(
         name=wallet_info['name'],
