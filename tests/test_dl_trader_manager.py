@@ -78,3 +78,12 @@ def test_defaults_added_on_load(dl):
     listed = [t for t in m.list_traders() if t["name"] == "Carol"][0]
     assert listed["initial_collateral"] == 0.0
     assert listed["born_on"] == trader["born_on"]
+
+
+def test_delete_all_traders(dl):
+    m = dl.traders
+    m.create_trader({"name": "One"})
+    m.create_trader({"name": "Two"})
+    assert len(m.list_traders()) == 2
+    m.delete_all_traders()
+    assert m.list_traders() == []

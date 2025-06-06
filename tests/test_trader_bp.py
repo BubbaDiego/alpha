@@ -39,6 +39,9 @@ class DummyTraders:
     def delete_trader(self, name):
         return False
 
+    def delete_all_traders(self):
+        self._traders = []
+
 
 class DummyLocker:
     def __init__(self):
@@ -162,4 +165,26 @@ def test_create_trader_sets_born_on_and_collateral(client):
     created = client.application.data_locker.traders.created_data
     assert created.get("born_on")
     assert created.get("initial_collateral") == 1.23
+
+
+def test_create_star_wars_traders(client):
+    resp = client.post("/trader/api/traders/create_star_wars")
+    assert resp.status_code == 200
+    data = resp.get_json()
+    assert data["success"] is True
+    names = {t["name"] for t in client.application.data_locker.traders._traders}
+    assert "Yoda" in names
+    assert "Leia" in names
+
+
+def test_delete_all_traders(client):
+    client.application.data_locker.traders._traders = [
+        {"name": "A"},
+        {"name": "B"},
+    ]
+    resp = client.post("/trader/api/traders/delete_all")
+    assert resp.status_code == 200
+    data = resp.get_json()
+    assert data["success"] is True
+    assert client.application.data_locker.traders._traders == []
 
