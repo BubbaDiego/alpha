@@ -64,3 +64,17 @@ def test_delete_nonexistent_trader_returns_false(dl):
     m = dl.traders
     result = m.delete_trader("Ghost")
     assert result is False
+
+
+def test_defaults_added_on_load(dl):
+    m = dl.traders
+
+    m.create_trader({"name": "Carol"})
+    trader = m.get_trader_by_name("Carol")
+
+    assert trader["initial_collateral"] == 0.0
+    assert "born_on" in trader
+
+    listed = [t for t in m.list_traders() if t["name"] == "Carol"][0]
+    assert listed["initial_collateral"] == 0.0
+    assert listed["born_on"] == trader["born_on"]

@@ -1,4 +1,14 @@
-# dl_traders.py
+"""Data access layer for Trader records.
+
+This module persists Trader metadata in a simple SQLite table. When
+retrieving trader dictionaries, missing fields are populated for
+convenience:
+
+* ``born_on`` - Defaults to the ``created_at`` timestamp stored in the
+  database if not present in the JSON payload.
+* ``initial_collateral`` - Defaults to ``0.0`` when absent.
+"""
+
 import json
 from datetime import datetime
 from core.core_imports import log
@@ -64,8 +74,11 @@ class DLTraderManager:
             log.error(f"❌ Failed to create trader: {e}", source="DLTraderManager")
 
     def get_trader_by_name(self, name: str) -> dict:
+        """Return a trader dict by name with default fields filled in."""
         try:
-            log.info(f"🔍 Fetching trader by name: {name}", source="DLTraderManager")
+            log.info(
+                f"🔍 Fetching trader by name: {name}", source="DLTraderManager"
+            )
             cursor = self.db.get_cursor()
             cursor.execute(
                 "SELECT trader_json, created_at FROM traders WHERE name = ?",
@@ -73,15 +86,26 @@ class DLTraderManager:
             )
             row = cursor.fetchone()
             trader = json.loads(row["trader_json"]) if row else None
+
+            if trader is not None:
+                # Fill defaults from DB metadata when missing
+                if "born_on" not in trader:
+                    trader["born_on"] = row["created_at"]
+                trader.setdefault("initial_collateral", 0.0)
+            log.debug(
+                "Trader loaded", source="DLTraderManager", payload=trader or {}
+
             if trader is not None and "born_on" not in trader:
                 trader["born_on"] = row["created_at"]
             log.debug("Trader loaded", source="DLTraderManager", payload=trader or {})
+
             return trader
         except Exception as e:
             log.error(f"❌ Failed to retrieve trader '{name}': {e}", source="DLTraderManager")
             return None
 
     def list_traders(self) -> list:
+        """Return all traders with defaults applied."""
         try:
             log.route("Fetching traders from DB...", source="DLTraderManager")
             cursor = self.db.get_cursor()
@@ -89,11 +113,15 @@ class DLTraderManager:
             rows = cursor.fetchall()
             traders = []
             for row in rows:
-                t = json.loads(row["trader_json"])
-                if "born_on" not in t:
-                    t["born_on"] = row["created_at"]
-                traders.append(t)
-            log.debug(f"Loaded {len(traders)} traders from DB", source="DLTraderManager")
+
+                trader = json.loads(row["trader_json"])
+                if "born_on" not in trader:
+                    trader["born_on"] = row["created_at"]
+                trader.setdefault("initial_collateral", 0.0)
+                traders.append(trader)
+            log.debug(
+                f"Loaded {len(traders)} traders from DB", source="DLTraderManager"
+            )
             return traders
         except Exception as e:
             log.error(f"❌ Failed to list traders: {e}", source="DLTraderManager")
