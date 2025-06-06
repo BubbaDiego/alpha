@@ -39,6 +39,7 @@
         <a class="btn nav-icon-btn cyclone-btn" href="#" role="button" data-action="full"  title="Full Cycle"><span>🌪️</span></a>
         <a class="btn nav-icon-btn cyclone-btn" href="#" role="button" data-action="wipe"  title="Wipe All"><span>🗑️</span></a>
       </div>
+    {% if show_refresh_timer | default(false) %}
     <div id="refreshDial" class="refresh-dial ms-3" title="UI auto-refresh">
       <svg viewBox="0 0 36 36">
         <circle class="bg" cx="18" cy="18" r="16" />
@@ -46,6 +47,7 @@
       </svg>
       <span class="timer-number"></span>
     </div>
+    {% endif %}
     <div class="dropdown ms-3">
       <a class="btn config-btn dropdown-toggle settings-btn" href="#" role="button" id="settingsDropdown" data-bs-toggle="dropdown" aria-expanded="false" title="Settings">
         <span>⚙️</span>
@@ -60,6 +62,8 @@
     </div>
   </div>
   </nav>
+  {% if show_refresh_timer | default(false) %}
   <script src="{{ url_for('static', filename='js/refresh_timer.js') }}" defer></script>
+  {% endif %}
   <script src="{{ url_for('static', filename='js/title_bar.js') }}" defer></script>
 
