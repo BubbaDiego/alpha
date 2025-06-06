@@ -11,23 +11,32 @@ sys.path.append(r'C:\alpha')
 from wallets.wallet_core import WalletCore
 from wallets.wallet import Wallet
 
-with open(wallet_json_path, 'r') as file:
-    data = json.load(file)
 
-wallet_core = WalletCore()
-1
-for wallet_info in data['wallets']:
-    wallet = Wallet(
-        name=wallet_info['name'],
-        public_address=wallet_info['public'],
-        private_address=wallet_info.get('private_key'),
-        image_path=wallet_info['image'],
-        tags=["star_wars", "imported"],
-        is_active=True,
-        type="personal"
-    )
+def insert_star_wars_wallets() -> int:
+    """Insert Star Wars wallets defined in ``wallet_json_path``."""
+    with open(wallet_json_path, 'r') as file:
+        data = json.load(file)
 
-    wallet_core.service.create_wallet(wallet)
-    print(f"Inserted wallet: {wallet.name}")
+    wallet_core = WalletCore()
+    inserted = 0
+    for wallet_info in data['wallets']:
+        wallet = Wallet(
+            name=wallet_info['name'],
+            public_address=wallet_info['public'],
+            private_address=wallet_info.get('private_key'),
+            image_path=wallet_info['image'],
+            tags=["star_wars", "imported"],
+            is_active=True,
+            type="personal"
+        )
 
-print("All wallets have been inserted into the database.")
+        wallet_core.service.create_wallet(wallet)
+        inserted += 1
+        print(f"Inserted wallet: {wallet.name}")
+
+    print("All wallets have been inserted into the database.")
+    return inserted
+
+
+if __name__ == "__main__":
+    insert_star_wars_wallets()
