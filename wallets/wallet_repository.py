@@ -39,9 +39,11 @@ class WalletRepository:
 
     # ➕ Insert new wallet into DB
     def add_wallet(self, wallet: WalletIn) -> None:
-        from dataclasses import asdict
+        """Persist ``wallet`` to the database."""
 
-        self.dl.create_wallet(asdict(wallet))
+        # ``WalletIn`` is a Pydantic model (or stub fallback) so we rely on
+        # its ``dict()`` method rather than ``dataclasses.asdict``.
+        self.dl.create_wallet(wallet.dict())
 
     # 🗑️ Delete wallet by name
     def delete_wallet(self, name: str) -> bool:
