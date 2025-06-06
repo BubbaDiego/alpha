@@ -23,6 +23,15 @@ def _enrich_trader(trader: dict, dl, pm: PersonaManager, calc: CalcServices) -> 
         (persona.name + "Vault") if persona else f"{name}Vault"
     )
 
+    wallet_info = None
+    if hasattr(dl, "get_wallet_by_name"):
+        try:
+            wallet_info = dl.get_wallet_by_name(wallet_name)
+        except Exception as exc:
+            log.debug(f"Wallet lookup failed: {exc}", source="TraderBP")
+    if wallet_info:
+        trader["public_address"] = wallet_info.get("public_address", "")
+
     positions = []
     if hasattr(dl, "positions"):
         pos_mgr = dl.positions
