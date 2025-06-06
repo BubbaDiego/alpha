@@ -249,3 +249,21 @@ class WalletCore:
             log.error(f"Trigger order failed for {wallet.name}: {e}", source="WalletCore")
             return None
 
+    def insert_star_wars_wallets(self) -> int:
+        """Load Star Wars themed wallets via the helper script."""
+        try:
+            from scripts.insert_star_wars_wallets import insert_star_wars_wallets
+
+            return insert_star_wars_wallets()
+        except Exception as e:  # pragma: no cover - best effort
+            log.error(f"Failed to inject Star Wars wallets: {e}", source="WalletCore")
+            return 0
+
+    def delete_all_wallets(self) -> None:
+        """Remove all wallets from persistent storage."""
+        try:
+            self.service.delete_all_wallets()
+            log.success("All wallets deleted via WalletCore", source="WalletCore")
+        except Exception as e:
+            log.error(f"Failed to delete all wallets: {e}", source="WalletCore")
+

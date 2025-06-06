@@ -182,18 +182,13 @@ def import_wallets():
     return redirect(url_for("system.list_wallets"))
 
 
-# 💉 Inject wallets from backup JSON using insert_wallets script
+# ✨ Inject Star Wars wallets via WalletCore
 @system_bp.route("/wallets/inject", methods=["POST"])
 def inject_wallets():
-    """Run the wallet DB injection script."""
+    """Insert themed wallets using ``WalletCore.insert_star_wars_wallets``."""
     try:
-        from scripts.insert_wallets import main as insert_wallets_main
-
-        result = insert_wallets_main([])
-        if result == 0:
-            flash("💉 Wallets injected from backup.", "success")
-        else:
-            flash("⚠️ Wallet injection completed with errors.", "warning")
+        count = get_core().wallet_core.insert_star_wars_wallets()
+        flash(f"✨ Injected {count} wallets from a galaxy far, far away.", "success")
     except Exception as e:  # pragma: no cover - best effort
         flash(f"❌ Wallet injection failed: {e}", "danger")
     return redirect(url_for("system.list_wallets"))
@@ -253,6 +248,16 @@ def withdraw_collateral():
         flash(f"✅ Withdraw transaction sent: {sig}", "success")
     except Exception as e:
         flash(f"❌ Withdraw failed: {e}", "danger")
+    return redirect(url_for("system.list_wallets"))
+
+# 🗑️ Delete all wallets
+@system_bp.route("/wallets/delete_all", methods=["POST"])
+def delete_all_wallets():
+    try:
+        get_core().wallet_core.delete_all_wallets()
+        flash("🧹 All wallets deleted.", "info")
+    except Exception as e:
+        flash(f"❌ Failed to delete wallets: {e}", "danger")
     return redirect(url_for("system.list_wallets"))
 
 

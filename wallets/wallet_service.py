@@ -65,3 +65,7 @@ class WalletService:
                 )
                 imported_count += 1
         return imported_count
+
+    def delete_all_wallets(self) -> None:
+        """Delete every wallet in the repository."""
+        self.repo.delete_all_wallets()

@@ -82,3 +82,7 @@ class WalletRepository:
             Wallet(**{**item, "chrome_profile": item.get("chrome_profile", "Default")})
             for item in data
         ]
+
+    def delete_all_wallets(self) -> None:
+        """Remove all wallets from the database."""
+        self.dl.wallets.delete_all_wallets()

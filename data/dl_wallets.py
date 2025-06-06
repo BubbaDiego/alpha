@@ -134,3 +134,13 @@ class DLWalletManager:
             log.info(f"Wallet deleted: {name}", source="DLWalletManager")
         except Exception as e:
             log.error(f"Failed to delete wallet {name}: {e}", source="DLWalletManager")
+
+    def delete_all_wallets(self):
+        """Remove all wallet records from the database."""
+        try:
+            cursor = self.db.get_cursor()
+            cursor.execute("DELETE FROM wallets")
+            self.db.commit()
+            log.success("🧹 All wallets deleted", source="DLWalletManager")
+        except Exception as e:
+            log.error(f"Failed to delete all wallets: {e}", source="DLWalletManager")

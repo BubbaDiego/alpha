@@ -50,9 +50,6 @@
   <div class="sonic-content-panel">
     <div class="d-flex justify-content-between align-items-center mb-2">
       <div class="section-title mb-0">Wallets</div>
-      <form action="{{ url_for('system.inject_wallets') }}" method="post" class="d-inline">
-        <button type="submit" class="btn btn-sm btn-secondary" title="Inject Wallets">💉</button>
-      </form>
     </div>
     <div class="mini-table-box mb-4">
       <table class="table table-striped align-middle mb-0 wallet-table">
@@ -192,7 +189,7 @@
   <div class="sonic-content-panel">
     {% include "wallets/wallet_form.html" %}
 
-    <div class="mt-4">
+    <div class="mt-4 d-flex justify-content-between align-items-center">
       <form action="{{ url_for('system.export_wallets') }}" method="post" class="d-inline">
         <button type="submit" class="btn btn-secondary">💾 Export to JSON</button>
       </form>
@@ -200,7 +197,11 @@
         <button type="submit" class="btn btn-secondary">♻️ Import from JSON</button>
       </form>
       <form action="{{ url_for('system.inject_wallets') }}" method="post" class="d-inline">
-        <button type="submit" class="btn btn-secondary" title="Inject Wallets">💉</button>
+        <button type="submit" class="btn btn-secondary" title="Inject Wallets">✨</button>
+      </form>
+      <form action="{{ url_for('system.delete_all_wallets') }}" method="post" class="ms-auto">
+        <button type="submit" class="btn btn-danger"
+                onclick="return confirm('Delete all wallets?') && confirm('This cannot be undone. Continue?')">🗑️ Delete All</button>
       </form>
     </div>
   </div>
