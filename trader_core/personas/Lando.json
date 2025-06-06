@@ -1,7 +1,7 @@
 {
   "name": "Lando",
   "profile": "Opportunistic",
-  "avatar": "landovault",
+  "avatar": "Lando",
   "strategy_weights": {
     "dynamic_hedging": 0.6,
     "profit_management": 0.4

@@ -1,7 +1,7 @@
 {
   "name": "Vader",
   "profile": "Aggressive",
-  "avatar": "vadervault",
+  "avatar": "Vader",
   "strategy_weights": {
     "dynamic_hedging": 0.8,
     "profit_management": 0.2
