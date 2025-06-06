@@ -32,12 +32,12 @@
   position: relative;
 }
 
-/* Portfolio and monitor panels with 25% less vertical padding */
+/* Portfolio and monitor panels with 20% less vertical padding */
 .portfolio-panel,
 .monitor-panel {
-  /* tweak these values to adjust panel height */
-  padding-top: 0.6rem;
-  padding-bottom: 1.8rem;
+  /* further reduced vertical padding for a more compact first row */
+  padding-top: 0.48rem;   /* 20% less than previous */
+  padding-bottom: 1.44rem; /* 20% less than previous */
 }
 
 /* Chart containers should span the full width of the panel */
