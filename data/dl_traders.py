@@ -37,7 +37,10 @@ class DLTraderManager:
         self.db.commit()
         log.success("✅ Trader table ready", source="DLTraderManager")
 
-    def create_trader(self, trader: dict):
+    def create_trader(self, trader: dict) -> bool:
+        """Persist a new trader record.
+
+        Returns ``True`` on success, ``False`` if any error occurs."""
         try:
             name = trader.get("name")
             if not name:
@@ -70,8 +73,10 @@ class DLTraderManager:
             """, (name, trader_json, now, now))
             self.db.commit()
             log.success(f"✅ Trader created: {name}", source="DLTraderManager")
+            return True
         except Exception as e:
             log.error(f"❌ Failed to create trader: {e}", source="DLTraderManager")
+            return False
 
     def get_trader_by_name(self, name: str) -> dict:
         """Return a trader dict by name with default fields filled in."""

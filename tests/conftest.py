@@ -234,6 +234,9 @@ class DummyFlask:
             def post(self, path, json=None, **kw):
                 return self.open(path, "POST", json=json)
 
+            def delete(self, path, **kw):
+                return self.open(path, "DELETE", **kw)
+
         return Client()
 
 
