@@ -35,6 +35,7 @@ class DummyTraders:
     def create_trader(self, data):
         self.created_data = data
         self._traders.append(data)
+        return True
 
     def delete_trader(self, name):
         return False
@@ -78,6 +79,13 @@ def client():
     func = app.routes.get("/trader/api/traders/<name>", {}).get("GET")
     if func:
         app.routes["/trader/api/Angie"] = {"GET": lambda: func(name="Angie")["trader"]}
+    del_func = app.routes.get("/trader/api/traders/<name>/delete", {}).get("DELETE")
+    if del_func:
+        app.routes["/trader/api/traders/Angie/delete"] = {"DELETE": lambda: del_func(name="Angie")}
+        app.routes["/trader/api/traders/Ghost/delete"] = {"DELETE": lambda: del_func(name="Ghost")}
+    fac_func = app.routes.get("/trader/factory/<name>", {}).get("GET")
+    if fac_func:
+        app.routes["/trader/factory/Angie"] = {"GET": lambda: fac_func(name="Angie")}
     with app.test_client() as client:
         yield client
 
@@ -154,6 +162,15 @@ def test_list_traders_triggers_wallet_refresh(client):
     assert called.get("r") is True
 
 
+def test_list_traders_returns_json(client):
+    client.application.data_locker.traders._traders = []
+    resp = client.get("/trader/api/traders")
+    assert resp.status_code == 200
+    data = resp.get_json()
+    assert data["success"] is True
+    assert isinstance(data.get("traders"), list)
+
+
 def test_create_trader_sets_born_on_and_collateral(client):
     resp = client.post(
         "/trader/api/traders/create",
@@ -165,6 +182,20 @@ def test_create_trader_sets_born_on_and_collateral(client):
     created = client.application.data_locker.traders.created_data
     assert created.get("born_on")
     assert created.get("initial_collateral") == 1.23
+
+
+def test_create_trader_failure_returns_error(client):
+    def fail(_data):
+        raise RuntimeError("db error")
+
+    client.application.data_locker.traders.create_trader = fail
+    resp = client.post(
+        "/trader/api/traders/create",
+        json={"name": "Bad"},
+    )
+    assert resp.status_code == 500
+    data = resp.get_json()
+    assert data["success"] is False
 
 
 def test_create_star_wars_traders(client):
