@@ -21,14 +21,23 @@ def dl(tmp_path, monkeypatch):
 def test_crud_flow(dl):
     m = dl.traders
 
-    m.create_trader({"name": "Alice", "mood": "happy"})
-    assert m.get_trader_by_name("Alice") is not None
+    m.create_trader({"name": "Alice", "mood": "happy", "wallet_balance": 10})
+    alice = m.get_trader_by_name("Alice")
+    assert alice is not None
+    assert "born_on" in alice and "initial_collateral" in alice
+    from datetime import datetime
+    datetime.fromisoformat(alice["born_on"])
+    assert alice["initial_collateral"] == 10
 
     m.update_trader("Alice", {"mood": "sad"})
     assert m.get_trader_by_name("Alice")["mood"] == "sad"
 
-    m.create_trader({"name": "Bob"})
+    m.create_trader({"name": "Bob", "wallet_balance": 5})
+    bob = m.get_trader_by_name("Bob")
     assert len(m.list_traders()) == 2
+    assert "born_on" in bob and "initial_collateral" in bob
+    datetime.fromisoformat(bob["born_on"])
+    assert bob["initial_collateral"] == 5
 
     m.delete_trader("Alice")
     names = [t["name"] for t in m.list_traders()]
