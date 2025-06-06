@@ -23,13 +23,15 @@ WALLET_IMAGE_MAP = {
     "ObiVault": "obivault.jpg",
     "R2Vault": "r2vault.jpg",
     "C3P0Vault": "c3povault.jpg",
+    "JabbaVault": "jabbavault.jpg",
+    "ChewieVault": "chewbaccavault.jpg",
+    "PalpatineVault": "jabbavault.jog",
+    "LukeVault": "lukevault.jg",
     "LandoVault": "landovault.jpg",
     "VaderVault": "vadervault.jpg",
     "YodaVault": "yodavault.jpg",
     "BobaVault": "bobavault.jpg",
-
     "LeiaVault": "leiavault.jpg",
-
     "LandoVaultz": "landovault.jpg",
 }
 DEFAULT_WALLET_IMAGE = "unknown_wallet.jpg"

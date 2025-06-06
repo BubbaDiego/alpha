@@ -1,0 +1,13 @@
+{
+  "name": "Palpatine",
+  "profile": "Manipulative",
+  "avatar": "palpatinevault",
+  "strategy_weights": {
+    "dynamic_hedging": 0.7,
+    "profit_management": 0.3
+  },
+  "moods": {
+    "high_heat": "power_hungry"
+  },
+  "description": "Sith lord orchestrating grand schemes."
+}
