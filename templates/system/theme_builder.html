@@ -1,0 +1,164 @@
+{% extends "base.html" %}
+
+{% block title %}Theme Builder{% endblock %}
+
+{% block extra_styles %}
+{{ super() }}
+<style>
+  .theme-builder-wrapper {
+    margin-top: 2rem;
+    padding: 1rem;
+    border-radius: 8px;
+    transition: background-color 0.5s, color 0.5s;
+  }
+
+  .theme-layout {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2rem;
+    margin-top: 2rem;
+  }
+
+  .theme-left,
+  .theme-right {
+    flex: 1 1 45%;
+    min-width: 320px;
+  }
+
+  .color-picker {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 1.5rem;
+    background: #f1f1f1;
+    border-radius: 8px;
+    padding: 1rem;
+    transition: background-color 0.5s, color 0.5s;
+  }
+
+  .color-picker label {
+    font-weight: bold;
+    margin-bottom: 0.3rem;
+  }
+
+  .color-picker input[type="color"] {
+    width: 60px;
+    height: 60px;
+    border: none;
+    border-radius: 50%;
+    margin-top: 0.5rem;
+    cursor: pointer;
+  }
+
+  .preset-controls {
+    margin-top: 2rem;
+  }
+
+  .theme-preview-box {
+    border-radius: 8px;
+    padding: 1rem;
+    background: var(--card-background-color, #f9f9f9);
+    box-shadow: 0 1px 4px rgba(0,0,0,0.1);
+  }
+
+  .theme-preview-card {
+    padding: 1rem;
+    margin-bottom: 1rem;
+    background: var(--card-background-color, #fff);
+    border-radius: 6px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    text-align: center;
+  }
+
+  .theme-preview-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.85rem;
+    margin-bottom: 1rem;
+  }
+
+  .theme-preview-table th,
+  .theme-preview-table td {
+    border: 1px solid #ccc;
+    padding: 0.5rem;
+  }
+
+  .theme-preview-chart {
+    height: 100px;
+    background: linear-gradient(90deg, #3498db, #2ecc71);
+    border-radius: 6px;
+  }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="container theme-builder-wrapper">
+  <h1>Theme Builder 🎨</h1>
+
+  <div class="theme-layout">
+    <!-- LEFT: Pickers + Presets -->
+    <div class="theme-left">
+      <div class="color-picker">
+        <label for="backgroundColor">Background</label>
+        <input type="color" id="backgroundColor">
+      </div>
+
+      <div class="color-picker">
+        <label for="textColor">Text</label>
+        <input type="color" id="textColor">
+      </div>
+
+      <div class="color-picker">
+        <label for="cardBackground">Card Background</label>
+        <input type="color" id="cardBackground">
+      </div>
+
+      <div class="color-picker">
+        <label for="navbarBackground">Navbar Background</label>
+        <input type="color" id="navbarBackground">
+      </div>
+
+      <div class="preset-controls">
+        <div class="input-group mb-3">
+          <input type="text" id="presetName" class="form-control" placeholder="Preset Name">
+          <button id="savePresetBtn" class="btn btn-primary">Save Preset</button>
+        </div>
+
+        <div class="input-group mb-3">
+          <select id="presetList" class="form-select"></select>
+          <button id="setActiveBtn" class="btn btn-success">Set Active</button>
+          <button id="deletePresetBtn" class="btn btn-danger">Delete</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- RIGHT: Preview Zone -->
+    <div class="theme-right">
+      <div class="theme-preview-box">
+        <h5 class="mb-3">🔍 Preview</h5>
+
+        <div class="theme-preview-card">
+          <strong>Status Card</strong><br>
+          💰 Total Value: $12,345
+        </div>
+
+        <table class="theme-preview-table">
+          <thead>
+            <tr><th>Asset</th><th>Type</th><th>Value</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>SOL</td><td>SHORT</td><td>$3,210</td></tr>
+            <tr><td>ETH</td><td>LONG</td><td>$9,135</td></tr>
+          </tbody>
+        </table>
+
+        <div class="theme-preview-chart"></div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
+
+{% block extra_scripts %}
+{{ super() }}
+<script src="{{ url_for('static', filename='js/theme_builder.js') }}"></script>
+{% endblock %}
