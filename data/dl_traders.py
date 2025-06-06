@@ -164,3 +164,14 @@ class DLTraderManager:
         except Exception as e:
             log.error(f"❌ Failed to delete trader '{name}': {e}", source="DLTraderManager")
             raise
+
+    def delete_all_traders(self):
+        """Remove all trader records from the database."""
+        try:
+            cursor = self.db.get_cursor()
+            cursor.execute("DELETE FROM traders")
+            self.db.commit()
+            log.success("🧹 All traders deleted", source="DLTraderManager")
+        except Exception as e:
+            log.error(f"❌ Failed to delete all traders: {e}", source="DLTraderManager")
+
