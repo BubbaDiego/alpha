@@ -20,9 +20,12 @@
       <div class="panel p-3 border rounded shadow-sm bg-light-subtle" id="traders-panel">
         <div class="d-flex justify-content-between align-items-center mb-3">
           <h2>👤 Traders</h2>
-          <button id="toggleTraderViewBtn" class="btn btn-outline-primary btn-sm" onclick="toggleTraderView()">
-            <i class="fas fa-plus"></i> <span id="toggleLabel">New Trader</span>
-          </button>
+          <div class="d-flex gap-2">
+            <button id="deleteAllTradersBtn" class="btn btn-danger btn-sm">Delete All</button>
+            <button id="toggleTraderViewBtn" class="btn btn-outline-primary btn-sm" onclick="toggleTraderView()">
+              <i class="fas fa-plus"></i> <span id="toggleLabel">New Trader</span>
+            </button>
+          </div>
         </div>
 
         <div id="trader-cards" class="d-flex flex-wrap gap-3">
@@ -72,6 +75,9 @@
               <button type="button" class="btn btn-secondary btn-sm" onclick="cancelCreate()">Cancel</button>
             </div>
           </form>
+          <button id="starWarsBtn" type="button" class="yoda-btn">
+            <img src="{{ url_for('static', filename='images/yoda_icon.jpg') }}" class="img-fluid" alt="Yoda">
+          </button>
         </div>
       </div>
     </div>
