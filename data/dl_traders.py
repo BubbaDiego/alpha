@@ -93,7 +93,7 @@ class DLTraderManager:
                     trader["born_on"] = row["created_at"]
                 trader.setdefault("initial_collateral", 0.0)
             log.debug(
-                "Trader loaded", source="DLTraderManager", payload=trader or {}
+                "Trader loaded", source="DLTraderManager", payload=trader or {})
 
             if trader is not None and "born_on" not in trader:
                 trader["born_on"] = row["created_at"]
