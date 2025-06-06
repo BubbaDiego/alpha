@@ -65,6 +65,22 @@ def trader_shop():
     return render_template("trader_shop.html")
 
 
+@trader_bp.route("/factory/<name>", methods=["GET"])
+def trader_factory_page(name):
+    """Legacy factory page used in tests."""
+    from flask import render_template_string
+    return render_template_string(f"Trader {name}")
+
+
+@trader_bp.route("/cards", methods=["GET"])
+def trader_cards_page():
+    """Legacy cards page used in tests."""
+    traders = current_app.data_locker.traders.list_traders()
+    from flask import render_template_string
+    names = " ".join(t.get("name", "") for t in traders)
+    return render_template_string(names)
+
+
 @trader_bp.route("/api/wallets", methods=["GET"])
 def trader_wallets():
     """Return wallets for dropdown selections."""
@@ -116,7 +132,10 @@ def create_trader():
 
         # Call DLTraderManager directly
         manager = current_app.data_locker.traders
-        manager.create_trader(data)
+        success = manager.create_trader(data)
+        if not success:
+            log.error("Trader creation failed", source="API")
+            return jsonify({"success": False, "error": "Failed to create trader"}), 500
 
         log.success(f"✅ Trader created: {data['name']}", source="API")
         return jsonify({"success": True})
