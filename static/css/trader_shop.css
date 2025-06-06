@@ -2,7 +2,7 @@
   --border-width: 1px;
   --border-color: #d0d0d0;
   width: 200px;
-  height: 250px;
+  height: 300px;
   border: var(--border-width) solid var(--border-color);
   border-radius: 8px;
   perspective: 1000px;
