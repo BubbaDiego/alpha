@@ -1,73 +1,73 @@
 const AVATARS = {
-  "fox": {
+  "Fox": {
     icon: "🦊",
     moods: { calm: "🌿", neutral: "😐", chaotic: "💥" },
     heat: "🔥"
   },
-  "rocket": {
+  "Rocket": {
     icon: "🚀",
     moods: { calm: "🧊", neutral: "🛰️", chaotic: "🚨" },
     heat: "🌡️"
   },
-  "panther": {
+  "Panther": {
     icon: "🐆",
     moods: { calm: "🍃", neutral: "🕶️", chaotic: "⚡" },
     heat: "🌋"
   },
-  "r2vault": {
+  "R2": {
     icon: "/static/images/r2d2_icon.jpg",
     moods: { calm: "🎵", neutral: "🤖", chaotic: "🔊" },
     heat: "📟"
   },
-  "c3p0vault": {
+  "C3P0": {
     icon: "/static/images/c3po_icon.jpg",
     moods: { calm: "🤖", neutral: "💬", chaotic: "😰" },
     heat: "⚙️"
   },
 
-  "jabbavault": {
+  "Jabba": {
     icon: "/static/images/jabba_icon.jpg",
     moods: { calm: "😋", neutral: "👑", chaotic: "🧨" },
     heat: "🌋"
   },
-  "chewbaccavault": {
+  "Chewbacca": {
     icon: "/static/images/chewie_icon.jpg",
     moods: { calm: "🐻", neutral: "⚒️", chaotic: "🗯️" },
     heat: "🔊"
   },
-  "palpatinevault": {
+  "Palpatine": {
     icon: "/static/images/palpatine_icon.jpg",
     moods: { calm: "😈", neutral: "⚡", chaotic: "👿" },
     heat: "🌩️"
   },
-  "lukevault": {
+  "Luke": {
     icon: "/static/images/luke_icon.jpg",
     moods: { calm: "🧘", neutral: "💫", chaotic: "⚔️" },
     heat: "✨"
   },
 
-  "landovault": {
+  "Lando": {
     icon: "/static/images/lando_icon.jpg",
     moods: { calm: "🧘", neutral: "🎯", chaotic: "🎲" },
     heat: "🔥"
   },
-  "vadervault": {
+  "Vader": {
     icon: "/static/images/vader_icon.jpg",
     moods: { calm: "🕳️", neutral: "🛡️", chaotic: "☠️" },
     heat: "💀"
   },
-  "yodavault": {
+  "Yoda": {
     icon: "/static/images/yoda_icon.jpg",
     moods: { calm: "🌱", neutral: "🧘", chaotic: "⚔️" },
     heat: "✨"
   },
-  "bobavault": {
+  "Boba": {
     icon: "/static/images/boba_icon.jpg",
     moods: { calm: "🎯", neutral: "🤠", chaotic: "💣" },
     heat: "🚀"
 
   },
-  "leiavault": {
+  "Leia": {
     icon: "/static/images/leia_icon.jpg",
     moods: { calm: "🌸", neutral: "👑", chaotic: "⚡" },
     heat: "💫"

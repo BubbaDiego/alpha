@@ -1,7 +1,7 @@
 {
   "name": "Yoda",
   "profile": "Wise",
-  "avatar": "yodavault",
+  "avatar": "Yoda",
   "strategy_weights": {
     "dynamic_hedging": 0.3,
     "profit_management": 0.7
