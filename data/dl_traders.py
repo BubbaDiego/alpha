@@ -34,8 +34,10 @@ class DLTraderManager:
                 raise ValueError("Trader 'name' is required")
             log.debug("Creating trader", source="DLTraderManager", payload=trader)
 
-            trader_json = json.dumps(trader, indent=2)
             now = datetime.now().isoformat()
+            trader.setdefault("born_on", now)
+            trader.setdefault("initial_collateral", 0.0)
+            trader_json = json.dumps(trader, indent=2)
 
             cursor = self.db.get_cursor()
             if not cursor:
@@ -54,9 +56,14 @@ class DLTraderManager:
         try:
             log.info(f"🔍 Fetching trader by name: {name}", source="DLTraderManager")
             cursor = self.db.get_cursor()
-            cursor.execute("SELECT trader_json FROM traders WHERE name = ?", (name,))
+            cursor.execute(
+                "SELECT trader_json, created_at FROM traders WHERE name = ?",
+                (name,),
+            )
             row = cursor.fetchone()
             trader = json.loads(row["trader_json"]) if row else None
+            if trader is not None and "born_on" not in trader:
+                trader["born_on"] = row["created_at"]
             log.debug("Trader loaded", source="DLTraderManager", payload=trader or {})
             return trader
         except Exception as e:
@@ -67,9 +74,14 @@ class DLTraderManager:
         try:
             log.route("Fetching traders from DB...", source="DLTraderManager")
             cursor = self.db.get_cursor()
-            cursor.execute("SELECT trader_json FROM traders")
+            cursor.execute("SELECT trader_json, created_at FROM traders")
             rows = cursor.fetchall()
-            traders = [json.loads(row["trader_json"]) for row in rows]
+            traders = []
+            for row in rows:
+                t = json.loads(row["trader_json"])
+                if "born_on" not in t:
+                    t["born_on"] = row["created_at"]
+                traders.append(t)
             log.debug(f"Loaded {len(traders)} traders from DB", source="DLTraderManager")
             return traders
         except Exception as e:

@@ -22,13 +22,19 @@ def test_crud_flow(dl):
     m = dl.traders
 
     m.create_trader({"name": "Alice", "mood": "happy"})
-    assert m.get_trader_by_name("Alice") is not None
+    alice = m.get_trader_by_name("Alice")
+    assert alice is not None
+    assert "born_on" in alice
+    assert alice["initial_collateral"] == 0.0
 
     m.update_trader("Alice", {"mood": "sad"})
     assert m.get_trader_by_name("Alice")["mood"] == "sad"
 
     m.create_trader({"name": "Bob"})
-    assert len(m.list_traders()) == 2
+    traders = m.list_traders()
+    assert len(traders) == 2
+    for t in traders:
+        assert "born_on" in t
 
     m.delete_trader("Alice")
     names = [t["name"] for t in m.list_traders()]
