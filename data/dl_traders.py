@@ -36,6 +36,17 @@ class DLTraderManager:
 
             now = datetime.now().isoformat()
             trader.setdefault("born_on", now)
+            if "initial_collateral" not in trader:
+                bal = trader.get("wallet_balance", 0.0)
+                try:
+                    bal = float(bal)
+                except Exception:
+                    bal = 0.0
+                trader["initial_collateral"] = bal
+
+            trader_json = json.dumps(trader, indent=2)
+            now = datetime.now().isoformat()
+            trader.setdefault("born_on", now)
             trader.setdefault("initial_collateral", 0.0)
             trader_json = json.dumps(trader, indent=2)
 
