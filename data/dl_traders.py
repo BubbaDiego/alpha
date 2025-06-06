@@ -54,12 +54,8 @@ class DLTraderManager:
                     bal = 0.0
                 trader["initial_collateral"] = bal
 
-            trader_json = json.dumps(trader, indent=2)
-            now = datetime.now().isoformat()
-            trader.setdefault("born_on", now)
-            trader.setdefault("initial_collateral", 0.0)
-            trader_json = json.dumps(trader, indent=2)
-
+            log.debug("Trader loaded", source="DLTraderManager", payload=trader or {})
+            log.debug(f"Loaded {len(traders)} traders from DB", source="DLTraderManager")
             cursor = self.db.get_cursor()
             if not cursor:
                 raise RuntimeError("DB cursor unavailable")
