@@ -12,6 +12,7 @@ from core.logging import log
 from positions.position_core import PositionCore
 from calc_core.calculation_core import CalculationCore
 from calc_core.calc_services import CalcServices
+from dashboard.dashboard_service import WALLET_IMAGE_MAP, DEFAULT_WALLET_IMAGE
 from utils.route_decorators import route_log_alert
 
 
@@ -62,6 +63,8 @@ def list_positions():
             heat = float(pos.get("heat_index") or 0.0)
             pos["liqdist_alert_class"] = get_alert_class(liqd, liqd_cfg.get("low"), liqd_cfg.get("medium"), liqd_cfg.get("high"))
             pos["heat_alert_class"] = get_alert_class(heat, hi_cfg.get("low"), hi_cfg.get("medium"), hi_cfg.get("high"))
+            wallet_name = pos.get("wallet") or pos.get("wallet_name") or "Unknown"
+            pos["wallet_image"] = WALLET_IMAGE_MAP.get(wallet_name, DEFAULT_WALLET_IMAGE)
 
         totals = CalcServices().calculate_totals(positions)
         wallets = current_app.data_locker.read_wallets()
@@ -89,6 +92,9 @@ def positions_table():
     try:
         core = PositionCore(current_app.data_locker)
         positions = core.get_active_positions()
+        for pos in positions:
+            wallet_name = pos.get("wallet") or pos.get("wallet_name") or "Unknown"
+            pos["wallet_image"] = WALLET_IMAGE_MAP.get(wallet_name, DEFAULT_WALLET_IMAGE)
         totals = CalcServices().calculate_totals(positions)
         wallets = current_app.data_locker.read_wallets()
         return render_template(

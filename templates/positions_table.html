@@ -28,6 +28,21 @@
             {% else %}
               {{ pos.asset_type }}
             {% endif %}
+            {% set wallet_img = pos.wallet_image %}
+            {% if not wallet_img %}
+              {% set wallet_matches = wallets | selectattr('name', 'equalto', pos.wallet or pos.wallet_name) | list %}
+              {% set wallet = wallet_matches[0] if wallet_matches else None %}
+              {% if wallet and wallet.image_path %}
+                {% set wallet_img = wallet.image_path.lstrip('/') %}
+              {% else %}
+                {% set wallet_img = 'images/unknown_wallet.jpg' %}
+              {% endif %}
+            {% endif %}
+            {% if wallet_img.startswith('http') or wallet_img.startswith('/static/') %}
+              <img src="{{ wallet_img }}" alt="wallet" class="wallet-icon ms-1">
+            {% else %}
+              <img src="{{ url_for('static', filename=wallet_img if wallet_img.startswith('images/') else 'images/' + wallet_img) }}" alt="wallet" class="wallet-icon ms-1">
+            {% endif %}
           </td>
           <td class="right">{{ "{:,.0f}".format(pos.pnl_after_fees_usd or 0) }}</td>
           <td class="right">{{ "{:,.0f}".format(pos.collateral or 0) }}</td>
@@ -116,6 +131,15 @@
   display: inline-block;
   vertical-align: middle;
   margin-right: 7px;
+}
+.wallet-icon {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  object-fit: cover;
+  display: inline-block;
+  vertical-align: middle;
+  margin-left: 4px;
 }
 
 .sort-indicator {
