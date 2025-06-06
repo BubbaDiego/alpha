@@ -64,7 +64,7 @@ Interactivity such as create/delete actions is encapsulated in `trader_shop.js` 
 
 ## 🖼️ Icons & Images
 
-Avatar icons live under `static/images/` (e.g., `r2vault.jpg`, `landovault.jpg`). `icons.css` sets their sizing within cards. Title bar icons rely on Unicode emoji or FontAwesome classes. New uploads go under `static/uploads/`.
+Avatar icons live under `static/images/` (e.g., `r2d2_icon.jpg`, `lando_icon.jpg`). `icons.css` sets their sizing within cards. Title bar icons rely on Unicode emoji or FontAwesome classes. New uploads go under `static/uploads/`.
 
 ---
 

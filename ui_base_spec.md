@@ -316,16 +316,16 @@ themes and page templates.
 | `error.png` | Error status icon. | `static/images/error.png` |
 | `eth_logo.png` | Ethereum logo icon. | `static/images/eth_logo.png` |
 | `jupiter.jpg` | Jupiter aggregator logo. | `static/images/jupiter.jpg` |
-| `landovault.jpg` | Landovault wallet image. | `static/images/landovault.jpg` |
+| `lando_icon.jpg` | Landovault wallet image. | `static/images/lando_icon.jpg` |
 | `monitor_wallpaper.jpg` | Background for monitor dashboard. | `static/images/monitor_wallpaper.jpg` |
-| `obivault.jpg` | ObiVault wallet image. | `static/images/obivault.jpg` |
-| `r2vault - Copy.jpg` | Alternate R2Vault wallet image. | `static/images/r2vault - Copy.jpg` |
-| `r2vault.jpg` | R2Vault wallet image. | `static/images/r2vault.jpg` |
-| `c3povault.jpg` | C3P0Vault wallet image. | `static/images/c3povault.jpg` |
-| `jabbavault.jpg` | JabbaVault wallet image. | `static/images/jabbavault.jpg` |
-| `chewbaccavault.jpg` | ChewieVault wallet image. | `static/images/chewbaccavault.jpg` |
-| `jabbavault.jog` | PalpatineVault wallet image. | `static/images/jabbavault.jog` |
-| `lukevault.jg` | LukeVault wallet image. | `static/images/lukevault.jg` |
+| `obi_icon.jpg` | ObiVault wallet image. | `static/images/obi_icon.jpg` |
+| `r2d2_icon.jpg` | Alternate R2Vault wallet image. | `static/images/r2d2_icon.jpg` |
+| `r2d2_icon.jpg` | R2Vault wallet image. | `static/images/r2d2_icon.jpg` |
+| `c3po_icon.jpg` | C3P0Vault wallet image. | `static/images/c3po_icon.jpg` |
+| `jabba_icon.jpg` | JabbaVault wallet image. | `static/images/jabba_icon.jpg` |
+| `chewie_icon.jpg` | ChewieVault wallet image. | `static/images/chewie_icon.jpg` |
+| `palpatine_icon.jpg` | PalpatineVault wallet image. | `static/images/palpatine_icon.jpg` |
+| `luke_icon.jpg` | LukeVault wallet image. | `static/images/luke_icon.jpg` |
 | `raydium.jpg` | Raydium DEX logo. | `static/images/raydium.jpg` |
 | `sol_logo.png` | Solana logo icon. | `static/images/sol_logo.png` |
 | `sonic.png` | Main Sonic mascot used across dashboards. | `static/images/sonic.png` |
@@ -335,10 +335,10 @@ themes and page templates.
 | `twilio.png` | Twilio API logo. | `static/images/twilio.png` |
 | `unknown.png` | Placeholder icon for unknown assets. | `static/images/unknown.png` |
 | `unknown_wallet.jpg` | Generic wallet placeholder. | `static/images/unknown_wallet.jpg` |
-| `vadervault.jpg` | VaderVault wallet image. | `static/images/vadervault.jpg` |
-| `yodavault.jpg` | YodaVault wallet image. | `static/images/yodavault.jpg` |
-| `bobavault.jpg` | BobaVault wallet image. | `static/images/bobavault.jpg` |
-| `leiavault.jpg` | LeiaVault wallet image. | `static/images/leiavault.jpg` |
+| `vader_icon.jpg` | VaderVault wallet image. | `static/images/vader_icon.jpg` |
+| `yoda_icon.jpg` | YodaVault wallet image. | `static/images/yoda_icon.jpg` |
+| `boba_icon.jpg` | BobaVault wallet image. | `static/images/boba_icon.jpg` |
+| `leia_icon.jpg` | LeiaVault wallet image. | `static/images/leia_icon.jpg` |
 
 | `wallpaper2.jpg` | Additional wallpaper option. | `static/images/wallpaper2.jpg` |
 | `wallpaper2.png` | PNG variant of wallpaper2. | `static/images/wallpaper2.png` |
@@ -347,19 +347,19 @@ themes and page templates.
 | `wallpaper6.jpg` | Background image option. | `static/images/wallpaper6.jpg` |
 | `wallpapersden.jpg` | Wallpaper from wallpapersden site. | `static/images/wallpapersden.jpg` |
 | `wally2.png` | Secondary Wally wallpaper used in funky theme. | `static/images/wally2.png` |
-| `landovault.jpg` (upload) | Sample uploaded wallet logo. | `static/uploads/wallets/landovault.jpg` |
-| `vadervault.jpg` (upload) | Sample uploaded wallet logo. | `static/uploads/wallets/vadervault.jpg` |
-| `yodavault.jpg` (upload) | Sample uploaded wallet logo. | `static/uploads/wallets/yodavault.jpg` |
-| `bobavault.jpg` (upload) | Sample uploaded wallet logo. | `static/uploads/wallets/bobavault.jpg` |
-| `c3povault.jpg` (upload) | Sample uploaded wallet logo. | `static/uploads/wallets/c3povault.jpg` |
+| `lando_icon.jpg` (upload) | Sample uploaded wallet logo. | `static/uploads/wallets/lando_icon.jpg` |
+| `vader_icon.jpg` (upload) | Sample uploaded wallet logo. | `static/uploads/wallets/vader_icon.jpg` |
+| `yoda_icon.jpg` (upload) | Sample uploaded wallet logo. | `static/uploads/wallets/yoda_icon.jpg` |
+| `boba_icon.jpg` (upload) | Sample uploaded wallet logo. | `static/uploads/wallets/boba_icon.jpg` |
+| `c3po_icon.jpg` (upload) | Sample uploaded wallet logo. | `static/uploads/wallets/c3po_icon.jpg` |
 
-| `jabbavault.jpg` (upload) | Sample uploaded wallet logo. | `static/uploads/wallets/jabbavault.jpg` |
-| `chewbaccavault.jpg` (upload) | Sample uploaded wallet logo. | `static/uploads/wallets/chewbaccavault.jpg` |
-| `jabbavault.jog` (upload) | Sample uploaded wallet logo. | `static/uploads/wallets/jabbavault.jog` |
-| `lukevault.jg` (upload) | Sample uploaded wallet logo. | `static/uploads/wallets/lukevault.jg` |
+| `jabba_icon.jpg` (upload) | Sample uploaded wallet logo. | `static/uploads/wallets/jabba_icon.jpg` |
+| `chewie_icon.jpg` (upload) | Sample uploaded wallet logo. | `static/uploads/wallets/chewie_icon.jpg` |
+| `palpatine_icon.jpg` (upload) | Sample uploaded wallet logo. | `static/uploads/wallets/palpatine_icon.jpg` |
+| `luke_icon.jpg` (upload) | Sample uploaded wallet logo. | `static/uploads/wallets/luke_icon.jpg` |
 
 
-| `leiavault.jpg` (upload) | Sample uploaded wallet logo. | `static/uploads/wallets/leiavault.jpg` |
+| `leia_icon.jpg` (upload) | Sample uploaded wallet logo. | `static/uploads/wallets/leia_icon.jpg` |
 
 ### Sounds
 ```

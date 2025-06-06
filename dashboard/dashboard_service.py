@@ -21,22 +21,22 @@ from core.core_imports import DB_PATH
 
 # Mapping of wallet names to icon filenames
 WALLET_IMAGE_MAP = {
-    "ObiVault": "obivault.jpg",
-    "R2Vault": "r2vault.jpg",
-    "C3P0Vault": "c3povault.jpg",
+    "ObiVault": "obi_icon.jpg",
+    "R2Vault": "r2d2_icon.jpg",
+    "C3P0Vault": "c3po_icon.jpg",
 
-    "JabbaVault": "jabbavault.jpg",
-    "ChewieVault": "chewbaccavault.jpg",
-    "PalpatineVault": "jabbavault.jog",
-    "LukeVault": "lukevault.jg",
+    "JabbaVault": "jabba_icon.jpg",
+    "ChewieVault": "chewie_icon.jpg",
+    "PalpatineVault": "palpatine_icon.jpg",
+    "LukeVault": "luke_icon.jpg",
 
-    "LandoVault": "landovault.jpg",
-    "VaderVault": "vadervault.jpg",
-    "YodaVault": "yodavault.jpg",
-    "BobaVault": "bobavault.jpg",
-    "LeiaVault": "leiavault.jpg",
-    "BobaVault": "bobavault.jpg",
-    "LandoVaultz": "landovault.jpg",
+    "LandoVault": "lando_icon.jpg",
+    "VaderVault": "vader_icon.jpg",
+    "YodaVault": "yoda_icon.jpg",
+    "BobaVault": "boba_icon.jpg",
+    "LeiaVault": "leia_icon.jpg",
+    "BobaVault": "boba_icon.jpg",
+    "LandoVaultz": "lando_icon.jpg",
 }
 DEFAULT_WALLET_IMAGE = "unknown_wallet.jpg"
 

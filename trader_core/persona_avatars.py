@@ -29,7 +29,7 @@ AVATARS = {
         "heat": "🌋"
     },
     "r2vault": {
-        "icon": "/static/images/r2vault.jpg",
+        "icon": "/static/images/r2d2_icon.jpg",
         "moods": {
             "calm": "🎵",
             "neutral": "🤖",
@@ -38,7 +38,7 @@ AVATARS = {
         "heat": "📟"
     },
     "c3p0vault": {
-        "icon": "/static/images/c3povault.jpg",
+        "icon": "/static/images/c3po_icon.jpg",
         "moods": {
             "calm": "🤖",
             "neutral": "💬",
@@ -47,7 +47,7 @@ AVATARS = {
         "heat": "⚙️"
     },
     "jabbavault": {
-        "icon": "/static/images/jabbavault.jpg",
+        "icon": "/static/images/jabba_icon.jpg",
         "moods": {
             "calm": "😋",
             "neutral": "👑",
@@ -56,7 +56,7 @@ AVATARS = {
         "heat": "🌋"
     },
     "chewbaccavault": {
-        "icon": "/static/images/chewbaccavault.jpg",
+        "icon": "/static/images/chewie_icon.jpg",
         "moods": {
             "calm": "🐻",
             "neutral": "⚒️",
@@ -65,7 +65,7 @@ AVATARS = {
         "heat": "🔊"
     },
     "palpatinevault": {
-        "icon": "/static/images/jabbavault.jog",
+        "icon": "/static/images/palpatine_icon.jpg",
         "moods": {
             "calm": "😈",
             "neutral": "⚡",
@@ -74,7 +74,7 @@ AVATARS = {
         "heat": "🌩️"
     },
     "lukevault": {
-        "icon": "/static/images/lukevault.jg",
+        "icon": "/static/images/luke_icon.jpg",
         "moods": {
             "calm": "🧘",
             "neutral": "💫",
@@ -83,7 +83,7 @@ AVATARS = {
         "heat": "✨"
     },
     "landovault": {
-        "icon": "/static/images/landovault.jpg",
+        "icon": "/static/images/lando_icon.jpg",
         "moods": {
             "calm": "🧘",
             "neutral": "🎯",
@@ -92,7 +92,7 @@ AVATARS = {
         "heat": "🔥"
     },
     "vadervault": {
-        "icon": "/static/images/vadervault.jpg",
+        "icon": "/static/images/vader_icon.jpg",
         "moods": {
             "calm": "🕳️",
             "neutral": "🛡️",
@@ -101,7 +101,7 @@ AVATARS = {
         "heat": "💀"
     },
     "yodavault": {
-        "icon": "/static/images/yodavault.jpg",
+        "icon": "/static/images/yoda_icon.jpg",
         "moods": {
             "calm": "🌱",
             "neutral": "🧘",
@@ -111,7 +111,7 @@ AVATARS = {
     },
 
     "bobavault": {
-        "icon": "/static/images/bobavault.jpg",
+        "icon": "/static/images/boba_icon.jpg",
         "moods": {
             "calm": "🎯",
             "neutral": "🤠",
@@ -121,7 +121,7 @@ AVATARS = {
     },
 
     "leiavault": {
-        "icon": "/static/images/leiavault.jpg",
+        "icon": "/static/images/leia_icon.jpg",
         "moods": {
             "calm": "🌸",
             "neutral": "👑",
