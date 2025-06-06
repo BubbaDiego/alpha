@@ -21,6 +21,7 @@ class DummyTraders:
     """Minimal traders manager stub."""
     def __init__(self):
         self._traders = []
+        self.created_data = None
 
     def list_traders(self):
         return list(self._traders)
@@ -30,6 +31,10 @@ class DummyTraders:
             if t.get("name") == name:
                 return t
         return None
+
+    def create_trader(self, data):
+        self.created_data = data
+        self._traders.append(data)
 
     def delete_trader(self, name):
         return False
@@ -119,4 +124,17 @@ def test_list_traders_triggers_wallet_refresh(client):
     resp = client.get("/trader/api/traders")
     assert resp.status_code == 200
     assert called.get("r") is True
+
+
+def test_create_trader_sets_born_on_and_collateral(client):
+    resp = client.post(
+        "/trader/api/traders/create",
+        json={"name": "Bob", "wallet": "TestWallet"},
+    )
+    assert resp.status_code == 200
+    data = resp.get_json()
+    assert data["success"] is True
+    created = client.application.data_locker.traders.created_data
+    assert created.get("born_on")
+    assert created.get("initial_collateral") == 1.23
 
