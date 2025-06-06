@@ -65,7 +65,7 @@ class WalletCore:
     # Data access helpers
     # ------------------------------------------------------------------
     def load_wallets(self) -> List[Wallet]:
-        """Return all wallets from the repository as dataclass objects."""
+        """Return all wallets from the repository as ``Wallet`` objects."""
         wallets_out = self.service.list_wallets()
         wallets = [Wallet(**w.dict()) for w in wallets_out]
         for w in wallets:
